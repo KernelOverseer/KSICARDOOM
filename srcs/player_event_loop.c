@@ -10,29 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOOM_NUKEM_H
-# define DOOM_NUKEM_H
+#include "doom_nukem.h"
 
-# include "centropy.h"
-# include "simplist.h"
-
-# define EXEC_NAME "DOOM_NUKEM"
-
-typedef struct  s_scene
+void    player_event_loop(t_scene scene)
 {
-
-}               t_scene;
- 
-/*
-** ERROR HANDLING
-*/
-
-int		        ft_perror(char *command, char *arg, int err);
-
-# define N_SCENE 0
-# define F_OPEN 1
-
-# define N_SCENE_T ": no passed scene file."
-# define F_OPEN_T ": cannot open game map: "
-
-#endif
+    
+}

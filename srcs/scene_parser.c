@@ -10,29 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOOM_NUKEM_H
-# define DOOM_NUKEM_H
+#include "doom_nukem.h"
 
-# include "centropy.h"
-# include "simplist.h"
-
-# define EXEC_NAME "DOOM_NUKEM"
-
-typedef struct  s_scene
+void    scene_parser(int fd, t_scene *scene)
 {
+    int read_return;
 
-}               t_scene;
- 
-/*
-** ERROR HANDLING
-*/
+    while ((read_return = read(fd, NULL, 1)) > 0)
+    {
 
-int		        ft_perror(char *command, char *arg, int err);
-
-# define N_SCENE 0
-# define F_OPEN 1
-
-# define N_SCENE_T ": no passed scene file."
-# define F_OPEN_T ": cannot open game map: "
-
-#endif
+    }
+    if (read_return < 0)
+		exit(0) ; // read error: do something!
+	if (!read_return)
+		exit(0) ; // is the file content complete?
+}

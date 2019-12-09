@@ -15,12 +15,22 @@
 
 # include "centropy.h"
 # include "simplist.h"
+# include 
 
 # define EXEC_NAME "DOOM_NUKEM"
+# define WIDTH 1000
+# define HEIGHT 620
+
+typedef struct  s_config
+{
+    void        *mlx_ptr;
+    void        *win_ptr;
+    int         world_fd;
+}               t_config;
 
 typedef struct  s_scene
 {
-
+    t_config    config;
 }               t_scene;
  
 /*

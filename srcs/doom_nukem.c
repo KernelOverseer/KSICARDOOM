@@ -12,15 +12,24 @@
 
 #include "doom_nukem.h"
 
+
+/*
+** init_game() is where scene gets initialized and the home view is rendered with level picker.
+** when the level is chosen the fd of the level's map should be assigned to scene->config.world_fd.
+*/
+
+void    init_game(t_scene *scene)
+{
+  scene->config.win_ptr = mlx_new_window((scene->config.mlx_ptr = mlx_init()),
+                          HEIGHT, WIDTH, EXEC_NAME);
+
+}
+
 int     main(int argc, char **argv)
 {
-    t_scene scene;
-    int     fd;
+  t_scene scene;
 
-    if (argc != 2)
-		return (ft_perror(EXEC_NAME, NULL, N_SCENE));
-	if ((fd = open(argv[1], O_RDONLY)) == -1)
-		return(ft_perror(EXEC_NAME, argv[1], F_OPEN));
-    scene_parser(fd, &scene);
-    player_event_loop(scene);
+  init_game(&scene);
+  scene_parser(&scene);
+  player_event_loop(scene);
 }

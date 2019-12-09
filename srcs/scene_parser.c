@@ -14,13 +14,13 @@
 
 void    scene_parser(int fd, t_scene *scene)
 {
-    int read_return;
+  int read_return;
 
-    while ((read_return = read(fd, NULL, 1)) > 0)
-    {
+  while ((read_return = read(fd, NULL, 1)) > 0)
+  {
 
-    }
-    if (read_return < 0)
+  }
+  if (read_return < 0)
 		exit(0) ; // read error: do something!
 	if (!read_return)
 		exit(0) ; // is the file content complete?

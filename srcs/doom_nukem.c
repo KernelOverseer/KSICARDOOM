@@ -12,17 +12,44 @@
 
 #include "doom_nukem.h"
 
+/*
+                             +----------------------+
+                             |                      |
++--------------+       +-----v-------+       +------+-------+
+|  init_game   |------>|  load_home  |------>| load_gameplay|
++--------------+       +------|------+       +------|-------+
+                           +--v---+              +--v---+
+                           |eloop |              |eloop |
+                           +------+              +------+
+*/
+
+void  load_gameplay(t_scene *scene)
+{
+  scene_parser(&scene);
+  gameplay_event_loop(scene);
+}
 
 /*
-** init_game() is where scene gets initialized and the home view is rendered with level picker.
-** when the level is chosen the fd of the level's map should be assigned to scene->config.world_fd.
+** loading home functionality should be independant because it will be a handler for ESC button
+** when a level is picked the correspondant map fd should be assigned to scene->config.world_fd
+** should call load_gameplay()
+*/
+
+void    load_home(t_scene *scene)
+{
+  home_event_loop(scene);
+  load_gameplay(scene);
+}
+
+/*
+** init_game() is where scene gets initialized and load_home() should be called afterwards
 */
 
 void    init_game(t_scene *scene)
 {
-  scene->config.win_ptr = mlx_new_window((scene->config.mlx_ptr = mlx_init()),
-                          HEIGHT, WIDTH, EXEC_NAME);
-
+  scene->config.mlx_ptr = mlx_init();
+  scene->config.win_ptr = mlx_new_window(scene->config.mlx_ptr, HEIGHT, WIDTH, EXEC_NAME);
+  load_home(scene);
 }
 
 int     main(int argc, char **argv)
@@ -30,6 +57,5 @@ int     main(int argc, char **argv)
   t_scene scene;
 
   init_game(&scene);
-  scene_parser(&scene);
-  player_event_loop(scene);
+  return (0);
 }

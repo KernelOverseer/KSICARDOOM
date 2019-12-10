@@ -15,7 +15,6 @@
 
 # include "centropy.h"
 # include "simplist.h"
-# include 
 
 # define EXEC_NAME "DOOM_NUKEM"
 # define WIDTH 1000

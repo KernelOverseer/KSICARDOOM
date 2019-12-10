@@ -16,7 +16,7 @@ void    scene_parser(int fd, t_scene *scene)
 {
   int read_return;
 
-  while ((read_return = read(fd, NULL, 1)) > 0)
+  while ((read_return = read(scene->config.world_fd, NULL, 1)) > 0)
   {
 
   }

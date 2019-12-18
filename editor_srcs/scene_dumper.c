@@ -19,6 +19,7 @@
             - first CSECTOR bytes: current sector index;
             - sector lists brightness, floor_height, ceil_height, props are listed according to thier sizeof;
             - walls, portals, sprites nodes content is list respectively;
+        - scene_dumper() returns != 0 if an error occured during dumping
 */
 
 int     dump_sprites(int fd, t_list_node *sprites)
@@ -84,6 +85,7 @@ int     scene_dumper(t_graphical_scene scene)
     int         fd;
     int         err;
 
+    err = 0;
     if (fd = open("doom_nukem_world", O_CREAT | O_EXCL) == -1)
         return (OPEN_ERROR);
     err = write(fd, &scene.current_sector->index, CSECTOR);

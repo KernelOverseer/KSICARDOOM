@@ -34,12 +34,13 @@ typedef struct	s_texture
 
 typedef struct	s_animation
 {
-	t_texture	*textures;
-	double		current_frame
+	t_texture	**textures;
+	double		current_frame;
 	double		speed;
 	int			frame_count;
 	uint32_t	now_time;
 	uint32_t	type;
+	uint32_t	props;
 }				t_animation;
 
 #endif

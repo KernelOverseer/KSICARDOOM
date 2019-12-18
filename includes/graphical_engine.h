@@ -12,8 +12,8 @@
 
 #ifndef	GRAPHICAL_ENGINE_H
 # define GRAPHICAL_ENGINE_H
-# define "vectors.h"
-# define "raycasting.h"
+# include "vectors.h"
+# include "raycasting.h"
 
 /*
 **	To make everything portable and compact the scene and everything that the
@@ -39,7 +39,8 @@ typedef	struct	s_camera
 	int			tilt;
 }				t_camera;
 
-typedef struct	s_graphical_settings;
+typedef struct	s_graphical_settings
 {
+	
 }				t_graphical_settings;
 #endif

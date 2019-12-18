@@ -16,13 +16,30 @@
 # include "animation_textures.h"
 
 /*
+typedef struct	s_list_head
+{
+	t_list_node	*first;
+	t_list_node	*last;
+	size_t		size;
+}				t_list_head;
+*/
+
+/*
 **	This is the sector struct, a sector is an area.
 **
 */
 
 typedef struct	s_sector
 {
-
+	t_list_head	walls;
+	t_list_head	portals;
+	t_list_head	sprites;
+	double		brightness;
+	double		floor_height;
+	double		ceil_height;
+	t_texture	floor_texture;
+	t_texture	ceil_texture;
+	uint32_t	props;
 }				t_sector;
 
 /*
@@ -37,7 +54,7 @@ typedef struct	s_wall
 {
 	t_vector		p1;
 	t_vector		p2;
-	t_texture		texture;
+	t_texture		*texture;
 	uint32_t		props;
 }				t_wall;
 
@@ -72,7 +89,7 @@ typedef struct	s_sprite
 	double			height;
 	double			altitude;
 	double			angle;
-	uint32_t		properties;
+	uint32_t		props;
 	t_animation		animation;
 }				t_sprite;
 
@@ -82,7 +99,8 @@ typedef struct	s_sprite
 
 typedef struct	s_graphical_scene
 {
-
+	t_list_head	*sectors;
+	t_list_node	*current_sector;
 }				t_graphical_scene;
 
 #endif

@@ -4,7 +4,7 @@ SRCS=doom_nukem.c
 OBJS=$(SRCS:.c=.o)
 
 LIBS_DIR=libs
-OBJS_DIR=build
+OBJS_DIR=.build
 SRCS_DIR=srcs
 OBJS_PATH=$(addprefix $(OBJS_DIR)/, $(OBJS))
 SRCS_PATH=$(addprefix $(SRCS_DIR)/, $(SRCS))
@@ -14,7 +14,7 @@ EDITOR_SRCS=main.c
 EDITOR_OBJS=$(EDITOR_SRCS:.c=.o)
 
 EDITOR_NAME=editor
-EDITOR_OBJS_DIR=editor_build
+EDITOR_OBJS_DIR=.editor_build
 EDITOR_SRCS_DIR=editor_srcs
 EDITOR_OBJS_PATH=$(addprefix $(EDITOR_OBJS_DIR)/, $(EDITOR_OBJS))
 EDITOR_SRCS_PATH=$(addprefix $(EDITOR_SRCS_DIR)/, $(EDITOR_SRCS))

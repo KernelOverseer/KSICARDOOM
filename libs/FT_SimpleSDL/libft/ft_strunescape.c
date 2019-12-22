@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ttslist_iterator.c                                 :+:      :+:    :+:   */
+/*   ft_strunescape.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/19 03:00:49 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/20 12:14:14 by abiri            ###   ########.fr       */
+/*   Created: 2019/03/25 20:45:43 by abiri             #+#    #+#             */
+/*   Updated: 2019/03/25 21:37:17 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ttslist.h"
-#include <stdio.h>
+#include "libft.h"
 
-void		*ttslist_iter_content(t_list_head	*head)
+char	*ft_strunescape(char *str)
 {
-	void				*result;
+	char	*result;
+	size_t	counter;
+	size_t	i;
 
-	if (!head->iterator)
-		return (NULL);
-	result = head->iterator->content;
-	head->iterator = head->iterator->next;
-	return (result);
-}
-
-t_list_node	*ttslist_iter(t_list_head	*head)
-{
-	t_list_node			*result;
-
-	if (!head->iterator)
-		return (NULL);
-	result = head->iterator;
-	head->iterator = head->iterator->next;
+	counter = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\\' && str[i + 1] != '\\')
+			counter--;
+		counter++;
+		i++;
+	}
+	result = ft_memalloc(counter + 1);
+	i = -1;
+	counter = 0;
+	while (str[++i])
+	{
+		if (str[i] == '\\' && str[i + 1] != '\\')
+			continue ;
+		result[counter++] = str[i];
+	}
 	return (result);
 }

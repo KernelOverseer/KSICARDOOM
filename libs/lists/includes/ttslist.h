@@ -6,7 +6,7 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 23:39:14 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/19 03:09:30 by abiri            ###   ########.fr       */
+/*   Updated: 2019/12/20 11:55:47 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ struct	s_list_head
 {
 	t_list_node			*first;
 	t_list_node			*last;
+	t_list_node			*iterator;
 	size_t				size;
 	t_list_add_function	*push;
 	t_list_add_function	*push_front;

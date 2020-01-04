@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_ui.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/04 12:21:48 by abiri            ###   ########.fr       */
+/*   Created: 2020/01/04 11:12:12 by abiri             #+#    #+#             */
+/*   Updated: 2020/01/04 11:53:06 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-int	ft_main_loop(void *arg)
+int	ft_init_game_window(t_sdl_env *sdl_env)
 {
-	t_doom_env *env;
+	t_sdl_init_config	config;
 
-	env = arg;
+	config = ft_sdl_new_config();
+	config.screen_width = CONF_WINDOW_WIDTH;
+	config.screen_height = CONF_WINDOW_HEIGHT;
+	config.window_title = CONF_WINDOW_TITLE;
+	if (!ft_sdl_init(sdl_env, config))
+		return (ERROR);
 	return (SUCCESS);
-}
-
-int main(int argc, char **argv)
-{
-	t_doom_env	env;
-	(void)argc;
-	(void)argv;
-
-	ft_init_game_window(&env.display);
-	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
-	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
-	ft_sdl_loop_hook(ft_main_loop, &env);
-	ft_sdl_loop(&env.display);
-	return (0);
 }

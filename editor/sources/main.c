@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:34:58 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 16:04:56 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/04 11:30:45 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ int		ft_display_init(t_doom_editor *env)
 	sdl_config.window_title = "doom_nukem_editor";
 	sdl_config.screen_width = WINDOW_WIDTH;
 	sdl_config.screen_height = WINDOW_HEIGHT;
-	env->display_env = ft_sdl_init(sdl_config);
 	ttslist_init(&(env->event.points));
 	ttslist_init(&(env->data.sectors));
-	if (!env->display_env)
+	if (!ft_sdl_init(&(env->display_env), sdl_config))
 		return (0);
 	env->main_image = newimage(sdl_config.screen_width, sdl_config.screen_height);
 	env->edit_image = newimage(EDIT_WIDTH, EDIT_HEIGHT);
@@ -49,8 +48,8 @@ int	ft_main_loop(void *arg)
 	else if (env->event.preview_mode == PREVIEW_RENDER)
 		ft_render_scene(&(env->data));
 	ft_draw_gui_areas(&(env->gui));
-	ft_sdl_put_image(env->main_image, env->display_env);
-	ft_sdl_render_texture(env->display_env);
+	ft_sdl_put_image(env->main_image, &(env->display_env));
+	ft_sdl_render_texture(&(env->display_env));
 	return (1);
 }
 
@@ -90,7 +89,7 @@ int main(void) {
 		ft_putstr_fd("An initialisation error occured\n", 2);
 		return (-1);
 	}
-	if (!ft_gui_init(&(env.gui), env.display_env, env.main_image))
+	if (!ft_gui_init(&(env.gui), &(env.display_env), env.main_image))
 	{
 		ft_putstr_fd("A GUI initialisation error occured\n", 2);
 		return (-1);
@@ -101,6 +100,6 @@ int main(void) {
 		ft_putstr_fd("An EDITOR initialisation error occured\n", 2);
 		return (-1);
 	}
-	ft_sdl_loop(env.display_env);
+	ft_sdl_loop(&(env.display_env));
 	return (0);
 }

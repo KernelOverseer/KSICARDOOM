@@ -75,3 +75,7 @@ fabric.properties
 
 # CMAKE
 CMAKE*
+
+#vim files
+*.swp
+*.swo

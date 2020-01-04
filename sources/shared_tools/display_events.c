@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   display_events.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/04 12:21:48 by abiri            ###   ########.fr       */
+/*   Created: 2020/01/04 12:07:53 by abiri             #+#    #+#             */
+/*   Updated: 2020/01/04 12:21:07 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-int	ft_main_loop(void *arg)
+int	ft_keyboard_button_on(void *arg, SDL_Event e)
 {
-	t_doom_env *env;
+	t_doom_env	*env;
 
 	env = arg;
-	return (SUCCESS);
+	env->keys[e.key.keysym.scancode] = 1;
+	return (1);
 }
 
-int main(int argc, char **argv)
+int	ft_keyboard_button_off(void *arg, SDL_Event e)
 {
-	t_doom_env	env;
-	(void)argc;
-	(void)argv;
+	t_doom_env	*env;
 
-	ft_init_game_window(&env.display);
-	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
-	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
-	ft_sdl_loop_hook(ft_main_loop, &env);
-	ft_sdl_loop(&env.display);
-	return (0);
+	env = arg;
+	env->keys[e.key.keysym.scancode] = 0;
+	return (1);
 }

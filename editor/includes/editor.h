@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:35:19 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 15:52:49 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/04 11:28:12 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct	s_editor_event
 
 typedef struct	s_doom_editor
 {
-	t_sdl_env			*display_env;
+	t_sdl_env			display_env;
 	t_sdl_image			*main_image;
 	t_sdl_image			*edit_image;
 	t_sdl_image 		*render_image;

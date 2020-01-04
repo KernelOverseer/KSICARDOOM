@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 00:15:45 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/23 11:59:51 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/04 11:27:12 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef	struct		s_linked_list_head
 	t_linked_list	*last;
 }					t_linked_list_head;
 
-t_sdl_env			*ft_sdl_init(t_sdl_init_config conf);
+int					ft_sdl_init(t_sdl_env *env, t_sdl_init_config conf);
 t_sdl_init_config	ft_sdl_new_config(void);
 void				ft_sdl_free_config(t_sdl_init_config *conf);
 t_linked_list		*ft_list_push(t_linked_list_head *head,

@@ -6,7 +6,7 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 00:20:38 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/25 17:14:07 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/04 11:26:43 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,27 +88,24 @@ static int			alloc_window_and_renderer(t_sdl_env *env,
 **		renderer, and texture
 */
 
-t_sdl_env			*ft_sdl_init(t_sdl_init_config conf)
+int					ft_sdl_init(t_sdl_env *env, t_sdl_init_config conf)
 {
-	t_sdl_env *env;
 
-	env = ft_sdl_new_env();
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		ft_sdl_error("FT_SDL: Cannot initialise SDL");
-		return (NULL);
+		return (0);
 	}
 	if (!alloc_window_and_renderer(env, conf))
-		return (NULL);
+		return (0);
 	else if (!(env->texture = SDL_CreateTexture(env->renderer,
 					SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STATIC,
 					conf.screen_width, conf.screen_height)))
 	{
 		ft_sdl_error("FT_SDL: Cannot create texture");
-		free(env);
-		return (NULL);
+		return (0);
 	}
 	env->width = conf.screen_width;
 	env->height = conf.screen_height;
-	return (env);
+	return (1);
 }

@@ -19,7 +19,8 @@
             - first CSECTOR bytes: current sector index;
             - sector lists brightness, floor_height, ceil_height, props are listed according to thier sizeof;
             - walls, portals, sprites nodes content is list respectively;
-        - scene_dumper() returns != 0 if an error occured during dumping
+        - scene_dumper() returns a value != 0 if an error occured during dumping that should be used to exit after
+			calling perror to print correspandant error message.
 */
 
 int     list_dumper(int fd, t_list_node *nodes, int content_size)

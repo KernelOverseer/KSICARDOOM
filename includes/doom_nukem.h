@@ -6,7 +6,7 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 11:48:17 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/04 12:21:24 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/04 12:57:08 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "centropy.h"
 # include "ttslist.h"
 # include "ft_simplesdl.h"
+# include "drawing.h"
 # include "config.h"
 # define ERROR 0
 # define SUCCESS 1
@@ -22,6 +23,7 @@
 typedef struct	s_doom_env
 {
 	t_sdl_env		display;
+	t_sdl_image		*main_image;
 	unsigned char	keys[SDL_KEY_COUNT];
 }				t_doom_env;
 
@@ -41,7 +43,7 @@ int		        ft_perror(char *command, char *arg, int err);
 **	INITIALISATION FUNCTIONS
 */
 
-int	ft_init_game_window(t_sdl_env *sdl_env);
+int	ft_init_game_window(t_doom_env *env);
 
 /*
 **	SDL EVENTS FUNCTIONS
@@ -49,5 +51,12 @@ int	ft_init_game_window(t_sdl_env *sdl_env);
 
 int	ft_keyboard_button_on(void *arg, SDL_Event e);
 int	ft_keyboard_button_off(void *arg, SDL_Event e);
+
+/*
+**	DRAWING FUNCTIONS
+*/
+
+void    ft_blit_image(t_rect rect, t_sdl_image *texture,
+		t_sdl_image *main_image);
 
 #endif

@@ -1,63 +1,64 @@
-NAME=doom_nukem
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
+#    Updated: 2020/01/04 17:53:49 by merras           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS=doom_nukem.c
-OBJS=$(SRCS:.c=.o)
+CC = gcc
+FLAGS = -Wall -Werror -Wextra
+NAME = doom_nukem
+INC_DIR = ./includes
+SRC_DIR = ./sources
+LIBS_DIR = ./libraries
+OBJ_DIR = ./objects
+EDITOR_DIR = ./editor
+SOURCE_FILES = game_loop/init_ui.c\
+			   main.c\
+			   shared_tools/display_events.c\
+			   shared_tools/image_manipulations.c
+HEADER_FILES = doom_nukem.h
+SDL_VERSION = 2.0.10
+SDL_TTF_VERSION = 2.0.15
 
-LIBS_DIR=libs
-OBJS_DIR=.build
-SRCS_DIR=srcs
-OBJS_PATH=$(addprefix $(OBJS_DIR)/, $(OBJS))
-SRCS_PATH=$(addprefix $(SRCS_DIR)/, $(SRCS))
-INCLUDES=includes
+# this part is automatic
 
-EDITOR_SRCS=main.c
-EDITOR_OBJS=$(EDITOR_SRCS:.c=.o)
+SOURCES = $(addprefix $(SRC_DIR)/, $(SOURCE_FILES))
+OBJECTS = $(addprefix $(OBJ_DIR)/, $(SOURCE_FILES:.c=.o))
+INCLUDES = $(addprefix $(INC_DIR)/, $(HEADER_FILES))
+LINKS = $(SIMPLESDL_LINK) $(CENTROPY_LINK) $(TTSLIST_LINK) $(SDL_LINK)
+INCS = -I $(INC_DIR) $(SIMPLESDL_INC) $(CENTROPY_INC) $(TTSLIST_INC) $(SDL_INC)
+OBJECT_DIRS = $(sort $(dir $(OBJECTS)))
 
-EDITOR_NAME=editor
-EDITOR_OBJS_DIR=.editor_build
-EDITOR_SRCS_DIR=editor_srcs
-EDITOR_OBJS_PATH=$(addprefix $(EDITOR_OBJS_DIR)/, $(EDITOR_OBJS))
-EDITOR_SRCS_PATH=$(addprefix $(EDITOR_SRCS_DIR)/, $(EDITOR_SRCS))
-EDITOR_INCLUDES=editor_includes
+.PHONY: all
+all: $(NAME) editor
 
+include $(LIBS_DIR)/library_linking.mk
+include $(EDITOR_DIR)/editor_rules.mk
 
-FLAGS= -Wall -Werror -Wextra
+$(NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(OBJECTS)
+	$(CC) $(FLAGS) $(OBJECTS) $(LINKS) -o $(NAME)
 
-all: $(NAME)
+$(OBJECTS): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(INCLUDES) | $(OBJECT_DIRS)
+	$(CC) $(FLAGS) $(INCS) -c $< -o $@
 
-$(NAME): $(OBJS_PATH) $(INCLUDES)/doom_nukem.h
-	make -C $(LIBS_DIR)/centropy
-	make -C $(LIBS_DIR)/simplist
-	gcc $(OBJS_PATH) $(LIBS_DIR)/centropy/centropy.a $(LIBS_DIR)/simplist/simplist.a -lmlx -framework openGL -framework AppKit -o $(NAME)
+$(OBJECT_DIRS):
+	@-mkdir $(OBJECT_DIRS)
 
-$(EDITOR_NAME): $(EDITOR_OBJS_PATH) $(EDITOR_INCLUDES)/editor.h
-	echo $(EDITOR_OBJS_PATH)
-	make -C $(LIBS_DIR)/centropy
-	make -C $(LIBS_DIR)/simplist
-	gcc $(EDITOR_OBJS_PATH) $(LIBS_DIR)/centropy/centropy.a $(LIBS_DIR)/simplist/simplist.a -lmlx -framework openGL -framework AppKit -o $(EDITOR_NAME)
+.PHONY: clean
+clean: editor_clean simplesdl_clean centropy_clean ttslist_clean
+	@-rm -rf $(OBJ_DIR)
+	@-rm -rf $(EDITOR_OBJ_DIR)
 
-$(EDITOR_OBJS_PATH): $(EDITOR_OBJS_DIR)/%.o : $(EDITOR_SRCS_DIR)/%.c | $(EDITOR_OBJS_DIR)
-	gcc $(FLAGS) -I$(EDITOR_INCLUDES) -I$(EDITOR_LIBS_DIR)/centropy/includes -I$(EDITOR_LIBS_DIR)/simplist/includes -c $< -o $@
+.PHONY: fclean
+fclean: clean editor_fclean simplesdl_fclean centropy_fclean ttslist_fclean
+	@-rm -rf $(NAME)
+	@-rm -rf $(EDITOR_NAME)
 
-$(OBJS_PATH): $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c | $(OBJS_DIR)
-	gcc $(FLAGS) -I$(INCLUDES) -I$(LIBS_DIR)/centropy/includes -I$(LIBS_DIR)/simplist/includes -c $< -o $@
-
-$(OBJS_DIR):
-	mkdir $(OBJS_DIR)
-
-$(EDITOR_OBJS_DIR):
-	mkdir $(EDITOR_OBJS_DIR)
-
-clean:
-	make -C $(LIBS_DIR)/centropy clean
-	make -C $(LIBS_DIR)/simplist clean
-	rm -rf $(OBJS_DIR)
-
-fclean: clean
-	make -C $(LIBS_DIR)/centropy fclean
-	make -C $(LIBS_DIR)/simplist fclean
-	rm -rf $(NAME)
-
+.PHONY: re
 re: fclean all
-	make -C $(LIBS_DIR)/centropy re
-	make -C $(LIBS_DIR)/simplist re

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphical_objects.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 21:10:54 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/17 23:07:55 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/04 11:10:02 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,7 @@
 # define GRAPHICAL_OBJECTS_H
 # include "vectors.h"
 # include "animation_textures.h"
-
-/*
-typedef struct	s_list_head
-{
-	t_list_node	*first;
-	t_list_node	*last;
-	size_t		size;
-}				t_list_head;
-*/
+# include "ttslist.h"
 
 /*
 **	This is the sector struct, a sector is an area.
@@ -31,14 +23,15 @@ typedef struct	s_list_head
 
 typedef struct	s_sector
 {
+	int			id;
 	t_list_head	walls;
 	t_list_head	portals;
 	t_list_head	sprites;
 	double		brightness;
 	double		floor_height;
 	double		ceil_height;
-	t_texture	floor_texture;
-	t_texture	ceil_texture;
+	t_sdl_image *floor_texture;
+	t_sdl_image *ceil_texture;
 	uint32_t	props;
 }				t_sector;
 
@@ -97,10 +90,10 @@ typedef struct	s_sprite
 **	This is the struct that will contain all the renderable objects
 */
 
-typedef struct	s_graphical_scene
+/*typedef struct	s_graphical_scene
 {
 	t_list_head	*sectors;
 	t_list_node	*current_sector;
-}				t_graphical_scene;
+}				t_graphical_scene;*/
 
 #endif

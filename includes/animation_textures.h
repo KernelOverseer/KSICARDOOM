@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   animation_textures.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 22:20:59 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/17 22:28:06 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/04 11:09:04 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ANIMATION_TEXTURES_H
 # define ANIMATION_TEXTURES_H
+# include <stdint.h>
 
 /*
 **	This struct is the texture struct

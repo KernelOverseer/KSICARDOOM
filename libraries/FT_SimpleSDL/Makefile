@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abiri <kerneloverseer@protonmail>          +#+  +:+       +#+         #
+#    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/15 20:38:11 by abiri             #+#    #+#              #
-#    Updated: 2020/01/03 19:56:36 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/04 17:53:06 by merras           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ _lBLUE = \x1b[94m
 _RED = \x1b[31m
 _BOLD = \x1b[1m
 _END = \x1b[0m
-SDL_VERSION = 2.0.9_1
+SDL_VERSION = 2.0.10
 SDL_TTF_VERSION = 2.0.15
 CC = gcc
 AR = ar rc

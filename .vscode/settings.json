@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "complex": "c",
+        "__bit_reference": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "array": "cpp",
+        "iterator": "cpp",
+        "string_view": "cpp",
+        "memory": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp"
+    }
+}

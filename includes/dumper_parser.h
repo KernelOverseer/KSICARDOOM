@@ -39,6 +39,6 @@
 ** VALUES SLOTS
 */
 
-# define CSECTOR 2 // current sector
+# define CSECTOR 2 // initial sector
 
 #endif

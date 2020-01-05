@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+         #
+#    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
 #    Updated: 2020/01/05 21:20:57 by abiri            ###   ########.fr        #
@@ -28,7 +28,7 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   shared_tools/error_management.c\
 			   shared_tools/image_manipulations.c
 HEADER_FILES = doom_nukem.h
-SDL_VERSION = 2.0.9_1
+SDL_VERSION = 2.0.10
 SDL_TTF_VERSION = 2.0.15
 
 # this part is automatic

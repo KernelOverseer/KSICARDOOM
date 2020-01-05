@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphical_objects.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 21:10:54 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 12:27:34 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/05 21:35:10 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct	s_wall
 {
 	t_vector		p1;
 	t_vector		p2;
-	t_texture		*texture;
+	t_sdl_image		*texture;
 	uint32_t		props;
 }				t_wall;
 

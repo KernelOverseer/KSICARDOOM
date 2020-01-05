@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_interface_loading.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 09:07:20 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 15:36:52 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/05 21:35:08 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,15 @@ static t_gui_area	*ft_load_sector_select_bar(t_tts_gui *gui_env, t_doom_editor *
 	return (result);	
 }
 
+
+
+void					ft_save_button(void *data, t_gui_component *button)
+{
+	(void)button;
+	if (scene_dumper(CAST(data, t_doom_editor)->data))
+		exit (0); //report error occured!
+}
+
 static t_gui_area	*ft_load_sector_add_bar(t_tts_gui *gui_env, t_doom_editor *env)
 {
 	t_gui_area	*result;
@@ -200,6 +209,9 @@ static t_gui_area	*ft_load_sector_add_bar(t_tts_gui *gui_env, t_doom_editor *env
 	ft_gui_add_component(result, ft_gui_new_button((t_rect){343, 45, 46, 26},
 				ft_get_text_image(" NEW ", (t_rect){0, 0, 46, 26}, UI_COLOR_BLACK, gui_env->font),
 				ft_add_sector, env), "edit_mode_delete");
+	ft_gui_add_component(result, ft_gui_new_button((t_rect){200, 45, 100, 26},
+				ft_get_text_image(" SAVE ", (t_rect){0, 0, 100, 26}, UI_COLOR_BLACK, gui_env->font),
+				ft_save_button, env), "save_map_button");
 	return (result);	
 }
 

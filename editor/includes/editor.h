@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:35:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/04 11:28:12 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/05 20:52:19 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "gui_texture_display_addon.h"
 # include "graphical_objects.h"
 # include "graphical_engine.h"
+# include "scene_dumper.h"
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 # define EDIT_WIDTH 1105

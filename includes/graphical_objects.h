@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 21:10:54 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/04 11:10:02 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/05 21:18:06 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,10 @@ typedef struct	s_sprite
 	t_list_node	*current_sector;
 }				t_graphical_scene;*/
 
+/*
+**	CONSTRUCTORS FOR GRAPHICAL OBJECTS
+*/
+
+t_wall		*ft_new_wall(t_point p1, t_point p2);
+t_sector	*ft_new_sector(void);
 #endif

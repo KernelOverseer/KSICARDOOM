@@ -6,7 +6,7 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 11:48:17 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/04 12:57:08 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/05 20:53:42 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@
 # include "ft_simplesdl.h"
 # include "drawing.h"
 # include "config.h"
+# include "error_management.h"
+# include "graphical_engine.h"
 # define ERROR 0
 # define SUCCESS 1
 
 typedef struct	s_doom_env
 {
-	t_sdl_env		display;
-	t_sdl_image		*main_image;
-	unsigned char	keys[SDL_KEY_COUNT];
+	t_sdl_env			display;
+	t_graphical_scene	main_scene;
+	t_sdl_image			*main_image;
+	unsigned char		keys[SDL_KEY_COUNT];
 }				t_doom_env;
 
 /*
@@ -44,6 +47,7 @@ int		        ft_perror(char *command, char *arg, int err);
 */
 
 int	ft_init_game_window(t_doom_env *env);
+int	ft_init_graphical_scene(t_doom_env *env);
 
 /*
 **	SDL EVENTS FUNCTIONS

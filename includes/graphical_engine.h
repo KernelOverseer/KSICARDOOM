@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:55:14 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 16:00:19 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/05 21:44:58 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # define CONFIG_RES_RATIO 1
 # define MAX_RENDER_DISTANCE 10000.0
 # define DEFAULT_WALL_HEIGHT 1024
+# define TEMP_RENDER_ACTIVE_WALL_COLOR 0xFFFFFF
+# define TEMP_RENDER_INACTIVE_WALL_COLOR 0x686868
+# define TEMP_RENDER_ACTIVE_PORTAL_COLOR 0xFF0000
+# define TEMP_RENDER_INACTIVE_PORTAL_COLOR 0x680000
+# define TEMP_RENDER_ACTIVE_SPRITE_COLOR 0x00FF00
+# define TEMP_RENDER_INACTIVE_SPRITE_COLOR 0x006800
 
 /*
 **	To make everything portable and compact the scene and everything that the
@@ -55,6 +61,12 @@ typedef struct	s_graphical_scene
 	t_sdl_image	*render_image;
 
 }				t_graphical_scene;
+
+/*
+**	RENDERING INTERFACE FUNCTIONS
+*/
+
+int	temp_render_graphics(t_graphical_scene *scene);
 
 /*
 **	RENDERING FUNCTIONS

@@ -19,6 +19,7 @@
 # include "config.h"
 # include "error_management.h"
 # include "graphical_engine.h"
+# include "libgl.h"
 # define ERROR 0
 # define SUCCESS 1
 

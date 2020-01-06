@@ -10,6 +10,8 @@
         "memory": "cpp",
         "string": "cpp",
         "unordered_map": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "doom_nukem.h": "c",
+        "ft_simplesdl.h": "c"
     }
 }

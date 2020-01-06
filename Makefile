@@ -26,7 +26,11 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   main.c\
 			   shared_tools/display_events.c\
 			   shared_tools/error_management.c\
-			   shared_tools/image_manipulations.c
+			   shared_tools/image_manipulations.c\
+			   physics/velocity_controller.c\
+			   physics/force_controller.c\
+			   physics/gravity_controller.c\
+			   physics/collision_controller.c
 HEADER_FILES = doom_nukem.h
 SDL_VERSION = 2.0.10
 SDL_TTF_VERSION = 2.0.15
@@ -36,8 +40,8 @@ SDL_TTF_VERSION = 2.0.15
 SOURCES = $(addprefix $(SRC_DIR)/, $(SOURCE_FILES))
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(SOURCE_FILES:.c=.o))
 INCLUDES = $(addprefix $(INC_DIR)/, $(HEADER_FILES))
-LINKS = $(SIMPLESDL_LINK) $(CENTROPY_LINK) $(TTSLIST_LINK) $(SDL_LINK)
-INCS = -I $(INC_DIR) $(SIMPLESDL_INC) $(CENTROPY_INC) $(TTSLIST_INC) $(SDL_INC)
+LINKS = $(SIMPLESDL_LINK) $(CENTROPY_LINK) $(TTSLIST_LINK) $(LIBGL_LINK) $(SDL_LINK)
+INCS = -I $(INC_DIR) $(SIMPLESDL_INC) $(CENTROPY_INC) $(TTSLIST_INC) $(LIBGL_INC) $(SDL_INC)
 OBJECT_DIRS = $(sort $(dir $(OBJECTS)))
 
 .PHONY: all
@@ -46,7 +50,7 @@ all: $(NAME) editor
 include $(LIBS_DIR)/library_linking.mk
 include $(EDITOR_DIR)/editor_rules.mk
 
-$(NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(OBJECTS)
+$(NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(OBJECTS)
 	$(CC) $(FLAGS) $(OBJECTS) $(LINKS) -o $(NAME)
 
 $(OBJECTS): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(INCLUDES) | $(OBJECT_DIRS)
@@ -56,12 +60,12 @@ $(OBJECT_DIRS):
 	@-mkdir $(OBJECT_DIRS)
 
 .PHONY: clean
-clean: editor_clean simplesdl_clean centropy_clean ttslist_clean
+clean: editor_clean simplesdl_clean centropy_clean ttslist_clean libgl_clean
 	@-rm -rf $(OBJ_DIR)
 	@-rm -rf $(EDITOR_OBJ_DIR)
 
 .PHONY: fclean
-fclean: clean editor_fclean simplesdl_fclean centropy_fclean ttslist_fclean
+fclean: clean editor_fclean simplesdl_fclean centropy_fclean ttslist_fclean libgl_fclean
 	@-rm -rf $(NAME)
 	@-rm -rf $(EDITOR_NAME)
 

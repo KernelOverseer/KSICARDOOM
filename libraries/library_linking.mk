@@ -25,6 +25,11 @@ TTSLIST_NAME = $(TTSLIST_MAKE)/libttslist.a
 TTSLIST_INC = -I $(TTSLIST_MAKE)/includes
 TTSLIST_LINK = -L $(TTSLIST_MAKE) -lttslist
 
+LIBGL_MAKE = $(LIBS_DIR)/libgl
+LIBGL_NAME = $(LIBGL_MAKE)/libgl.a
+LIBGL_INC = -I $(LIBGL_MAKE)/includes
+LIBGL_LINK = -L $(LIBGL_MAKE)
+
 SDL_INC = -I ~/.brew/Cellar/sdl2/$(SDL_VERSION)/include/SDL2\
 		  -I ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/include/SDL2
 
@@ -78,3 +83,19 @@ ttslist_clean:
 .PHONY: ttslist_fclean
 ttslist_fclean:
 	@make -C $(TTSLIST_MAKE) fclean
+
+#libgl rules
+
+.PHONY: libgl
+libgl: $(LIBGL_NAME)
+
+$(LIBGL_NAME):
+	@make -C $(LIBGL_MAKE)
+
+.PHONY: libgl_clean
+libgl_clean:
+	@make -C $(LIBGL_MAKE) clean
+
+.PHONY: libgl_fclean
+libgl_fclean:
+	@make -C $(LIBGL_MAKE) fclean

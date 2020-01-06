@@ -6,11 +6,23 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 21:11:33 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 21:23:11 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 13:13:00 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+
+t_portal	*ft_new_portal(t_point p1, t_point p2, t_sector *sector)
+{
+	t_portal	*result;
+
+	if (!(result = ft_memalloc(sizeof(t_portal))))
+		return (result);
+	result->wall.p1 = (t_vec2){p1.x, p1.y};
+	result->wall.p2 = (t_vec2){p2.x, p2.y};
+	result->sector = sector;
+	return (result);
+}
 
 t_wall		*ft_new_wall(t_point p1, t_point p2)
 {
@@ -18,8 +30,8 @@ t_wall		*ft_new_wall(t_point p1, t_point p2)
 
 	if (!(result = ft_memalloc(sizeof(t_wall))))
 		return (NULL + ft_raise_exception(ERROR_allocation_problem, NULL));
-	result->p1 =  (t_vector){p1.x, p1.y};
-	result->p2 =  (t_vector){p2.x, p2.y};
+	result->p1 =  (t_vec2){p1.x, p1.y};
+	result->p2 =  (t_vec2){p2.x, p2.y};
 	return (result);
 }
 

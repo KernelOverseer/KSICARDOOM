@@ -6,7 +6,7 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 20:23:31 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 21:57:00 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 13:11:40 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	temp_render_graphics(t_graphical_scene *scene)
 	t_point p1;
 	t_point p2;
 	t_point center;
-	t_vector movement;
+	t_vec2 movement;
 	movement = ft_vector_from_angle(10, scene->camera.angle);
 	p1 = (t_point){scene->camera.position.x, scene->camera.position.y};
 	p2.x = p1.x +  movement.x;

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 21:10:54 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 21:18:06 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 13:08:48 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef struct	s_sector
 
 typedef struct	s_wall
 {
-	t_vector		p1;
-	t_vector		p2;
+	t_vec2			p1;
+	t_vec2			p2;
 	t_texture		*texture;
 	uint32_t		props;
 }				t_wall;
@@ -77,7 +77,7 @@ typedef struct	s_portal
 
 typedef struct	s_sprite
 {
-	t_vector		position;
+	t_vec2			position;
 	double			radius;
 	double			height;
 	double			altitude;

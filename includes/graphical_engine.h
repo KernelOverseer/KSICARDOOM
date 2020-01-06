@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:55:14 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 21:44:58 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 13:08:06 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 typedef	struct	s_camera
 {
 	t_raycast	raycast;
-	t_vector	position;
+	t_vec2		position;
 	double		angle;
 	int			height;
 	int			tilt;

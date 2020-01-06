@@ -6,20 +6,20 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 11:48:17 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 20:53:42 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 13:09:56 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DOOM_NUKEM_H
 # define DOOM_NUKEM_H
 # include "centropy.h"
+# include "libgl.h"
 # include "ttslist.h"
 # include "ft_simplesdl.h"
 # include "drawing.h"
 # include "config.h"
 # include "error_management.h"
 # include "graphical_engine.h"
-# include "libgl.h"
 # define ERROR 0
 # define SUCCESS 1
 

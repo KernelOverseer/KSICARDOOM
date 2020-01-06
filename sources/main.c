@@ -6,7 +6,7 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 21:55:41 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 13:11:47 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	return (SUCCESS);
 }
 
-t_vector	ft_vector_from_angle(double size, double angle)
+t_vec2	ft_vector_from_angle(double size, double angle)
 {
-	t_vector	result;
+	t_vec2	result;
 
 	result.x = size * cos(angle);
 	result.y = size * sin(angle);
@@ -50,7 +50,7 @@ t_vector	ft_vector_from_angle(double size, double angle)
 
 int	temp_apply_movement(t_doom_env *env)
 {
-	t_vector	movement_vector;
+	t_vec2	movement_vector;
 
 	if (env->keys[SDL_SCANCODE_LEFT])
 		env->main_scene.camera.angle += 0.05;

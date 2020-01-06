@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/15 20:38:11 by abiri             #+#    #+#              #
-#    Updated: 2020/01/04 17:53:06 by merras           ###   ########.fr        #
+#    Updated: 2020/01/06 12:16:10 by oouklich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,13 @@ INC_DIR = ./inc
 SRC = $(addprefix $(SRC_DIR)/, $(FILENAMES))
 OBJ = $(addprefix $(OBJ_DIR)/, $(FILENAMES:.c=.o))
 FLAGS = -Wall -Werror -Wextra
-INCLUDES = -I $(INC_DIR)\
-		   -I ~/.brew/Cellar/sdl2/$(SDL_VERSION)/include/SDL2\
-		   -I ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/include/SDL2
-LIBRARIES = -L ~/.brew/Cellar/sdl2/$(SDL_VERSION)/lib -lSDL2\
-			-L ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/lib -lSDL2_ttf
+#INCLUDES = -I $(INC_DIR)\
+#		   -I ~/.brew/Cellar/sdl2/$(SDL_VERSION)/include/SDL2\
+#		   -I ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/include/SDL2
+#LIBRARIES = -L ~/.brew/Cellar/sdl2/$(SDL_VERSION)/lib -lSDL2\
+#			-L ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/lib -lSDL2_ttf
+SDL_INC = $(shell pwd)/sdl2_inc
+INCLUDES = -I $(INC_DIR) -I $(SDL_INC)
 
 all : $(NAME)
 $(NAME): $(OBJ)

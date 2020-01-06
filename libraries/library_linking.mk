@@ -6,7 +6,7 @@
 #    By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 15:45:08 by abiri             #+#    #+#              #
-#    Updated: 2020/01/03 19:34:55 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/06 12:17:40 by oouklich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,21 @@ LIBGL_NAME = $(LIBGL_MAKE)/libgl.a
 LIBGL_INC = -I $(LIBGL_MAKE)/includes
 LIBGL_LINK = -L $(LIBGL_MAKE)
 
-SDL_INC = -I ~/.brew/Cellar/sdl2/$(SDL_VERSION)/include/SDL2\
-		  -I ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/include/SDL2
+#SDL_INC = -I ~/.brew/Cellar/sdl2/$(SDL_VERSION)/include/SDL2\
+#		  -I ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/include/SDL2
 
-SDL_LINK = -L ~/.brew/Cellar/sdl2/$(SDL_VERSION)/lib -lSDL2\
-		   -L ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/lib -lSDL2_ttf
+#SDL_LINK = -L ~/.brew/Cellar/sdl2/$(SDL_VERSION)/lib -lSDL2\
+#		   -L ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/lib -lSDL2_ttf
+
+SDL_INC = -I libraries/FT_SimpleSDL/sdl2_inc
+
+SDL_DIR = libraries/FT_SimpleSDL/sdl2_frameworks
+SDL2 = $(SDL_DIR)/SDL2.framework/Versions/A/SDL2
+SDL2_IMAGE = $(SDL_DIR)/SDL2_image.framework/Versions/A/SDL2_image
+SDL2_TTF = $(SDL_DIR)/SDL2_ttf.framework/Versions/A/SDL2_ttf
+SDL2_MIXER = $(SDL_DIR)/SDL2_mixer.framework/Versions/A/SDL2_mixer
+SDL_LINK = -F $(SDL_DIR) -framework SDL2 -framework SDL2_image\
+		   -framework SDL2_ttf -framework SDL2_MIXER
 
 #simplesdl rules
 

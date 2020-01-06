@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 20:50:42 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 12:27:03 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 13:07:42 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@
 
 typedef struct	s_ray
 {
-	t_vector	origin;
-	t_vector	direction;
+	t_vec2		origin;
+	t_vec2		direction;
 	double		distance;
 }				t_ray;
 
 typedef struct          s_intercalc
 {
-    t_vector            p1;
-    t_vector            p2;
-    t_vector            p3;
-    t_vector            p4;
+    t_vec2				p1;
+    t_vec2				p2;
+    t_vec2				p3;
+    t_vec2				p4;
     double              den;
     double              u;
     double              t;
@@ -44,7 +44,7 @@ typedef struct	s_intersect
 {
 	t_sector	*sector;
 	t_ray		ray;
-	t_vector	pos;
+	t_vec2		pos;
 	double		distance;
 	double		real_distance;
 	int			render_min;
@@ -70,10 +70,10 @@ typedef struct	s_intersect
 typedef struct	s_raycast
 {
 	t_ray		ray;
-	t_vector	plane;
-	t_vector	direction;
-	t_vector	swipe;
-	t_vector	iter;
+	t_vec2		plane;
+	t_vec2		direction;
+	t_vec2		swipe;
+	t_vec2		iter;
 	double		render_min;
 	double		render_max;
 }				t_raycast;

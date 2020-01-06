@@ -91,7 +91,7 @@ int					ft_sdl_loop(t_sdl_env *env)
 		{
 			if (!ft_sdl_apply_event(e))
 				quit = 1;
-			if (e.type == SDL_QUIT)
+			if (e.type == SDL_QUIT || e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				quit = 1;
 		}
 		ft_sdl_loop_hook(NULL, NULL);

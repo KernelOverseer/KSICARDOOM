@@ -11,6 +11,11 @@
         "string": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
+<<<<<<< HEAD
         "scene_parser.h": "c"
+=======
+        "doom_nukem.h": "c",
+        "ft_simplesdl.h": "c"
+>>>>>>> 910a046aef50579602e52ebbbba7c238448f27be
     }
 }

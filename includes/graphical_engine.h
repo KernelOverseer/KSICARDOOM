@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:55:14 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 20:48:15 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/06 20:54:01 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # define CONFIG_RES_RATIO 1
 # define MAX_RENDER_DISTANCE 10000.0
 # define DEFAULT_WALL_HEIGHT 1024
+# define TEMP_RENDER_ACTIVE_WALL_COLOR 0xFFFFFF
+# define TEMP_RENDER_INACTIVE_WALL_COLOR 0x686868
+# define TEMP_RENDER_ACTIVE_PORTAL_COLOR 0xFF0000
+# define TEMP_RENDER_INACTIVE_PORTAL_COLOR 0x680000
+# define TEMP_RENDER_ACTIVE_SPRITE_COLOR 0x00FF00
+# define TEMP_RENDER_INACTIVE_SPRITE_COLOR 0x006800
 
 /*
 **	To make everything portable and compact the scene and everything that the
@@ -40,7 +46,7 @@
 typedef	struct	s_camera
 {
 	t_raycast	raycast;
-	t_vector	position;
+	t_vec2		position;
 	double		angle;
 	int			height;
 	int			tilt;
@@ -55,6 +61,12 @@ typedef struct	s_graphical_scene
 	t_sdl_image	*render_image;
 
 }				t_graphical_scene;
+
+/*
+**	RENDERING INTERFACE FUNCTIONS
+*/
+
+int	temp_render_graphics(t_graphical_scene *scene);
 
 /*
 **	RENDERING FUNCTIONS

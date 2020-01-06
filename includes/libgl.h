@@ -203,28 +203,10 @@ typedef struct		s_obj_function
 	int				(*call2)();
 }					t_obj_function;
 
-int					ft_window_setup(t_data *data, char *win_name,
-											int winheight, int winwidth);
-int					ft_image_setup(t_data *data);
-void				ft_image_fill(t_data *data, int x,
-												int y, int color);
-void				ft_loadingscreen(void *mlx, void *win, char *path);
 double				lerp(double x1, double x2, double lerp);
 double				ft_get_world_pos(double screen_coord,
 								double widthheight, double zoom);
-void				ft_refresh_image(t_data *data);
-int					red_button(t_data *data);
-void				ft_mlx_hooks(t_data *data, int flags);
-int					no_event_mouse_move(t_data *data);
-int					key_press(int key_code, t_data *data);
-int					mouse_press(int button, int x, int y, t_data *data);
-int					mouse_move(int x, int y, t_data *data);
-int					unload(int key_code, t_data *data);
 void				ft_multi_thread(t_data *data, void *(*f)(void *));
-void				drawline(t_data *data, int startline,
-		int nlines, int color);
-void				drawnsquares(t_data *data, int onedlen);
-void				connect_dotss(t_data *data, t_vec2 a, t_vec2 b, int color);
 void				ft_create_vec2(t_vec2 *a, double x, double y);
 void				ft_create_vec3(t_vec3 *a, double x, double y, double z);
 t_vec2				ft_vec2_add(t_vec2 a, t_vec2 b);
@@ -258,8 +240,6 @@ t_vec4				ft_vec4_sub(t_vec4 vec1, t_vec4 vec2);
 t_vec4				ft_vec4_normalize(t_vec4 a);
 double				ft_vec4_mag(t_vec4 a);
 double				ft_vec4_dot_product(t_vec4 a, t_vec4 b);
-void				ft_draw_scene(t_data *data);
-void				*ft_ray_trace(void *param);
 t_vec3				ft_vec3_cross_product(t_vec3 vec1, t_vec3 vec2);
 t_vec4				ft_vec4_cross_product(t_vec4 vec1, t_vec4 vec2);
 t_vec4				ft_vec4_add(t_vec4 vec1, t_vec4 vec2);
@@ -290,14 +270,6 @@ void				ft_putnbr(int nb);
 
 double				ft_atof(char *nbr);
 
-int					ft_is_numeric(char *str);
-size_t				ft_table_size(char **tab);
-int					ft_is_limited(double n);
-int					ft_bracket_control(char *str, char c);
-void				ft_cheak_data(t_data *data);
-
-void				ft_del(void *content, size_t size);
-
 void				*ft_screenshot(void *param);
 
 typedef struct		s_solution
@@ -319,6 +291,5 @@ int					ft_solve_equation_4(t_solve s, double *x);
 int					ft_solve_equation_3(double *x, double a, double b,
 		double c);
 void				ft_sort_double_table(double *x);
-char				*ft_error_type(int error);
 
 #endif

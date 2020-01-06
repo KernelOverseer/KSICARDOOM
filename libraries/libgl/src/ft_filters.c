@@ -60,7 +60,8 @@ void			ft_filters(t_data *data, int x, int y, int color)
 		ft_black_white_filter((unsigned char *)&color);
 	else if (data->filter == 3)
 		ft_sepia_filter((unsigned char *)&color);
-	ft_image_fill(data, x, y, color);
+	(void)y;
+	(void)x;
 }
 
 int				ft_filters_aa(t_data *data, int color)

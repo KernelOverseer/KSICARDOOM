@@ -13,12 +13,12 @@
 LIBGL = libgl.a
 LIBGLL = libgl.a
 SRC_PATH = src
-SRC = connect_dotss.c ft_solve_equation_3.c ft_vec_scalar.c \
-drawline.c ft_filters.c  ft_solve_equation_4.c ft_vector_add.c \
-drawsquares.c ft_utils_func.c ft_vector_operations.c \
+SRC = ft_solve_equation_3.c ft_vec_scalar.c \
+ft_filters.c  ft_solve_equation_4.c ft_vector_add.c \
+ft_utils_func.c ft_vector_operations.c \
 ft_atof.c ft_min_max.c ft_vec_create.c ft_vector_sub.c \
 ft_multi_thread.c ft_vec_cross_dot_prod.c \
-ft_color_operations.c ft_vec_destroy.c interface.c \
+ft_color_operations.c ft_vec_destroy.c\
 ft_screenshot.c ft_vec_normalize_magnitude.c ft_put_vectors.c \
 ft_rotate_vector.c strings.c
 INCLUDE = include

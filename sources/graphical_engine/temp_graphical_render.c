@@ -6,7 +6,7 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 20:23:31 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 13:11:40 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 13:33:49 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,34 @@ static t_point	ft_project_point(t_point center, double angle, t_point newpoint)
 	result.x += CONF_WINDOW_WIDTH / 2;
 	result.y += CONF_WINDOW_HEIGHT / 2;
 	return (result);
+}
+
+static int	ft_draw_sector_portals(t_sector *sector, t_graphical_scene *scene)
+{
+	int color;
+	t_point	p1;
+	t_point	p2;
+	t_point	center;
+	t_portal	*portal;
+
+	color = TEMP_RENDER_ACTIVE_PORTAL_COLOR;
+	if (sector != scene->current_sector)
+		color = TEMP_RENDER_INACTIVE_PORTAL_COLOR;
+	sector->portals.iterator = sector->portals.first;
+	center = (t_point){scene->camera.position.x, scene->camera.position.y};
+	while ((portal = ttslist_iter_content(&(sector->portals))))
+	{
+		if (portal->sector != scene->current_sector)
+		{
+			p1 = (t_point){portal->wall.p1.x, portal->wall.p1.y};
+			p2 = (t_point){portal->wall.p2.x, portal->wall.p2.y};
+			ft_sdl_image_line(scene->render_image,
+					ft_project_point(center, scene->camera.angle, p1),
+					ft_project_point(center, scene->camera.angle, p2),
+					color);
+		}
+	}
+	return (SUCCESS);
 }
 
 static int	ft_draw_sector_walls(t_sector *sector, t_graphical_scene *scene)
@@ -58,7 +86,10 @@ int	temp_render_graphics(t_graphical_scene *scene)
 			0x0);
 	scene->sectors.iterator = scene->sectors.first;
 	while ((sector = ttslist_iter_content(&(scene->sectors))))
+	{
 		ft_draw_sector_walls(sector, scene);
+		ft_draw_sector_portals(sector, scene);
+	}
 	t_point p1;
 	t_point p2;
 	t_point center;

@@ -6,7 +6,7 @@
 /*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 13:11:47 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 13:33:03 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,31 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	t_sector *new_sector;
 	t_sector *new_sector2;
 	t_wall	*new_wall;
+	t_portal	*new_portal;
 
 	new_sector = ft_new_sector();
 	new_sector2 = ft_new_sector();
 	new_wall = ft_new_wall((t_point){100, 100}, (t_point){100, 300});
 	new_sector->walls.push(&(new_sector->walls), new_wall);
-	new_wall = ft_new_wall((t_point){100, 300}, (t_point){400, 300});
+
+	new_wall = ft_new_wall((t_point){100, 100}, (t_point){300, 100});
 	new_sector->walls.push(&(new_sector->walls), new_wall);
-	new_wall = ft_new_wall((t_point){400, 300}, (t_point){400, 100});
+
+	new_wall = ft_new_wall((t_point){300, 100}, (t_point){300, 300});
 	new_sector->walls.push(&(new_sector->walls), new_wall);
-	new_wall = ft_new_wall((t_point){100, 100}, (t_point){400, 100});
-	new_sector->walls.push(&(new_sector->walls), new_wall);
-	new_wall = ft_new_wall((t_point){400, 300}, (t_point){700, 700});
+
+	new_portal = ft_new_portal((t_point){100, 300}, (t_point){300, 300}, new_sector2);
+	new_sector->portals.push(&(new_sector->portals), new_portal);
+
+	new_portal = ft_new_portal((t_point){100, 300}, (t_point){300, 300}, new_sector);
+	new_sector2->portals.push(&(new_sector2->portals), new_portal);
+
+	new_wall = ft_new_wall((t_point){100, 300}, (t_point){200, 500});
 	new_sector2->walls.push(&(new_sector2->walls), new_wall);
-	new_wall = ft_new_wall((t_point){400, 300}, (t_point){400, 800});
+
+	new_wall = ft_new_wall((t_point){300, 300}, (t_point){400, 500});
 	new_sector2->walls.push(&(new_sector2->walls), new_wall);
+
 	scene->sectors.push(&(scene->sectors), new_sector);
 	scene->sectors.push(&(scene->sectors), new_sector2);
 	scene->current_sector = new_sector;

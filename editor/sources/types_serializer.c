@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 20:39:07 by merras            #+#    #+#             */
-/*   Updated: 2020/01/05 21:08:11 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/06 20:52:39 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,16 @@ int sprite_serializer(int fd, void *sprite, void *texture_offset)
     return (err);
 }
 
+int portal_serializer(int fd, void *portal, void *texture_offset)
+{
+    int err;
+
+    err = 0;
+    err = wall_serializer(fd, &CAST(portal, t_portal)->wall, texture_offset);
+    err = write(fd, &CAST((CAST(portal, t_portal)->sector), t_sector)->id, sizeof(int));
+    return (err);
+}
+
 int sector_serializer(int fd, void *sector, void *texture_offset)
 {
     int err;
@@ -91,5 +101,8 @@ int sector_serializer(int fd, void *sector, void *texture_offset)
     err = write(fd, &texture_index, sizeof(int));
     texture_index = CAST(sector, t_sector)->ceil_texture - (t_sdl_image *)texture_offset;
     err = write(fd, &texture_index, sizeof(int));
+    dump_list(fd, &CAST(sector, t_sector)->walls, texture_offset, wall_serializer);
+    dump_list(fd, &CAST(sector, t_sector)->portals, texture_offset, portal_serializer);
+    dump_list(fd, &CAST(sector, t_sector)->sprites, texture_offset, sprite_serializer);
     return (err);
 }

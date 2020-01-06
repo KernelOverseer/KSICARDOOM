@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphical_engine.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:55:14 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 16:00:19 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 20:48:15 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_graphical_scene
 {
 	t_camera	camera;
 	t_list_head	sectors;
-	t_sdl_image	*textures;
+	t_sduu
 	t_sector	*current_sector;
 	t_sdl_image	*render_image;
 

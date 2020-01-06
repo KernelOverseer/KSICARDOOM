@@ -10,6 +10,7 @@
         "memory": "cpp",
         "string": "cpp",
         "unordered_map": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "scene_parser.h": "c"
     }
 }

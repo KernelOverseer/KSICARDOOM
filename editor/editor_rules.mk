@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 18:34:05 by abiri             #+#    #+#              #
-#    Updated: 2020/01/05 20:42:15 by merras           ###   ########.fr        #
+#    Updated: 2020/01/06 17:21:49 by oouklich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,14 +74,22 @@ EDITOR_HEADERS = $(addprefix $(EDITOR_INC_DIR)/, $(EDITOR_HEADER_FILES))
 EDITOR_DIRS = $(sort $(dir $(EDITOR_OBJECTS)))
 EDITOR_INCLUDES = -I $(EDITOR_INC_DIR) $(INCS)
 
+EDITOR_RUNTIME_LINK = editor_runtime_link
+
 .PHONY: editor
-editor: $(EDITOR_NAME)
+editor: $(EDITOR_NAME) editor_runtime_link
 
 $(EDITOR_NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(EDITOR_OBJECTS)
 	$(CC) $(FLAGS) $(EDITOR_OBJECTS) $(LINKS) -o $(EDITOR_NAME)
 
 $(EDITOR_OBJECTS): $(EDITOR_OBJ_DIR)/%.o : $(EDITOR_SRC_DIR)/%.c $(EDITOR_HEADERS) | $(EDITOR_DIRS)
 	$(CC) $(FLAGS) $(EDITOR_INCLUDES) -c $< -o $@
+
+$(EDITOR_RUNTIME_LINK):
+	install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/../$(SDL2) $(EDITOR_NAME)
+	install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/../$(SDL2_IMAGE) $(EDITOR_NAME)
+	install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/../$(SDL2_TTF) $(EDITOR_NAME)
+	install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer @loader_path/../$(SDL2_MIXER) $(EDITOR_NAME)
 
 $(EDITOR_DIRS):
 	@-mkdir $(EDITOR_DIRS)

@@ -6,7 +6,7 @@
 #    By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 15:45:08 by abiri             #+#    #+#              #
-#    Updated: 2020/01/06 12:17:40 by oouklich         ###   ########.fr        #
+#    Updated: 2020/01/06 13:42:15 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,8 @@ TTSLIST_LINK = -L $(TTSLIST_MAKE) -lttslist
 
 LIBGL_MAKE = $(LIBS_DIR)/libgl
 LIBGL_NAME = $(LIBGL_MAKE)/libgl.a
-LIBGL_INC = -I $(LIBGL_MAKE)/includes
-LIBGL_LINK = -L $(LIBGL_MAKE)
+LIBGL_INC = -I $(LIBGL_MAKE)/include
+LIBGL_LINK = -L $(LIBGL_MAKE) -lgl
 
 #SDL_INC = -I ~/.brew/Cellar/sdl2/$(SDL_VERSION)/include/SDL2\
 #		  -I ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/include/SDL2

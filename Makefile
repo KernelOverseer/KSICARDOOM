@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/01/06 12:14:52 by oouklich         ###   ########.fr        #
+#    Updated: 2020/01/06 13:45:35 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,25 +44,21 @@ LINKS = $(SIMPLESDL_LINK) $(CENTROPY_LINK) $(TTSLIST_LINK) $(LIBGL_LINK) $(SDL_L
 INCS = -I $(INC_DIR) $(SIMPLESDL_INC) $(CENTROPY_INC) $(TTSLIST_INC) $(LIBGL_INC) $(SDL_INC)
 OBJECT_DIRS = $(sort $(dir $(OBJECTS)))
 
-RUNTIME_LINK = runtime_link
-
 .PHONY: all
-all: $(NAME) runtime_link editor
+all: $(NAME) editor
 
 include $(LIBS_DIR)/library_linking.mk
 include $(EDITOR_DIR)/editor_rules.mk
 
 $(NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(OBJECTS)
 	$(CC) $(FLAGS) $(OBJECTS) $(LINKS) -o $(NAME)
+	@install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/$(SDL2) $(NAME)
+	@install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/$(SDL2_IMAGE) $(NAME)
+	@install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/$(SDL2_TTF) $(NAME)
+	@install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer @loader_path/$(SDL2_MIXER) $(NAME)
 
 $(OBJECTS): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(INCLUDES) | $(OBJECT_DIRS)
 	$(CC) $(FLAGS) $(INCS) -c $< -o $@
-
-$(RUNTIME_LINK):
-	install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/$(SDL2) $(NAME)
-	install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/$(SDL2_IMAGE) $(NAME)
-	install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/$(SDL2_TTF) $(NAME)
-	install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer @loader_path/$(SDL2_MIXER) $(NAME)
 
 $(OBJECT_DIRS):
 	@-mkdir $(OBJECT_DIRS)

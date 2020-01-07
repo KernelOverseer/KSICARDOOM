@@ -4,3 +4,6 @@
 [submodule "libs/simplist"]
 	path = libs/simplist
 	url = https://github.com/MbarkErras/simplist
+[submodule "modules/networkd"]
+	path = modules/networkd
+	url = https://github.com/MbarkErras/doom_nukem_multiplayer.git

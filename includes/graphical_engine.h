@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:55:14 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 20:54:01 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/07 15:50:04 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct	s_graphical_scene
 {
 	t_camera	camera;
 	t_list_head	sectors;
-	t_sduu
 	t_sector	*current_sector;
 	t_sdl_image	*render_image;
 

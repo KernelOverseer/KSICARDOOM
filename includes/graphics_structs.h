@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 20:01:25 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/07 21:15:45 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,30 @@
 # define PROJECTION_PLANE CONF_WINDOW_WIDTH / 10
 # define PROJECTION_DISTANCE 45.0
 # define CONFIG_RES_RATIO 1
-# define MAX_RENDER_DISTANCE 10000.0
+# define MAX_RENDER_DISTANCE INFINITY
 # define DEFAULT_WALL_HEIGHT 720.0
 
-typedef struct  s_camera            t_camera;
-typedef struct  s_graphical_scene   t_graphical_scene;
-typedef struct  s_ray               t_ray;
-typedef struct  s_intercalc         t_intercalc;
-typedef struct  s_intersect         t_intersect;
-typedef struct  s_raycast           t_raycast;
-typedef struct  s_sector            t_sector;
-typedef struct  s_wall              t_wall;
-typedef struct  s_portal            t_portal;
-typedef struct  s_sprite            t_sprite;
-typedef struct  s_segment_distance  t_segment_distance;
-typedef struct  s_animation         t_animation;
+typedef struct  s_camera                t_camera;
+typedef struct  s_graphical_settings    t_graphical_settings;
+typedef struct  s_graphical_scene       t_graphical_scene;
+typedef struct  s_ray                   t_ray;
+typedef struct  s_intercalc             t_intercalc;
+typedef struct  s_intersect             t_intersect;
+typedef struct  s_raycast               t_raycast;
+typedef struct  s_sector                t_sector;
+typedef struct  s_wall                  t_wall;
+typedef struct  s_portal                t_portal;
+typedef struct  s_sprite                t_sprite;
+typedef struct  s_segment_distance      t_segment_distance;
+typedef struct  s_animation             t_animation;
+
+struct s_graphical_settings
+{
+    double  projection_plane;
+    double  projection_distance;
+    int     resolution_ratio;
+};
+
 
 /*
 **	This is the ray that will be used to check intersections aftecr
@@ -81,6 +90,7 @@ struct			s_intersect
 	t_vec2		pos;
 	double		distance;
 	double		real_distance;
+    double      min_dist;
 	int			render_min;
 	int			render_max;
 	int			screen_x;

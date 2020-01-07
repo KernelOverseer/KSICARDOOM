@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:20:54 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 20:00:30 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/07 21:17:34 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_init_raycasting(t_raycast *raygen, double angle)
 	raygen->direction = ft_vec2_from_angle(PROJECTION_DISTANCE, angle);
     raygen->swipe.x = -raygen->plane.x / (CONF_WINDOW_WIDTH / 2);
 	raygen->swipe.y = -raygen->plane.y / (CONF_WINDOW_WIDTH / 2);
-    //raygen->swipe = ft_vec2_normalize(raygen->swipe);
 	raygen->ray.dir.x = raygen->direction.x + raygen->plane.x;
 	raygen->ray.dir.y = raygen->direction.y + raygen->plane.y;
 	raygen->ray.dist = 0;
@@ -54,14 +53,15 @@ int     ft_get_ray_wall_intersect(t_ray *ray, t_wall *wall, t_intersect *interse
         pos.y - ray->origin.y};
     distance = origin_inter.x * origin_inter.x +
         origin_inter.y * origin_inter.y;
-    if (distance < intersect->distance)
+    if (distance < intersect->distance && distance > intersect->min_dist)
     {
         intersect->wall = wall;
         intersect->pos = pos;
         intersect->distance = distance;
         intersect->real_distance = distance;
+        return (1);
     }
-    return (1);
+    return (0);
 }
 
 void    temp_draw_color_wall(t_point top, t_point bottom, t_sdl_image *render_image)
@@ -103,31 +103,56 @@ t_intersect ft_init_intersect(t_sector *sector, t_raycast *raycast, int screen_x
     result.render_min = raycast->render_min;
     result.render_max = raycast->render_max;
     result.distance = INFINITY;
+    result.min_dist = 0;
     result.screen_x = screen_x;
     return (result);
 }
 
-void	ft_intersect_ray(t_graphical_scene *scene, t_sector *sector, int screen_x)
+int     ft_get_ray_portal_intersect(t_ray *ray, t_portal *portal, t_intersect *intersect)
+{
+    if (ft_get_ray_wall_intersect(ray, &portal->wall, intersect))
+    {
+        intersect->wall = (t_wall *)portal;
+        intersect->min_dist = intersect->distance;
+        intersect->distance = INFINITY;
+        return (1);
+    }
+    return (0);
+}
+
+void	ft_intersect_ray(t_graphical_scene *scene, t_intersect *inter, t_sector *sector, int screen_x)
 {
     t_wall      *wall;
+    t_portal    *portal;
+    int         is_portal;
     t_ray       ray;
-    t_intersect inter;
 
+    is_portal = 0;
+    inter->wall = NULL;
+    inter->sector = sector;
     ray = scene->camera.raycast.ray;
-    inter = ft_init_intersect(sector, &(scene->camera.raycast), screen_x);
-    inter.ray = ray;
+    inter->ray = ray;
     sector->walls.iterator = sector->walls.first;
+    sector->portals.iterator = sector->portals.first;
     while ((wall = ttslist_iter_content(&sector->walls)))
-        ft_get_ray_wall_intersect(&ray, wall, &inter);
-    inter.real_distance = sqrt(inter.distance);
-    inter.distance = inter.real_distance / ray.dist;
-    if (inter.wall)
-        ft_temp_draw_wall(scene, &inter);
+        ft_get_ray_wall_intersect(&ray, wall, inter);
+    while ((portal = ttslist_iter_content(&sector->portals)))
+        is_portal |= ft_get_ray_portal_intersect(&ray, portal, inter);
+    if (is_portal)
+        ft_intersect_ray(scene, inter, ((t_portal *)inter->wall)->sector, screen_x);
+    else
+    {
+        inter->real_distance = sqrt(inter->distance);
+        inter->distance = inter->real_distance / ray.dist;
+        if (inter->wall)
+            ft_temp_draw_wall(scene, inter);
+    }
 }
 
 void	ft_raycast(t_graphical_scene *env)
 {
 	t_raycast	*raygen;
+    t_intersect inter;
 	int			x;
 
     raygen = &(env->camera.raycast);
@@ -138,7 +163,8 @@ void	ft_raycast(t_graphical_scene *env)
 	x = 0;
 	while (x < env->render_image->width)
 	{
-		ft_intersect_ray(env, env->current_sector, x);
+        inter = ft_init_intersect(env->current_sector, &(env->camera.raycast), x);
+		ft_intersect_ray(env, &inter, env->current_sector, x);
 		ft_iter_ray(raygen, env->render_image->height);
 		x += CONFIG_RES_RATIO;
 	}

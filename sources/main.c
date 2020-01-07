@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 19:40:20 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/07 21:12:43 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	new_portal = ft_new_portal((t_point){100, 300}, (t_point){300, 300}, new_sector2);
 	new_sector->portals.push(&(new_sector->portals), new_portal);
 
-	new_portal = ft_new_portal((t_point){100, 300}, (t_point){300, 300}, new_sector);
-	new_sector2->portals.push(&(new_sector2->portals), new_portal);
+	//new_portal = ft_new_portal((t_point){100, 300}, (t_point){300, 300}, new_sector);
+	//new_sector2->portals.push(&(new_sector2->portals), new_portal);
 
 	new_wall = ft_new_wall((t_point){100, 300}, (t_point){200, 500});
 	new_sector2->walls.push(&(new_sector2->walls), new_wall);

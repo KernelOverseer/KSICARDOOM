@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   temp_graphical_render.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 20:23:31 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 13:33:49 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/07 19:39:54 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,35 @@ static int	ft_draw_sector_walls(t_sector *sector, t_graphical_scene *scene)
 	return (SUCCESS);
 }
 
+void	temp_draw_projection_plane(t_graphical_scene *scene, t_point center)
+{
+	t_camera	*camera;
+	t_point		p1;
+	t_point		p2;
+
+	camera = &(scene->camera);
+	p1.x = center.x + camera->raycast.direction.x + camera->raycast.plane.x;
+	p1.y = center.y + camera->raycast.direction.y + camera->raycast.plane.y;
+	p2.x = center.x + camera->raycast.direction.x - camera->raycast.plane.x;
+	p2.y = center.y + camera->raycast.direction.y - camera->raycast.plane.y;
+	ft_sdl_image_line(scene->render_image,
+			ft_project_point(center, scene->camera.angle, p1),
+			ft_project_point(center, scene->camera.angle, p2),
+			0xF0FF0F);
+	ft_sdl_image_line(scene->render_image,
+			ft_project_point(center, scene->camera.angle, center),
+			ft_project_point(center, scene->camera.angle, p1),
+			0xF0FF0F);
+	ft_sdl_image_line(scene->render_image,
+			ft_project_point(center, scene->camera.angle, center),
+			ft_project_point(center, scene->camera.angle, p2),
+			0xF0FF0F);
+}
+
 int	temp_render_graphics(t_graphical_scene *scene)
 {
 	t_sector *sector;
 
-	ft_sdl_image_rect(scene->render_image, (t_rect){0, 0, CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT},
-			0x0);
 	scene->sectors.iterator = scene->sectors.first;
 	while ((sector = ttslist_iter_content(&(scene->sectors))))
 	{
@@ -94,7 +117,7 @@ int	temp_render_graphics(t_graphical_scene *scene)
 	t_point p2;
 	t_point center;
 	t_vec2 movement;
-	movement = ft_vector_from_angle(10, scene->camera.angle);
+	movement = ft_vec2_from_angle(10, scene->camera.angle);
 	p1 = (t_point){scene->camera.position.x, scene->camera.position.y};
 	p2.x = p1.x +  movement.x;
 	p2.y = p1.y +  movement.y;
@@ -104,5 +127,6 @@ int	temp_render_graphics(t_graphical_scene *scene)
 			ft_project_point(center, scene->camera.angle, p1),
 			ft_project_point(center, scene->camera.angle, p2),
 			0xFF00FF);
+	temp_draw_projection_plane(scene, center);
 	return (SUCCESS);
 }

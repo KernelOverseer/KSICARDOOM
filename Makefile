@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/01/06 13:45:35 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/07 19:55:13 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,16 +22,30 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   graphical_engine/graphical_init.c\
 			   graphical_engine/graphical_main.c\
 			   graphical_engine/object_constructors.c\
+			   graphical_engine/raycast.c\
 			   graphical_engine/temp_graphical_render.c\
 			   main.c\
+			   physics/collision_controller.c\
+			   physics/force_controller.c\
+			   physics/gravity_controller.c\
+			   physics/velocity_controller.c\
 			   shared_tools/display_events.c\
 			   shared_tools/error_management.c\
 			   shared_tools/image_manipulations.c\
-			   physics/velocity_controller.c\
-			   physics/force_controller.c\
-			   physics/gravity_controller.c\
-			   physics/collision_controller.c
-HEADER_FILES = doom_nukem.h
+			   shared_tools/intersections.c\
+			   shared_tools/keys.c
+HEADER_FILES = animation_textures.h\
+			   config.h\
+			   doom_nukem.h\
+			   error_management.h\
+			   graphical_engine.h\
+			   graphical_objects.h\
+			   graphical_renderer.h\
+			   graphics_structs.h\
+			   physics_engine.h\
+			   ray_calculations.h\
+			   raycasting.h\
+			   scene_parser.h
 SDL_VERSION = 2.0.10
 SDL_TTF_VERSION = 2.0.15
 

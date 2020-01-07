@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 13:33:03 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/07 19:40:20 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ int	temp_apply_movement(t_doom_env *env)
 	if (env->keys[SDL_SCANCODE_RIGHT])
 		env->main_scene.camera.angle -= 0.05;
 	if (env->keys[SDL_SCANCODE_UP])
-		movement_vector = ft_vector_from_angle(10, env->main_scene.camera.angle);
+		movement_vector = ft_vec2_from_angle(10, env->main_scene.camera.angle);
+	if (env->keys[SDL_SCANCODE_DOWN])
+		movement_vector = ft_vec2_from_angle(-10, env->main_scene.camera.angle);
 	env->main_scene.camera.position.x += movement_vector.x;
 	env->main_scene.camera.position.y += movement_vector.y;
 	return (SUCCESS);
@@ -80,7 +82,9 @@ int	ft_main_loop(void *arg)
 	env = arg;
 
 	//ft_apply_controllers(env);
-	//ft_render_graphics(env);
+	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0, CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT},
+			0x0);
+	ft_render_scene(&env->main_scene);
 	temp_render_graphics(&(env->main_scene));
 	temp_apply_movement(env);
 	ft_sdl_put_image(env->main_scene.render_image, &env->display);

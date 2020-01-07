@@ -3,79 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 20:50:42 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 13:07:42 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/07 18:05:40 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
-# include "vectors.h"
-# include "graphical_objects.h"
+# include "graphics_structs.h"
+# include "graphical_engine.h"
+# define SUCCESS 1
+# define ERROR 0
 
-/*
-**	This is the ray that will be used to check intersections aftecr
-**		- origin : the center from where the ray is casted (Ex. camera position)
-**		- direction : a vector representing the direction of the ray
-**		- distance : distance from the last intersected object
-*/
-
-typedef struct	s_ray
-{
-	t_vec2		origin;
-	t_vec2		direction;
-	double		distance;
-}				t_ray;
-
-typedef struct          s_intercalc
-{
-    t_vec2				p1;
-    t_vec2				p2;
-    t_vec2				p3;
-    t_vec2				p4;
-    double              den;
-    double              u;
-    double              t;
-}                       t_intercalc;
-
-typedef struct	s_intersect
-{
-	t_sector	*sector;
-	t_ray		ray;
-	t_vec2		pos;
-	double		distance;
-	double		real_distance;
-	int			render_min;
-	int			render_max;
-	int			screen_x;
-	t_wall		*wall;
-}				t_intersect;
-
-/*
-**	This is the struct that will contain the necessary ray generation data
-**		- ray :  is the ray genereated everytime
-**		- plane : is rightmost point of the projection plane
-**		- swipe : is the leftmost point of the projection plane, will be
-**			incremented towards the plane.
-**		- iter : a normalised vector that will be added to swipe everytime
-**			till swipe reached plane, so we can iterate and generate ray for
-**			every column of the screen.
-**		- render_min : is the minimum distance to cast the ray to, similar
-**			to clipping distance in polygonn renderers
-**		- render_max : is the maximum distance to check intersections to
-*/
-
-typedef struct	s_raycast
-{
-	t_ray		ray;
-	t_vec2		plane;
-	t_vec2		direction;
-	t_vec2		swipe;
-	t_vec2		iter;
-	double		render_min;
-	double		render_max;
-}				t_raycast;
+void	ft_init_raycasting(t_raycast *raygen, double angle);
+void	ft_iter_ray(t_raycast *raygen, int render_max);
+void	ft_raycast(t_graphical_scene *scene);
+void	ft_intersect_ray(t_graphical_scene *scene,
+	t_sector *sector, int screen_x);
 
 #endif

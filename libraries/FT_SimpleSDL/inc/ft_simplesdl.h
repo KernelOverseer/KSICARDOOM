@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_simplesdl.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 00:15:45 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 19:54:33 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/07 17:35:52 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,20 @@ typedef	struct		s_linked_list_head
 	t_linked_list	*last;
 }					t_linked_list_head;
 
+typedef struct	s_point
+{
+	int x;
+	int y;
+}				t_point;
+
+typedef struct	s_rect
+{
+	int x;
+	int y;
+	int	w;
+	int	h;
+}				t_rect;
+
 int					ft_sdl_init(t_sdl_env *env, t_sdl_init_config conf);
 t_sdl_init_config	ft_sdl_new_config(void);
 void				ft_sdl_free_config(t_sdl_init_config *conf);
@@ -102,4 +116,13 @@ void				*ft_simplesdl_memalloc(size_t size);
 char				*ft_simplesdl_strdup(const char *src);
 int					ft_sdl_load_image(char *filename, t_sdl_image *result);
 
+void			ft_sdl_image_line(t_sdl_image *image,
+		t_point p0, t_point p1, int color);
+void		ft_sdl_image_disc(t_sdl_image *img, t_point co, int radius, Uint32 col);
+void		ft_sdl_image_rect(t_sdl_image *img, t_rect rect, Uint32 c);
+void			ft_sdl_line(t_sdl_env *env, t_point p0, t_point p1, int color);
+void			ft_sdl_pixel_put(t_sdl_env *env, int x, int y);
+void			ft_sdl_draw_color(t_sdl_env *env, Uint32 color);
+void			ft_sdl_clear_window(t_sdl_env *env, Uint32 color);
+void			ft_sdl_render(t_sdl_env *env);
 #endif

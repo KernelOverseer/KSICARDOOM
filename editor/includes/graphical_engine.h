@@ -51,6 +51,7 @@ typedef struct	s_graphical_scene
 	t_camera	camera;
 	t_list_head	sectors;
 	t_sdl_image	*textures;
+	int			textures_count;
 	t_sector	*current_sector;
 	t_sdl_image	*render_image;
 

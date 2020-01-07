@@ -30,4 +30,6 @@ int sector_serializer(int fd, void *sector, void *texture_offset);
 
 # define OPEN_ERROR 1
 
+# define ERROR_WRAPPER(x) err == 0 ? x : err 
+
 #endif

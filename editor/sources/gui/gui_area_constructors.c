@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_area_constructors.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 11:23:01 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/24 17:50:11 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/09 00:11:23 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ttsgui.h"
 #include "ttsgui_assets.h"
 
-int	ft_max(int a, int b)
+static int	ft_int_max(int a, int b)
 {
 	if (a > b)
 		return (a);
@@ -73,7 +73,7 @@ int				ft_gui_fit_component(t_gui_area *parent, t_gui_component *child, char *id
 		child->x_pos = parent->last_elemx;
 		child->y_pos = parent->last_elemy;
 		parent->last_elemx += AREA_FIT_X_MARGIN + child->width;
-		parent->last_element_height = ft_max(parent->last_element_height,
+		parent->last_element_height = ft_int_max(parent->last_element_height,
 				child->height);
 	}
 	else

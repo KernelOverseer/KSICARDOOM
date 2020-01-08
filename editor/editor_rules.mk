@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 18:34:05 by abiri             #+#    #+#              #
-#    Updated: 2020/01/07 20:03:51 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/09 00:37:50 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ EDITOR_RUNTIME_LINK = editor_runtime_link
 .PHONY: editor
 editor: $(EDITOR_NAME) editor_runtime_link
 
-$(EDITOR_NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(EDITOR_OBJECTS)
+$(EDITOR_NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(EDITOR_OBJECTS)
 	$(CC) $(FLAGS) $(EDITOR_OBJECTS) $(LINKS) -o $(EDITOR_NAME)
 
 $(EDITOR_OBJECTS): $(EDITOR_OBJ_DIR)/%.o : $(EDITOR_SRC_DIR)/%.c $(EDITOR_HEADERS) | $(EDITOR_DIRS)

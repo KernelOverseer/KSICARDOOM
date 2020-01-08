@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ttsgui.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 09:53:25 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/03 19:50:59 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/09 00:11:04 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,5 @@ void		ft_blit_image(t_rect rect, t_sdl_image *texture,
 		t_sdl_image *main_image);
 t_sdl_image	*ft_get_text_image(char *text, t_rect rect, uint32_t color,
 		TTF_Font *font);
-int			ft_max(int a, int b);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 20:39:07 by merras            #+#    #+#             */
-/*   Updated: 2020/01/06 20:52:38 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/08 18:31:53 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int     scene_dumper(t_graphical_scene scene)
     t_sdl_image *textures;
 
     err = 0;
-    if ((fd = open("doom_nukem.world", O_CREAT | O_EXCL | O_WRONLY)) == -1)
+    if ((fd = open("doom_nukem.world", O_CREAT | O_WRONLY)) == -1)
         return (OPEN_ERROR);
+    ft_putendl("dunmping textures..");
     err = ERROR_WRAPPER(write(fd, &scene.textures_count, sizeof(int)));
     textures = scene.textures;
     while (textures)
@@ -52,7 +53,9 @@ int     scene_dumper(t_graphical_scene scene)
         err = ERROR_WRAPPER(texture_serializer(fd, textures));
         textures++;
     }
+    ft_putendl("dunmping camera..");
     err = ERROR_WRAPPER(write(fd, &scene.camera, sizeof(t_camera)));
+    ft_putendl("dunmping sectors..");
     err = ERROR_WRAPPER(dump_list(fd, &scene.sectors, scene.textures, sector_serializer));
     return (err);
 }

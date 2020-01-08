@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:17:34 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 18:55:58 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/08 20:47:16 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ struct	s_segment_distance
 double	ft_segment_distance_sq(t_point player_pos, t_point p1, t_point p2);
 t_vec2  ft_intersect(t_ray ray, t_wall wall, int *status);
 t_vec2	ft_segment_intersect(t_point player, t_vec2 dir, t_wall wall, int *status);
+void	ft_intersect_ray(t_graphical_scene *scene, t_intersect *inter,
+	t_sector *sector, int screen_x);
 
 #endif

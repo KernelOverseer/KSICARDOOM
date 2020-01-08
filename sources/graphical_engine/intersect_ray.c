@@ -6,11 +6,12 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 20:42:09 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/08 20:42:53 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/08 23:35:29 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray_calculations.h"
+#include "graphics_drawing.h"
 
 int     ft_get_ray_wall_intersect(t_ray *ray, t_wall *wall, t_intersect *intersect)
 {
@@ -28,10 +29,24 @@ int     ft_get_ray_wall_intersect(t_ray *ray, t_wall *wall, t_intersect *interse
         origin_inter.y * origin_inter.y;
     if (distance < intersect->distance && distance > intersect->min_dist)
     {
-        intersect->wall = wall;
+        intersect->object.object.wall = wall;
+        intersect->object.type = OBJECT_wall;
         intersect->pos = pos;
         intersect->distance = distance;
         intersect->real_distance = distance;
+        return (1);
+    }
+    return (0);
+}
+
+int     ft_get_ray_portal_intersect(t_ray *ray, t_portal *portal, t_intersect *intersect)
+{
+    if (ft_get_ray_wall_intersect(ray, &portal->wall, intersect))
+    {
+        intersect->object.object.portal = portal;
+        intersect->object.type = OBJECT_portal;
+        intersect->min_dist = intersect->distance;
+        intersect->distance = INFINITY;
         return (1);
     }
     return (0);
@@ -49,75 +64,108 @@ void    temp_draw_color_wall(t_point top, t_point bottom, t_sdl_image *render_im
     }
 }
 
-void        ft_temp_draw_wall(t_graphical_scene *scene, t_intersect *intersect)
+void        ft_temp_draw_wall(t_graphical_scene *scene, t_render_wall *render)
 {
-    t_point top;
-    t_point bottom;
-    int wallheight;
-    int center;
-
-    center = scene->render_image->height / 2;
-    wallheight = DEFAULT_WALL_HEIGHT / intersect->distance;
-    top.y = center - wallheight / 2;
-    bottom.y = top.y + wallheight;
-    top.y = ft_min(top.y, 0);
-    bottom.y = ft_max(bottom.y, scene->render_image->height);
-    top.x = intersect->screen_x;
-    bottom.x = intersect->screen_x;
-    temp_draw_color_wall(top, bottom, scene->render_image);
+    render->top.y = render->render_top;
+    render->bottom.y = render->render_bottom;
+    temp_draw_color_wall(render->top, render->bottom, scene->render_image);
 }
 
-t_intersect ft_init_intersect(t_sector *sector, t_raycast *raycast, int screen_x)
-{
-    t_intersect result;
+/*
+**  OLD DIRTY VERSION UP
+**  CLEAN VERSION DOWN
+*/
 
-    result.wall = NULL;
-    result.sector = sector;
-    result.render_min = raycast->render_min;
-    result.render_max = raycast->render_max;
-    result.distance = INFINITY;
-    result.min_dist = 0;
-    result.screen_x = screen_x;
-    return (result);
+int     ft_map_texture_y(t_vec2 real, t_vec2 screen,
+    double ratio)
+{
+    return ((screen.x - real.x) * ratio);
 }
 
-int     ft_get_ray_portal_intersect(t_ray *ray, t_portal *portal, t_intersect *intersect)
+void    ft_render_wall(t_graphical_scene *scene, t_render_wall *render)
 {
-    if (ft_get_ray_wall_intersect(ray, &portal->wall, intersect))
+    double  y_ratio;
+    double  texture_y;
+    int     color;
+
+    if (!render->wall->texture)
     {
-        intersect->wall = (t_wall *)portal;
-        intersect->min_dist = intersect->distance;
-        intersect->distance = INFINITY;
-        return (1);
+        ft_temp_draw_wall(scene, render);
+        return ;
     }
-    return (0);
+    y_ratio = ((double)render->wall->texture->height / (double)(render->half_height * 2));
+    texture_y = (render->render_top - render->top.y) * y_ratio;
+    while (render->render_top < render->render_bottom)
+    {
+        color = render->wall->texture->pixels[ (((int)texture_y % render->wall->texture->height) * render->wall->texture->width) + render->texture_x];
+        ft_sdl_image_pixel(scene->render_image, render->top.x, render->render_top, color);
+        texture_y += y_ratio;
+        render->render_top++;
+    }
 }
 
-void	ft_intersect_ray(t_graphical_scene *scene, t_intersect *inter, t_sector *sector, int screen_x)
+static int ft_map_texture_x(t_vec2 start, t_vec2 pos, int texture_width)
 {
-    t_wall      *wall;
-    t_portal    *portal;
-    int         is_portal;
-    t_ray       ray;
+    t_vec2  diff;
 
-    is_portal = 0;
-    inter->wall = NULL;
+    diff = ft_vec2_sub(pos, start);
+    return ((int)ft_vec2_mag(diff) % texture_width);
+}
+
+void    ft_prepare_wall_rendering(t_graphical_scene *scene, t_intersect *inter,
+    t_render_wall *render)
+{
+    render->inter = inter;
+    render->reverse_distance = 1 / inter->distance;
+    render->top.x = inter->ray.screen_x;
+    render->bottom.x = inter->ray.screen_x;
+    render->center = scene->render_image->height + scene->camera.tilt +
+        (DEFAULT_WALL_HEIGHT / 2 - scene->camera.height) * render->reverse_distance;
+    render->half_height = ((double)DEFAULT_WALL_HEIGHT / 2) *
+        render->reverse_distance;
+    render->top.y = render->center - render->half_height -
+        inter->sector->ceil_height * render->reverse_distance;
+    render->bottom.y = render->center + render->half_height -
+        inter->sector->floor_height * render->reverse_distance;
+    render->wall = inter->object.object.wall;
+    render->render_top = ft_min(render->top.y, inter->render_min);
+    render->render_bottom = ft_max(render->bottom.y, inter->render_max);
+    if (render->wall->texture)
+        render->texture_x = ft_map_texture_x(inter->pos, render->wall->p1,
+            render->wall->texture->width);
+}
+
+void    ft_handle_wall_intersection(t_graphical_scene *scene, t_intersect *inter)
+{
+    t_render_wall   wall_render;
+
+    inter->real_distance = sqrt(inter->distance);
+    inter->distance = inter->real_distance / inter->ray.dist;
+    ft_prepare_wall_rendering(scene, inter, &wall_render);
+    ft_render_wall(scene, &wall_render);
+}
+
+void    ft_handle_portal_intersection(t_graphical_scene *scene, t_intersect *inter)
+{
+    ft_intersect_ray(scene, inter, inter->object.object.portal->sector);
+}
+
+void    ft_intersect_ray(t_graphical_scene *scene, t_intersect *inter, t_sector *sector)
+{
+    union u_render_object   object;
+
+    inter->object.type = 0;
     inter->sector = sector;
-    ray = scene->camera.raycast.ray;
-    inter->ray = ray;
     sector->walls.iterator = sector->walls.first;
     sector->portals.iterator = sector->portals.first;
-    while ((wall = ttslist_iter_content(&sector->walls)))
-        ft_get_ray_wall_intersect(&ray, wall, inter);
-    while ((portal = ttslist_iter_content(&sector->portals)))
-        is_portal |= ft_get_ray_portal_intersect(&ray, portal, inter);
-    if (is_portal)
-        ft_intersect_ray(scene, inter, ((t_portal *)inter->wall)->sector, screen_x);
-    else
-    {
-        inter->real_distance = sqrt(inter->distance);
-        inter->distance = inter->real_distance / ray.dist;
-        if (inter->wall)
-            ft_temp_draw_wall(scene, inter);
-    }
+    while ((object.wall = ttslist_iter_content(&sector->walls)))
+        ft_get_ray_wall_intersect(&inter->ray, object.wall, inter);
+    while ((object.portal = ttslist_iter_content(&sector->portals)))
+        ft_get_ray_portal_intersect(&inter->ray, object.portal, inter);
+    if (inter->object.type == OBJECT_wall)
+        ft_handle_wall_intersection(scene, inter);
+        //ft_temp_draw_wall(scene, inter);
+    else if (inter->object.type == OBJECT_portal)
+        ft_handle_portal_intersection(scene, inter);
+        //ft_intersect_ray(scene, inter, inter->object.object.portal->sector);
 }

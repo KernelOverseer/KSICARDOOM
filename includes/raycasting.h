@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 20:50:42 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/08 20:47:11 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/08 21:11:38 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,17 @@
 # define SUCCESS 1
 # define ERROR 0
 
-void	ft_init_raycasting(t_raycast *raygen, double angle);
-void	ft_iter_ray(t_raycast *raygen, int render_max);
-void	ft_raycast(t_graphical_scene *scene);
+/*
+**  RAYCASTING FUNCTIONS
+*/
+
+void	    ft_init_raycasting(t_raycast *raygen, t_graphical_scene *env);
+void	    ft_iter_ray(t_raycast *raygen, t_graphical_scene *env);
+void        ft_raycast(t_graphical_scene *scene);
+t_intersect ft_init_intersect(t_sector *sector, t_raycast *raycast, int screen_x);
+
+/*
+**  INTERSECTION FUNCTIONS
+*/
 
 #endif

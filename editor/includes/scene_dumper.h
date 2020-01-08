@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 20:39:07 by merras            #+#    #+#             */
-/*   Updated: 2020/01/06 20:52:39 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/08 19:22:41 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int sector_serializer(int fd, void *sector, void *texture_offset);
 
 # define OPEN_ERROR 1
 
-# define ERROR_WRAPPER(x) err == 0 ? x : err 
+# define ERROR_WRAPPER(x) err != -1 ? x : err 
 
 #endif

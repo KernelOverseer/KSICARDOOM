@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 20:39:07 by merras            #+#    #+#             */
-/*   Updated: 2020/01/06 20:52:39 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/08 18:31:51 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int texture_serializer(int fd, void *texture)
 {
     int err;
 
+    err = 0;
     err = ERROR_WRAPPER(write(fd, &CAST(texture, t_sdl_image)->height, sizeof(TEXTURE_TYPE)));
     err = ERROR_WRAPPER(write(fd, &CAST(texture, t_sdl_image)->width, sizeof(TEXTURE_TYPE)));
     err = ERROR_WRAPPER(write(fd, CAST(texture, t_sdl_image)->pixels, sizeof(TEXTURE_TYPE) *
@@ -72,7 +73,7 @@ int sprite_serializer(int fd, void *sprite, void *texture_offset)
     err = ERROR_WRAPPER(write(fd, &CAST(sprite, t_sprite)->altitude, sizeof(double)));
     err = ERROR_WRAPPER(write(fd, &CAST(sprite, t_sprite)->angle, sizeof(double)));
     err = ERROR_WRAPPER(write(fd, &CAST(sprite, t_sprite)->props, sizeof(uint32_t)));
-    err = ERROR_WRAPPER(animation_serializer(fd, &CAST(sprite, t_sprite)->animation, texture_offset);
+    err = ERROR_WRAPPER(animation_serializer(fd, &CAST(sprite, t_sprite)->animation, texture_offset));
     return (err);
 }
 

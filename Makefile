@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/01/07 19:55:13 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/08 23:19:07 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ EDITOR_DIR = ./editor
 SOURCE_FILES = game_loop/init_ui.c\
 			   graphical_engine/graphical_init.c\
 			   graphical_engine/graphical_main.c\
+			   graphical_engine/intersect_ray.c\
 			   graphical_engine/object_constructors.c\
 			   graphical_engine/raycast.c\
 			   graphical_engine/temp_graphical_render.c\
@@ -41,6 +42,7 @@ HEADER_FILES = animation_textures.h\
 			   graphical_engine.h\
 			   graphical_objects.h\
 			   graphical_renderer.h\
+			   graphics_drawing.h\
 			   graphics_structs.h\
 			   physics_engine.h\
 			   ray_calculations.h\

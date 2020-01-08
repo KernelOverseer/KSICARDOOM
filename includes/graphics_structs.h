@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 21:15:45 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/08 23:33:10 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # define PROJECTION_DISTANCE 45.0
 # define CONFIG_RES_RATIO 1
 # define MAX_RENDER_DISTANCE INFINITY
-# define DEFAULT_WALL_HEIGHT 720.0
+# define DEFAULT_WALL_HEIGHT 5000.0
+# define CONF_CAMERA_HEIGHT DEFAULT_WALL_HEIGHT / 2
 
 typedef struct  s_camera                t_camera;
 typedef struct  s_graphical_settings    t_graphical_settings;
@@ -35,6 +36,13 @@ typedef struct  s_portal                t_portal;
 typedef struct  s_sprite                t_sprite;
 typedef struct  s_segment_distance      t_segment_distance;
 typedef struct  s_animation             t_animation;
+typedef struct	s_intersect_object		t_intersect_object;
+
+
+enum	e_object_type
+{
+	OBJECT_wall = 1, OBJECT_portal, OBJECT_sprite
+};
 
 struct s_graphical_settings
 {
@@ -43,6 +51,27 @@ struct s_graphical_settings
     int     resolution_ratio;
 };
 
+/*
+**	This union will contain a pointer to the objects that a ray can intersect with
+*/
+
+union	u_render_object
+{
+	t_wall		*wall;
+	t_portal	*portal;
+	t_sprite	*sprite;
+};
+
+/*
+**	This struct will contain the object that the ray intersected with and an int
+**		indicating its type
+*/
+
+struct	s_intersect_object
+{
+	union u_render_object	object;
+	enum e_object_type		type;
+};
 
 /*
 **	This is the ray that will be used to check intersections aftecr
@@ -56,6 +85,7 @@ struct	s_ray
 	t_vec2		origin;
 	t_vec2		dir;
 	double		dist;
+	int			screen_x;
 };
 
 /*
@@ -85,16 +115,16 @@ struct	s_raycast
 
 struct			s_intersect
 {
-	t_sector	*sector;
-    t_ray       ray;
-	t_vec2		pos;
-	double		distance;
-	double		real_distance;
-    double      min_dist;
-	int			render_min;
-	int			render_max;
-	int			screen_x;
-	t_wall		*wall;
+	t_sector			*sector;
+    t_ray				ray;
+	t_vec2				pos;
+	double				distance;
+	double				real_distance;
+    double				min_dist;
+	int					render_min;
+	int					render_max;
+	int					screen_x;	
+	t_intersect_object	object;
 };
 
 

@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 09:07:20 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 22:40:45 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/08 18:18:23 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,10 @@ void					ft_save_button(void *data, t_gui_component *button)
 {
 	(void)button;
 	if (scene_dumper(CAST(data, t_doom_editor)->data))
-		exit (0); //report error occured!
+	{
+		write(2, "error occured while dumping scene file\n",
+			ft_strlen("error occured while dumping scene file\n"));
+	}
 }
 
 static t_gui_area	*ft_load_sector_add_bar(t_tts_gui *gui_env, t_doom_editor *env)

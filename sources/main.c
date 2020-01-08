@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 21:12:43 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/08 23:42:21 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 
 	new_sector = ft_new_sector();
 	new_sector2 = ft_new_sector();
+	new_wall = ft_new_wall((t_point){500, 500}, (t_point){1000, 1000});
+	new_sector->walls.push(&(new_sector->walls), new_wall);
+	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("render_placeholder.tex", new_wall->texture);
+
 	new_wall = ft_new_wall((t_point){100, 100}, (t_point){100, 300});
 	new_sector->walls.push(&(new_sector->walls), new_wall);
 
@@ -62,6 +67,7 @@ int	temp_apply_movement(t_doom_env *env)
 {
 	t_vec2	movement_vector;
 
+	movement_vector = (t_vec2){0, 0};
 	if (env->keys[SDL_SCANCODE_LEFT])
 		env->main_scene.camera.angle += 0.05;
 	if (env->keys[SDL_SCANCODE_RIGHT])
@@ -70,6 +76,22 @@ int	temp_apply_movement(t_doom_env *env)
 		movement_vector = ft_vec2_from_angle(10, env->main_scene.camera.angle);
 	if (env->keys[SDL_SCANCODE_DOWN])
 		movement_vector = ft_vec2_from_angle(-10, env->main_scene.camera.angle);
+	if (env->keys[SDL_SCANCODE_PAGEUP])
+		env->main_scene.camera.height += 50;
+	if (env->keys[SDL_SCANCODE_PAGEDOWN])
+		env->main_scene.camera.height -= 50;
+	if (env->keys[SDL_SCANCODE_S])
+		env->main_scene.camera.tilt -= 10;
+	if (env->keys[SDL_SCANCODE_W])
+		env->main_scene.camera.tilt += 10;
+	if (env->keys[SDL_SCANCODE_DELETE])
+		env->main_scene.current_sector->ceil_height += 50;
+	if (env->keys[SDL_SCANCODE_HOME])
+		env->main_scene.current_sector->ceil_height -= 50;
+	if (env->keys[SDL_SCANCODE_KP_7])
+		env->main_scene.current_sector->floor_height += 50;
+	if (env->keys[SDL_SCANCODE_KP_4])
+		env->main_scene.current_sector->floor_height -= 50;
 	env->main_scene.camera.position.x += movement_vector.x;
 	env->main_scene.camera.position.y += movement_vector.y;
 	return (SUCCESS);

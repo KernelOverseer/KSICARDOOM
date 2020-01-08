@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:20:54 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/08 20:42:50 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/08 21:50:15 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,29 @@
 #include "config.h"
 #include "centropy.h"
 
+t_intersect ft_init_intersect(t_sector *sector, t_raycast *raycast, int screen_x)
+{
+    t_intersect result;
+
+    result.object.object.wall = NULL;
+    result.object.type = 0;
+    result.ray = raycast->ray;
+    result.sector = sector;
+    result.render_min = raycast->render_min;
+    result.render_max = raycast->render_max;
+    result.distance = INFINITY;
+    result.min_dist = 0;
+    result.screen_x = screen_x;
+    return (result);
+}
+
 void	ft_init_raycasting(t_raycast *raygen, t_graphical_scene *env)
 {
     raygen->ray.origin = env->camera.position;
 	raygen->plane = ft_vec2_from_angle((double)PROJECTION_PLANE / 2.0,
 			env->camera.angle + M_PI / 2.0);
-	raygen->direction = ft_vec2_from_angle(PROJECTION_DISTANCE, angle);
+	raygen->direction = ft_vec2_from_angle(PROJECTION_DISTANCE,
+            env->camera.angle);
     raygen->swipe.x = -raygen->plane.x / (CONF_WINDOW_WIDTH / 2);
 	raygen->swipe.y = -raygen->plane.y / (CONF_WINDOW_WIDTH / 2);
 	raygen->ray.dir.x = raygen->direction.x + raygen->plane.x;
@@ -52,7 +69,8 @@ void	ft_raycast(t_graphical_scene *env)
 	while (x < env->render_image->width)
 	{
         inter = ft_init_intersect(env->current_sector, &(env->camera.raycast), x);
-		ft_intersect_ray(env, &inter, env->current_sector, x);
+        raygen->ray.screen_x = x;
+		ft_intersect_ray(env, &inter, env->current_sector);
 		ft_iter_ray(raygen, env);
 		x += CONFIG_RES_RATIO;
 	}

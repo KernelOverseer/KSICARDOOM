@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 21:10:54 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 19:50:40 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/10 15:29:26 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct	s_portal
 {
 	t_wall			wall;
 	t_sector		*sector;
+	int				sector_id;
 }				t_portal;
 
 /*

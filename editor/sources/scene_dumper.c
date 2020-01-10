@@ -32,7 +32,7 @@ int     dump_list(int fd, t_list_head *list, void *textures,
 
     err = 0;
     while ((node = (t_sector *)ttslist_iter_content(list)))
-        err = ERROR_WRAPPER(type_serializer(fd, node, textures));
+        err = IO_ERROR_WRAPPER(type_serializer(fd, node, textures));
     return (err);
 }
 
@@ -44,18 +44,18 @@ int     scene_dumper(t_graphical_scene scene)
 
     err = 0;
     if ((fd = open("doom_nukem.world", O_CREAT | O_WRONLY)) == -1)
-        return (OPEN_ERROR);
+        return (IO_ERROR);
     ft_putendl("dunmping textures..");
-    err = ERROR_WRAPPER(write(fd, &scene.textures_count, sizeof(int)));
+    err = IO_ERROR_WRAPPER(write(fd, &scene.textures_count, sizeof(int)));
     textures = scene.textures;
     while (textures)
     {
-        err = ERROR_WRAPPER(texture_serializer(fd, textures));
+        err = IO_ERROR_WRAPPER(texture_serializer(fd, textures));
         textures++;
     }
     ft_putendl("dunmping camera..");
-    err = ERROR_WRAPPER(write(fd, &scene.camera, sizeof(t_camera)));
+    err = IO_ERROR_WRAPPER(write(fd, &scene.camera, sizeof(t_camera)));
     ft_putendl("dunmping sectors..");
-    err = ERROR_WRAPPER(dump_list(fd, &scene.sectors, scene.textures, sector_serializer));
+    err = IO_ERROR_WRAPPER(dump_list(fd, &scene.sectors, scene.textures, sector_serializer));
     return (err);
 }

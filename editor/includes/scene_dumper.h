@@ -28,8 +28,10 @@ int animation_serializer(int fd, void *animation, void *texture_offset);
 int sprite_serializer(int fd, void *sprite, void *texture_offset);
 int sector_serializer(int fd, void *sector, void *texture_offset);
 
-# define OPEN_ERROR 1
+# define IO_ERROR -1
+# define MALLOC_ERROR -2
 
-# define ERROR_WRAPPER(x) err != -1 ? x : err 
+# define IO_ERROR_WRAPPER(x) err > -1 ? x : IO_ERROR
+# define NO_ERROR(e) e > -1
 
 #endif

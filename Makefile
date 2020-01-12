@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/01/08 23:19:07 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/09 20:22:12 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   graphical_engine/object_constructors.c\
 			   graphical_engine/raycast.c\
 			   graphical_engine/temp_graphical_render.c\
+			   graphical_engine/wall_drawing.c\
+			   graphical_engine/portal_drawing.c\
 			   main.c\
 			   physics/collision_controller.c\
 			   physics/force_controller.c\

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:55:14 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 18:07:31 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/09 20:16:31 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define GRAPHICAL_ENGINE_H
 # include "raycasting.h"
 # include "graphics_structs.h"
+# include "graphics_drawing.h"
 # include "animation_textures.h"
 # include "libgl.h"
 # include "ray_calculations.h"
@@ -36,5 +37,10 @@ int	temp_render_graphics(t_graphical_scene *scene);
 **	RENDERING FUNCTIONS
 */
 
-void    ft_render_scene(t_graphical_scene *scene);
+void	ft_render_scene(t_graphical_scene *scene);
+void	ft_prepare_wall_rendering(t_graphical_scene *scene,
+	t_intersect *inter, t_render_wall *render);
+void	ft_render_wall(t_graphical_scene *scene, t_render_wall *render);
+void	ft_prepare_portal_rendering(t_graphical_scene *scene,
+	t_intersect *inter, t_render_portal *render);
 #endif

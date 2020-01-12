@@ -1,21 +1,21 @@
 {
-    "files.associations": {
-        "complex": "c",
-        "__bit_reference": "cpp",
-        "__hash_table": "cpp",
-        "__split_buffer": "cpp",
-        "array": "cpp",
-        "iterator": "cpp",
-        "string_view": "cpp",
-        "memory": "cpp",
-        "string": "cpp",
-        "unordered_map": "cpp",
-        "vector": "cpp",
-<<<<<<< HEAD
-        "scene_parser.h": "c"
-=======
-        "doom_nukem.h": "c",
-        "ft_simplesdl.h": "c"
->>>>>>> 910a046aef50579602e52ebbbba7c238448f27be
-    }
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"files.associations": {
+		"complex": "c",
+		"__bit_reference": "cpp",
+		"__hash_table": "cpp",
+		"__split_buffer": "cpp",
+		"array": "cpp",
+		"iterator": "cpp",
+		"string_view": "cpp",
+		"memory": "cpp",
+		"string": "cpp",
+		"unordered_map": "cpp",
+		"vector": "cpp",
+		"scene_parser.h": "c",
+		"doom_nukem.h": "c",
+		"ft_simplesdl.h": "c",
+		"graphical_engine.h": "c"
+	}
 }

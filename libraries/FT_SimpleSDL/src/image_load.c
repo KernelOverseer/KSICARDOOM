@@ -6,12 +6,25 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 08:33:18 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/08 22:43:13 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/09 19:36:27 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_simplesdl.h"
 #include <fcntl.h>
+
+Uint32	ft_sdl_get_image_pixel(t_sdl_image *image, int x, int y)
+{
+	if (!image || !image->pixels)
+		return (DEFAULT_EMPTY_PIXEL);
+	x %= image->width;
+	y %= image->height;
+	if (x < 0)
+		x += image->width;
+	if (y < 0)
+		y += image->height;
+	return (image->pixels[y * image->width + x]);
+}
 
 int		ft_sdl_load_image(char *filename, t_sdl_image *result)
 {

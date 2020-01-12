@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/08 23:33:10 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 17:22:36 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 # define PROJECTION_DISTANCE 45.0
 # define CONFIG_RES_RATIO 1
 # define MAX_RENDER_DISTANCE INFINITY
-# define DEFAULT_WALL_HEIGHT 5000.0
+# define DEFAULT_WALL_HEIGHT 2000.0
 # define CONF_CAMERA_HEIGHT DEFAULT_WALL_HEIGHT / 2
+# define DEFAULT_WALL_COLOR 0xCC00CC
 
 typedef struct  s_camera                t_camera;
 typedef struct  s_graphical_settings    t_graphical_settings;
@@ -158,7 +159,7 @@ struct			s_graphical_scene
 	t_list_head	sectors;
 	t_sector	*current_sector;
 	t_sdl_image	*render_image;
-
+	int			frame_count;
 };
 
 struct          s_intercalc

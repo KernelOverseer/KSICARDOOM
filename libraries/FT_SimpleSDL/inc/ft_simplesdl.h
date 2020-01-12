@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 00:15:45 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 17:35:52 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/09 19:36:25 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <SDL.h>
 # include <SDL_ttf.h>
 # define MAX_IMAGE_SIZE 8294400
+# define DEFAULT_EMPTY_PIXEL 0xCC00CC
 # define RGB_B(c) (c & 255)
 # define RGB_G(c) ((c >> 8) & 255)
 # define RGB_R(c) ((c >> 16) & 255)
@@ -125,4 +126,5 @@ void			ft_sdl_pixel_put(t_sdl_env *env, int x, int y);
 void			ft_sdl_draw_color(t_sdl_env *env, Uint32 color);
 void			ft_sdl_clear_window(t_sdl_env *env, Uint32 color);
 void			ft_sdl_render(t_sdl_env *env);
+Uint32			ft_sdl_get_image_pixel(t_sdl_image *image, int x, int y);
 #endif

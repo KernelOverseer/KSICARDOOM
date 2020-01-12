@@ -6,12 +6,35 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/08 23:42:21 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 17:51:35 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 #include <stdio.h>
+
+t_animation	ft_create_temp_animation(char *anim_name, double speed, int count)
+{
+	t_animation	result;
+	int			i;
+	char		*img_name;
+
+	i = 1;
+	result.textures = ft_memalloc(sizeof(t_sdl_image *) * count);
+	while (i <= count)
+	{
+		img_name = ft_strjoin_free(
+			ft_strjoin_free(anim_name, ft_itoa(i), 2), ".tex", 1);
+		result.textures[i - 1] = ft_memalloc(sizeof(t_sdl_image));
+		ft_sdl_load_image(img_name, result.textures[i - 1]);
+		free(img_name);
+		i++;
+	}
+	result.current_frame = 0;
+	result.speed = speed;
+	result.frame_count = count;
+	return (result);
+}
 
 int	ft_debug_create_temp_map(t_graphical_scene *scene)
 {
@@ -19,6 +42,7 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	t_sector *new_sector2;
 	t_wall	*new_wall;
 	t_portal	*new_portal;
+	t_sprite	*new_sprite;
 
 	new_sector = ft_new_sector();
 	new_sector2 = ft_new_sector();
@@ -28,19 +52,42 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	ft_sdl_load_image("render_placeholder.tex", new_wall->texture);
 
 	new_wall = ft_new_wall((t_point){100, 100}, (t_point){100, 300});
+	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("ironwall.tex", new_wall->texture);
 	new_sector->walls.push(&(new_sector->walls), new_wall);
 
 	new_wall = ft_new_wall((t_point){100, 100}, (t_point){300, 100});
+	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("ironwall.tex", new_wall->texture);
 	new_sector->walls.push(&(new_sector->walls), new_wall);
 
 	new_wall = ft_new_wall((t_point){300, 100}, (t_point){300, 300});
+	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("floor.tex", new_wall->texture);
 	new_sector->walls.push(&(new_sector->walls), new_wall);
 
+	new_sprite = ft_memalloc(sizeof(t_sprite));
+	new_sprite->radius = 30;
+	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
+		1, 60);
+	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
+	
+	new_sprite = ft_memalloc(sizeof(t_sprite));
+	new_sprite->position = (t_vec2){-100, -100};
+	new_sprite->radius = 100;
+	new_sprite->animation = ft_create_temp_animation("animation/ricardo_",
+		0.2, 56);
+	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
+
 	new_portal = ft_new_portal((t_point){100, 300}, (t_point){300, 300}, new_sector2);
+	new_portal->wall.texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("floor.tex", new_portal->wall.texture);
 	new_sector->portals.push(&(new_sector->portals), new_portal);
 
-	//new_portal = ft_new_portal((t_point){100, 300}, (t_point){300, 300}, new_sector);
-	//new_sector2->portals.push(&(new_sector2->portals), new_portal);
+	new_portal = ft_new_portal((t_point){100, 300}, (t_point){300, 300}, new_sector);
+	new_portal->wall.texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("ironwall.tex", new_portal->wall.texture);
+	new_sector2->portals.push(&(new_sector2->portals), new_portal);
 
 	new_wall = ft_new_wall((t_point){100, 300}, (t_point){200, 500});
 	new_sector2->walls.push(&(new_sector2->walls), new_wall);
@@ -61,6 +108,25 @@ t_vec2	ft_vector_from_angle(double size, double angle)
 	result.x = size * cos(angle);
 	result.y = size * sin(angle);
 	return (result);
+}
+
+void	ft_rotate_sectors(t_doom_env *env)
+{
+	t_list_node *node;
+	t_list_node	*chosen;
+
+	chosen = NULL;
+	env->main_scene.sectors.iterator = env->main_scene.sectors.first;
+	while ((node = ttslist_iter(&env->main_scene.sectors)))
+	{
+		if (node->content == env->main_scene.current_sector)
+			break;
+	}
+	if (node && node->next)
+		chosen = node->next;
+	if (!chosen)
+		chosen = env->main_scene.sectors.first;
+	env->main_scene.current_sector = chosen->content;
 }
 
 int	temp_apply_movement(t_doom_env *env)
@@ -92,6 +158,8 @@ int	temp_apply_movement(t_doom_env *env)
 		env->main_scene.current_sector->floor_height += 50;
 	if (env->keys[SDL_SCANCODE_KP_4])
 		env->main_scene.current_sector->floor_height -= 50;
+	if (env->keys[SDL_SCANCODE_0])
+		ft_rotate_sectors(env);
 	env->main_scene.camera.position.x += movement_vector.x;
 	env->main_scene.camera.position.y += movement_vector.y;
 	return (SUCCESS);
@@ -107,6 +175,7 @@ int	ft_main_loop(void *arg)
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0, CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT},
 			0x0);
 	ft_render_scene(&env->main_scene);
+	env->main_scene.frame_count++;
 	temp_render_graphics(&(env->main_scene));
 	temp_apply_movement(env);
 	ft_sdl_put_image(env->main_scene.render_image, &env->display);

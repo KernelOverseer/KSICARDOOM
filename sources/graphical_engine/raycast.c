@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:20:54 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/08 21:50:15 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/14 20:23:30 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_raycast(t_graphical_scene *env)
         inter = ft_init_intersect(env->current_sector, &(env->camera.raycast), x);
         raygen->ray.screen_x = x;
 		ft_intersect_ray(env, &inter, env->current_sector);
+		ft_handle_intersect(env, &inter);
 		ft_iter_ray(raygen, env);
 		x += CONFIG_RES_RATIO;
 	}

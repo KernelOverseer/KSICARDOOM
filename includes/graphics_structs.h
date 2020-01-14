@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/12 17:22:36 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 23:37:06 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ struct			s_graphical_scene
 	t_list_head	sectors;
 	t_sector	*current_sector;
 	t_sdl_image	*render_image;
+	t_sdl_image	*textures;
 	int			frame_count;
 };
 

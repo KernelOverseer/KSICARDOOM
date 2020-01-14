@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 21:52:16 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/09 21:34:35 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/14 18:23:34 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,18 @@ typedef struct	s_render_portal
 	int				render_bottom;
 }				t_render_portal;
 
-
+typedef struct	s_render_sprite
+{
+	t_point			top;
+	t_point			bottom;
+	double			reverse_distance;
+	double			half_height;
+	int				center;
+	int				texture_x;
+	int				render_top;
+	int				render_bottom;
+	t_sprite		*sprite;
+	t_wall			wall;
+	t_intersect		*inter;
+}				t_render_sprite;
 # endif

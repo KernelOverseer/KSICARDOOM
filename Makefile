@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/01/09 20:22:12 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/14 19:28:16 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   graphical_engine/temp_graphical_render.c\
 			   graphical_engine/wall_drawing.c\
 			   graphical_engine/portal_drawing.c\
+			   graphical_engine/sprite_drawing.c\
 			   main.c\
 			   physics/collision_controller.c\
 			   physics/force_controller.c\
@@ -69,7 +70,7 @@ include $(LIBS_DIR)/library_linking.mk
 include $(EDITOR_DIR)/editor_rules.mk
 
 $(NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(OBJECTS)
-	$(CC) $(FLAGS) $(OBJECTS) $(LINKS) -o $(NAME)
+	$(CC) $(FLAGS) -headerpad_max_install_names  $(OBJECTS) $(LINKS) -o $(NAME)
 	@install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/$(SDL2) $(NAME)
 	@install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/$(SDL2_IMAGE) $(NAME)
 	@install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/$(SDL2_TTF) $(NAME)

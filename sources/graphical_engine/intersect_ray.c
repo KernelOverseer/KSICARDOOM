@@ -65,8 +65,6 @@ int		ft_get_ray_portal_intersect(t_ray *ray, t_portal *portal,
 	{
 		intersect->object.object.portal = portal;
 		intersect->object.type = OBJECT_portal;
-		intersect->min_dist = intersect->distance;
-		intersect->distance = intersect->distance;
 		return (1);
 	}
 	return (0);
@@ -92,6 +90,7 @@ void	ft_handle_portal_intersection(t_graphical_scene *scene,
 	ft_prepare_portal_rendering(scene, inter, &render);
 	inter->distance = INFINITY;
 	ft_intersect_ray(scene, inter, inter->object.object.portal->sector);
+	ft_handle_intersect(scene, inter);
 }
 
 t_sdl_image	*ft_get_animation_texture(t_graphical_scene *scene,
@@ -113,27 +112,42 @@ t_sdl_image	*ft_get_animation_texture(t_graphical_scene *scene,
 void	ft_handle_sprite_intersection(t_graphical_scene *scene,
 	t_intersect *inter)
 {
-	t_intersect		sprite_intersect;
-	t_render_wall	render;
+	t_render_sprite render;
 	t_sprite		*sprite;
+	t_intersect		new_inter;
 	t_wall			sprite_wall;
 	t_vec2			sprite_corner_vector;
 
-	inter->distance = INFINITY;
-	inter->min_dist = inter->real_distance;
-	sprite_intersect = *inter;
-	ft_intersect_ray(scene, &sprite_intersect, inter->sector);
+	new_inter = ft_init_intersect(inter->sector,
+		&scene->camera.raycast, inter->screen_x);
+	new_inter.render_min = inter->render_min;
+	new_inter.render_max = inter->render_max;
+	new_inter.min_dist = inter->min_dist;
+	ft_intersect_ray(scene, &new_inter, inter->sector);
+	ft_handle_intersect(scene, &new_inter);
+
 	sprite = inter->object.object.sprite;
-	sprite_corner_vector = ft_vec2_from_angle(sprite->radius, scene->camera.angle + HALF_PI);
+	sprite_corner_vector = ft_vec2_from_angle(sprite->radius,
+		scene->camera.angle + HALF_PI);
+	tts_bzero(&sprite_wall, sizeof(sprite_wall));
 	sprite_wall.p1 = ft_vec2_add(sprite->position, sprite_corner_vector);
 	sprite_wall.p2 = ft_vec2_sub(sprite->position, sprite_corner_vector);
 	sprite_wall.props = 0;
 	sprite_wall.texture = ft_get_animation_texture(scene, &sprite->animation);
-	inter->object.object.wall = &sprite_wall;
-	inter->object.type = OBJECT_wall;
 	inter->distance = sqrt(inter->real_distance) / inter->ray.dist;
-	ft_prepare_wall_rendering(scene, inter, &render);
-	ft_render_wall(scene, &render);
+	ft_prepare_sprite_rendering(scene, inter, &render);
+	render.wall = sprite_wall;
+	ft_render_sprite(scene, &render);
+}
+
+void	ft_handle_intersect(t_graphical_scene *scene, t_intersect *inter)
+{
+	if (inter->object.type == OBJECT_wall)
+		ft_handle_wall_intersection(scene, inter);
+	else if (inter->object.type == OBJECT_portal)
+		ft_handle_portal_intersection(scene, inter);
+	else if (inter->object.type == OBJECT_sprite)
+		ft_handle_sprite_intersection(scene, inter);
 }
 
 void	ft_intersect_ray(t_graphical_scene *scene, t_intersect *inter,
@@ -152,10 +166,5 @@ void	ft_intersect_ray(t_graphical_scene *scene, t_intersect *inter,
 		ft_get_ray_portal_intersect(&inter->ray, object.portal, inter);
 	while ((object.sprite = ttslist_iter_content(&sector->sprites)))
 		ft_get_ray_sprite_intersect(scene, &inter->ray, object.sprite, inter);
-	if (inter->object.type == OBJECT_wall)
-		ft_handle_wall_intersection(scene, inter);
-	else if (inter->object.type == OBJECT_portal)
-		ft_handle_portal_intersection(scene, inter);
-	else if (inter->object.type == OBJECT_sprite)
-		ft_handle_sprite_intersection(scene, inter);
+	inter->min_dist = inter->distance;
 }

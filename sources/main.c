@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/12 17:51:35 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/14 20:39:10 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,41 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 
 	new_sprite = ft_memalloc(sizeof(t_sprite));
 	new_sprite->radius = 30;
+	new_sprite->height = DEFAULT_WALL_HEIGHT;
 	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
 		1, 60);
 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
 	
 	new_sprite = ft_memalloc(sizeof(t_sprite));
-	new_sprite->position = (t_vec2){-100, -100};
-	new_sprite->radius = 100;
-	new_sprite->animation = ft_create_temp_animation("animation/ricardo_",
-		0.2, 56);
+	new_sprite->radius = 30;
+	new_sprite->height = DEFAULT_WALL_HEIGHT;
+	new_sprite->position = (t_vec2){-200, -200};
+	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
+		1, 60);
 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
+	
+	new_sprite = ft_memalloc(sizeof(t_sprite));
+	new_sprite->radius = 30;
+	new_sprite->height = DEFAULT_WALL_HEIGHT;
+	new_sprite->position = (t_vec2){-300, -300};
+	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
+		1, 60);
+	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
+
+	new_sprite = ft_memalloc(sizeof(t_sprite));
+	new_sprite->position = (t_vec2){-100, -100};
+	new_sprite->radius = 50;
+	new_sprite->height = DEFAULT_WALL_HEIGHT / 2;
+/*	new_sprite->animation = ft_create_temp_animation("animation/ricardo_",
+		0.2, 56);*/
+	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
+		1, 60);
+	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
+
+	new_wall = ft_new_wall((t_point){90, 290}, (t_point){290, 290});
+	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("ironwall.tex", new_wall->texture);
+	new_sector2->walls.push(&(new_sector2->walls), new_wall);
 
 	new_portal = ft_new_portal((t_point){100, 300}, (t_point){300, 300}, new_sector2);
 	new_portal->wall.texture = ft_memalloc(sizeof(t_sdl_image));
@@ -172,8 +197,10 @@ int	ft_main_loop(void *arg)
 	env = arg;
 
 	//ft_apply_controllers(env);
-	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0, CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT},
-			0x0);
+	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0, CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt},
+			0x383838);
+	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt , CONF_WINDOW_WIDTH, 2 * CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt},
+			0x707070);
 	ft_render_scene(&env->main_scene);
 	env->main_scene.frame_count++;
 	temp_render_graphics(&(env->main_scene));

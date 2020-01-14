@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:55:14 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/09 20:16:31 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/14 20:23:48 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	ft_prepare_wall_rendering(t_graphical_scene *scene,
 void	ft_render_wall(t_graphical_scene *scene, t_render_wall *render);
 void	ft_prepare_portal_rendering(t_graphical_scene *scene,
 	t_intersect *inter, t_render_portal *render);
+void	ft_prepare_sprite_rendering(t_graphical_scene *scene,
+	t_intersect *inter, t_render_sprite *render);
+void	ft_render_sprite(t_graphical_scene *scene, t_render_sprite *render);
+void	ft_handle_sprite_intersection(t_graphical_scene *scene,
+	t_intersect *inter);
+void	ft_handle_portal_intersection(t_graphical_scene *scene,
+	t_intersect *inter);
+void	ft_handle_wall_intersection(t_graphical_scene *scene,
+	t_intersect *inter);
+void	ft_handle_intersect(t_graphical_scene *scene, t_intersect *inter);
 #endif

@@ -16,6 +16,8 @@
 		"scene_parser.h": "c",
 		"doom_nukem.h": "c",
 		"ft_simplesdl.h": "c",
-		"graphical_engine.h": "c"
+		"graphical_engine.h": "c",
+		"__locale": "c",
+		"functional": "c"
 	}
 }

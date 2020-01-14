@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/01/14 19:28:16 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/14 21:26:42 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   graphical_engine/portal_drawing.c\
 			   graphical_engine/sprite_drawing.c\
 			   main.c\
+			   scene_parser/scene_parser.c\
 			   physics/collision_controller.c\
 			   physics/force_controller.c\
 			   physics/gravity_controller.c\

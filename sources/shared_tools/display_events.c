@@ -29,3 +29,12 @@ int	ft_keyboard_button_off(void *arg, SDL_Event e)
 	env->keys[e.key.keysym.scancode] = 0;
 	return (1);
 }
+
+int	ft_mouse_data(void *arg, SDL_Event e)
+{
+	t_doom_env	*env;
+
+	env = arg;
+	env->mouse_pos = (t_vec2int){e.motion.x, e.motion.y};
+	return (1);
+}

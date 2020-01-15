@@ -20,9 +20,13 @@ int	ft_init_game_window(t_doom_env *env)
 	config.screen_width = CONF_WINDOW_WIDTH;
 	config.screen_height = CONF_WINDOW_HEIGHT;
 	config.window_title = CONF_WINDOW_TITLE;
+	ttslist_init(&(env->controllers));
 	if (!ft_sdl_init(&(env->display), config))
 		return (ERROR);
 	if (!(env->main_image = newimage(CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT)))
 		return (ERROR);
+	ft_init_timer(&env->timer);
+	ft_init_physics(&env->phi);
+	ft_bzero(env->keys, sizeof(env->keys));
 	return (SUCCESS);
 }

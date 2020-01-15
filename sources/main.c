@@ -190,13 +190,32 @@ int	temp_apply_movement(t_doom_env *env)
 	return (SUCCESS);
 }
 
+void	sync_camera_pos(t_doom_env *env, t_vec3 pos)
+{
+	env->main_scene.camera.position.x = pos.x;
+	env->main_scene.camera.position.y = pos.y;
+}
+
+void	ft_apply_controllers(t_doom_env *env)
+{
+	t_controller	*controller;
+
+	env->controllers.iterator = env->controllers.first;
+	while ((controller = ttslist_iter_content(&(env->controllers))))
+	{
+		if (controller->function)
+			controller->function(controller->arg);
+	}
+}
+
 int	ft_main_loop(void *arg)
 {
 	t_doom_env *env;
 
 	env = arg;
-
-	//ft_apply_controllers(env);
+	ft_players_input(env);
+	ft_apply_controllers(env);
+	sync_camera_pos(env, ((t_body *)env->bodies.first->content)->pos);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0, CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt},
 			0x383838);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt , CONF_WINDOW_WIDTH, 2 * CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt},
@@ -215,7 +234,6 @@ int	ft_menu_loop(void *arg)
 	t_doom_env *env;
 
 	env = arg;
-
 	//ft_interact_menu(env);
 	//ft_render_menu(env);
 	ft_sdl_loop_hook(ft_main_loop, env);
@@ -224,15 +242,21 @@ int	ft_menu_loop(void *arg)
 
 int main(int argc, char **argv)
 {
-	t_doom_env	env;
+	t_doom_env		env;
+	t_controller	physics_controller;
 	(void)argc;
 	(void)argv;
 
 	ft_init_game_window(&env);
 	ft_init_graphical_scene(&env);
+	physics_controller.function = &ft_physics_controllers;
+	physics_controller.arg = &env;
+	env.controllers.push(&(env.controllers), &physics_controller);
+	ft_init_bodies(&env);
 	ft_debug_create_temp_map(&env.main_scene);
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
 	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
+	ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEMOTION);
 	ft_sdl_loop_hook(ft_menu_loop, &env);
 	ft_sdl_loop(&env.display);
 	return (0);

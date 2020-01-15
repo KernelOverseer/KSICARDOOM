@@ -29,11 +29,14 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   graphical_engine/portal_drawing.c\
 			   graphical_engine/sprite_drawing.c\
 			   main.c\
-			   scene_parser/scene_parser.c\
-			   physics/collision_controller.c\
-			   physics/force_controller.c\
-			   physics/gravity_controller.c\
-			   physics/velocity_controller.c\
+			   physics/ft_physics_controllers.c\
+			   physics/init_phi.c\
+			   physics/velocity.c\
+			   physics/force.c\
+			   physics/gravity.c\
+			   physics/collision.c\
+			   players/ft_players.c\
+			   shared_tools/time.c\
 			   shared_tools/display_events.c\
 			   shared_tools/error_management.c\
 			   shared_tools/image_manipulations.c\

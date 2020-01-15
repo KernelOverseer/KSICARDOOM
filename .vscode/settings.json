@@ -18,6 +18,7 @@
 		"ft_simplesdl.h": "c",
 		"graphical_engine.h": "c",
 		"__locale": "c",
-		"functional": "c"
+		"functional": "c",
+		"physics_engine.h": "c"
 	}
 }

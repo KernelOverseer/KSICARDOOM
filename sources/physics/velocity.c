@@ -16,7 +16,6 @@ void    ft_new_input_changes(t_body *body)
 {
 	unsigned char *c;
 	t_vec3 *v;
-
 	v = &body->player->input_velocity;
 	*v = (t_vec3){0, 0, 0};
 	c = body->player->controller;
@@ -44,10 +43,10 @@ void    ft_new_input_changes(t_body *body)
 		*v = ft_vec3_add(*v, ft_vec3_scalar(body->up, body->player->jump_power));
 		body->player->is_jumping = 1;
 	}
-	// printf("input_velocity: x: %f, y: %f, z: %f \n", body->player->input_velocity.x, body->player->input_velocity.y, body->player->input_velocity.z);
-	printf("forw: x: %f, y: %f, z: %f | right: x: %f, y: %f, z: %f | pos: x: %f, y: %f, z: %f\n", body->forw.x, body->forw.y, body->forw.z,
-	body->right.x, body->right.y, body->right.z,
-	body->pos.x, body->pos.y, body->pos.z);
+	// printf("forw: x: %f, y: %f, z: %f | right: x: %f, y: %f, z: %f | pos: x: %f, y: %f, z: %f\n",
+	// body->forw.x, body->forw.y, body->forw.z,
+	// body->right.x, body->right.y, body->right.z,
+	// body->pos.x, body->pos.y, body->pos.z);
 }
 
 double	ft_lerp(double goal, double current, double delta_time)
@@ -69,24 +68,18 @@ void	ft_body_move(t_body *body, double delta_time)
 
 void	ft_update_velocity(t_body *body, t_vec3 global_gravity, double delta_time)
 {
-	// delta_time = delta_time * 20;
 	if (body->flags & IS_CONTROLLED)
 	{
 		body->velocity.x = ft_lerp(body->player->input_velocity.x, body->velocity.x, delta_time * 90);
 		body->velocity.y = ft_lerp(body->player->input_velocity.y, body->velocity.y, delta_time * 90);
 		body->velocity.z = body->player->input_velocity.z * (delta_time * 20);
     	body->velocity = ft_vec3_add(body->velocity, body->gravity);
-		// printf("delta_time (%f) velocity(%f, %f, %f) | pos(%f, %f, %f)\n", delta_time, body->velocity.x, body->velocity.y, body->velocity.z, body->pos.x, body->pos.y, body->pos.z);
 	}
 	else
 	{
-		// body->velocity = ft_vec3_add(body->velocity,(body->is_controlled ? (body->player->input_velocity) : (t_vec3){0, 0}));
 		body->pos = ft_vec3_add(body->pos, ft_vec3_scalar(body->velocity, delta_time * 20));
 		body->velocity = ft_vec3_add(body->velocity, ft_vec3_scalar(global_gravity, delta_time * 5)); // gravity
 	}
-	// body->player->input_velocity = ft_vec3_add(body->player->input_velocity, ft_vec3_scalar((t_vec3){0, 1}, delta_time * 20));
-	// printf("%f, %f drag: %f\n", ft_vec3_scalar(body->player->input_velocity, delta_time * 20).x, ft_vec3_scalar(body->player->input_velocity, delta_time).y, body->drag);
-	// printf("true velocity: x: %f, y: %f, z: %f \n", body->velocity.x, body->velocity.y, body->velocity.z);
 }
 
 

@@ -48,5 +48,3 @@ void    ft_physics_controllers(void *param)
 		env->timer.previous_tick = env->timer.current_time;
 	}
 }
-			// if (controller->function)
-			// 	controller->function(controller->arg);

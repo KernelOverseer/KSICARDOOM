@@ -159,10 +159,10 @@ int	temp_apply_movement(t_doom_env *env)
 	t_vec2	movement_vector;
 
 	movement_vector = (t_vec2){0, 0};
-	if (env->keys[SDL_SCANCODE_LEFT])
-		env->main_scene.camera.angle += 0.05;
-	if (env->keys[SDL_SCANCODE_RIGHT])
-		env->main_scene.camera.angle -= 0.05;
+	// if (env->keys[SDL_SCANCODE_LEFT])
+	// 	env->main_scene.camera.angle += 0.05;
+	// if (env->keys[SDL_SCANCODE_RIGHT])
+	// 	env->main_scene.camera.angle -= 0.05;
 	if (env->keys[SDL_SCANCODE_UP])
 		movement_vector = ft_vec2_from_angle(10, env->main_scene.camera.angle);
 	if (env->keys[SDL_SCANCODE_DOWN])
@@ -171,10 +171,14 @@ int	temp_apply_movement(t_doom_env *env)
 		env->main_scene.camera.height += 50;
 	if (env->keys[SDL_SCANCODE_PAGEDOWN])
 		env->main_scene.camera.height -= 50;
-	if (env->keys[SDL_SCANCODE_S])
-		env->main_scene.camera.tilt -= 10;
-	if (env->keys[SDL_SCANCODE_W])
-		env->main_scene.camera.tilt += 10;
+	if (env->mouse_rel.y)
+		env->main_scene.camera.tilt -= env->mouse_rel.y;
+	if (env->mouse_rel.x)
+		env->main_scene.camera.angle += env->mouse_rel.x * -0.01;
+	// if (env->keys[SDL_SCANCODE_S])
+	// 	env->main_scene.camera.tilt -= 10;
+	// if (env->keys[SDL_SCANCODE_W])
+	// 	env->main_scene.camera.tilt += 10;
 	if (env->keys[SDL_SCANCODE_DELETE])
 		env->main_scene.current_sector->ceil_height += 50;
 	if (env->keys[SDL_SCANCODE_HOME])
@@ -213,17 +217,16 @@ int	ft_main_loop(void *arg)
 	t_doom_env *env;
 
 	env = arg;
-	ft_players_input(env);
 	ft_apply_controllers(env);
-	sync_camera_pos(env, ((t_body *)env->bodies.first->content)->pos);
+	// sync_camera_pos(env, ((t_body *)env->bodies.first->content)->pos);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0, CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt},
 			0x383838);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt , CONF_WINDOW_WIDTH, 2 * CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt},
 			0x707070);
 	ft_render_scene(&env->main_scene);
 	env->main_scene.frame_count++;
-	temp_render_graphics(&(env->main_scene));
 	temp_apply_movement(env);
+	temp_render_graphics(&(env->main_scene));
 	ft_sdl_put_image(env->main_scene.render_image, &env->display);
 	ft_sdl_render_texture(&env->display);
 	return (SUCCESS);
@@ -244,15 +247,20 @@ int main(int argc, char **argv)
 {
 	t_doom_env		env;
 	t_controller	physics_controller;
+	t_controller	bodies_input_controller;
 	(void)argc;
 	(void)argv;
 
 	ft_init_game_window(&env);
+	SDL_SetRelativeMouseMode(SDL_TRUE); // limits the mouse to the window and hides the cursor
 	ft_init_graphical_scene(&env);
+	bodies_input_controller.function = &ft_bodies_input;
+	bodies_input_controller.arg = &env;
+	env.controllers.push(&(env.controllers), &bodies_input_controller);
 	physics_controller.function = &ft_physics_controllers;
 	physics_controller.arg = &env;
 	env.controllers.push(&(env.controllers), &physics_controller);
-	ft_init_bodies(&env);
+	ft_init_bodies(&env);		// init players && objects
 	ft_debug_create_temp_map(&env.main_scene);
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
 	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);

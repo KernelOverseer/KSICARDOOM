@@ -12,11 +12,17 @@
 
 #include "doom_nukem.h"
 
-void	ft_players_input(t_doom_env *env)
+/*
+** to do: make ft_bodies_input take input from different sources (keyboard, bot, conected user)
+*/
+
+void	ft_bodies_input(void *params)
 {
 	unsigned char *c;
 	unsigned char *k;
+	t_doom_env *env;
 
+	env = (t_doom_env *)params;
 	c =	((t_body *)env->bodies.first->content)->player->controller;
 	k = env->keys;
 	c[PLAYER_FORWARD] = (k[SDL_SCANCODE_UP]) ?
@@ -31,8 +37,6 @@ void	ft_players_input(t_doom_env *env)
 	c[PLAYER_STRAFE_RIGHT] = k[SDL_SCANCODE_D];
 	c[PLAYER_JUMP] = k[SDL_SCANCODE_SPACE];
 	SDL_GetRelativeMouseState(&env->mouse_rel.x, &env->mouse_rel.y);
-	// printf("xrel: %d, yrel: %d\n", env->mouse_rel.x, env->mouse_rel.y);
-	// printf("xrel: %d, yrel: %d | x %d y %d\n", env->mouse_motion.x, env->mouse_motion.y, env->mouse_pos.x, env->mouse_pos.y);
 }
 
 void	ft_init_player(t_player **player, int id)

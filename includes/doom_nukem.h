@@ -107,6 +107,6 @@ void						ft_physics_controllers();
 */
 
 int							ft_init_bodies(t_doom_env *env);
-void						ft_players_input(t_doom_env *env);
+void						ft_bodies_input(void *env);
 
 #endif

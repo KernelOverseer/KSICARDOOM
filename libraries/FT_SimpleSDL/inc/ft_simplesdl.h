@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_simplesdl.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 00:15:45 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/09 19:36:25 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 14:26:52 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <unistd.h>
 # include <SDL.h>
 # include <SDL_ttf.h>
-# define MAX_IMAGE_SIZE 8294400
+# define MAX_IMAGE_SIZE 20745600
 # define DEFAULT_EMPTY_PIXEL 0xCC00CC
 # define RGB_B(c) (c & 255)
 # define RGB_G(c) ((c >> 8) & 255)
@@ -23,6 +23,12 @@
 # define RGB_A(c) ((c >> 24) & 255)
 # define KEY(e) e.key.keysym.sym
 # define DEBUG 1
+
+enum				e_sdl_image_errors
+{
+	IMAGE_ERROR_file, IMAGE_ERROR_format = -1, IMAGE_ERROR_size = -2,
+	IMAGE_ERROR_memory = -3, IMAGE_ERROR_size_limit = -4
+};
 
 typedef	struct		s_sdl_image
 {

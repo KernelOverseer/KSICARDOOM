@@ -6,7 +6,7 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/01/14 21:26:42 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/16 14:08:27 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   graphical_engine/wall_drawing.c\
 			   graphical_engine/portal_drawing.c\
 			   graphical_engine/sprite_drawing.c\
+			   graphical_engine/skybox.c\
 			   main.c\
 			   physics/ft_physics_controllers.c\
 			   physics/init_phi.c\

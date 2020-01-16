@@ -1,5 +1,9 @@
 {
 	"editor.insertSpaces": false,
+	"editor.rulers": [80],
+	"workbench.colorCustomizations": {
+		"editorRuler.foreground": "#ff4081"
+	},
 	"editor.detectIndentation": false,
 	"files.associations": {
 		"complex": "c",

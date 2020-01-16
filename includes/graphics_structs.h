@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics_structs.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/14 22:07:10 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/16 16:00:00 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define DEFAULT_WALL_HEIGHT 2000.0
 # define CONF_CAMERA_HEIGHT DEFAULT_WALL_HEIGHT / 2
 # define DEFAULT_WALL_COLOR 0xCC00CC
+# define ANIMATION_TYPE_TIME 1
+# define ANIMATION_TYPE_DIRECTION 2
 
 typedef struct  s_camera                t_camera;
 typedef struct  s_graphical_settings    t_graphical_settings;
@@ -124,7 +126,7 @@ struct			s_intersect
     double				min_dist;
 	int					render_min;
 	int					render_max;
-	int					screen_x;	
+	int					screen_x;
 	t_intersect_object	object;
 };
 
@@ -161,6 +163,7 @@ struct			s_graphical_scene
 	int			textures_count;
 	t_sector	*current_sector;
 	t_sdl_image	*render_image;
+	t_sdl_image	*skybox;
 	int			frame_count;
 };
 

@@ -3,18 +3,26 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/libraries/FT_SimpleSDL/inc"
+                "${workspaceFolder}/includes",
+                "${workspaceFolder}/libraries/FT_SimpleSDL/inc",
+                "${workspaceFolder}/libraries/ttslist/includes",
+                "${workspaceFolder}/libraries/centropy/includes",
+                "${workspaceFolder}/libraries/libgl/include",
+                "${workspaceFolder}/libraries/FT_SimpleSDL/sdl2_inc",
+                "${workspaceFolder}/editor/includes"
             ],
             "defines": [],
             "macFrameworkPath": [
                 "/System/Library/Frameworks",
                 "/Library/Frameworks"
             ],
-            "compilerPath": "/usr/bin/clang",
+            "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "gcc-x64",
+            "compilerArgs": [
+                "-Wall -Werror -Wextra"
+            ]
         }
     ],
     "version": 4

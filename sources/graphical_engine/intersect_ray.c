@@ -93,13 +93,35 @@ void	ft_handle_portal_intersection(t_graphical_scene *scene,
 	ft_handle_intersect(scene, inter);
 }
 
+int			ft_get_animation_angle(t_graphical_scene *scene,
+	t_sprite *sprite)
+{
+	double	percent;
+	int		frame;
+
+	percent = scene->camera.angle / (2 * M_PI);
+	frame = (int)(percent * sprite->animation.frame_count) %
+		sprite->animation.frame_count;
+	if (frame < 0)
+		frame = sprite->animation.frame_count + frame - 1;
+	return (frame % sprite->animation.frame_count);
+}
+
 t_sdl_image	*ft_get_animation_texture(t_graphical_scene *scene,
-	t_animation *animation)
+	t_sprite *sprite)
 {
 	t_sdl_image	*result;
+	t_animation *animation;
 
-	result = animation->textures[(int)animation->current_frame];
-	if (animation->now_time != (uint32_t)scene->frame_count)
+	animation = &sprite->animation;
+	if (animation->type == ANIMATION_TYPE_DIRECTION)
+		result = animation->textures[ft_get_animation_angle(scene, sprite)];
+	else if (animation->type == ANIMATION_TYPE_TIME)
+		result = animation->textures[(int)animation->current_frame];
+	else
+		return (NULL);
+	if (animation->type == ANIMATION_TYPE_TIME
+		&& animation->now_time != (uint32_t)scene->frame_count)
 	{
 		animation->current_frame += animation->speed;
 		if (animation->current_frame > animation->frame_count - 1)
@@ -133,7 +155,7 @@ void	ft_handle_sprite_intersection(t_graphical_scene *scene,
 	sprite_wall.p1 = ft_vec2_add(sprite->position, sprite_corner_vector);
 	sprite_wall.p2 = ft_vec2_sub(sprite->position, sprite_corner_vector);
 	sprite_wall.props = 0;
-	sprite_wall.texture = ft_get_animation_texture(scene, &sprite->animation);
+	sprite_wall.texture = ft_get_animation_texture(scene, sprite);
 	inter->distance = sqrt(inter->real_distance) / inter->ray.dist;
 	ft_prepare_sprite_rendering(scene, inter, &render);
 	render.wall = sprite_wall;

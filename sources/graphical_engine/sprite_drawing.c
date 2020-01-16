@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_drawing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 23:20:57 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/14 19:45:02 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 16:22:37 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_render_sprite(t_graphical_scene *scene, t_render_sprite *render)
 	double	texture_y;
 	int		color;
 
+	if (!render->wall.texture)
+		return ;
 	render->texture_x = (ft_vec2_mag(ft_vec2_sub(render->wall.p1,
 		render->inter->pos)) / ft_vec2_mag(ft_vec2_sub(render->wall.p1,
 		render->wall.p2))) * render->wall.texture->width;

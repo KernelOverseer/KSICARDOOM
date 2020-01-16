@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphical_engine.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:55:14 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/14 20:23:48 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 14:06:05 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,5 @@ void	ft_handle_portal_intersection(t_graphical_scene *scene,
 void	ft_handle_wall_intersection(t_graphical_scene *scene,
 	t_intersect *inter);
 void	ft_handle_intersect(t_graphical_scene *scene, t_intersect *inter);
+int		ft_draw_skybox(t_graphical_scene *scene);
 #endif

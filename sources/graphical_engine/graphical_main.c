@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphical_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 19:58:09 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 18:51:46 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 14:05:41 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	ft_render_scene(t_graphical_scene *scene)
 {
+	ft_draw_skybox(scene);
 	ft_raycast(scene);
 }

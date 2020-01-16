@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_drawing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 19:23:33 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/14 19:18:57 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 16:56:13 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ static int	ft_map_texture_x(t_vec2 start, t_vec2 pos, int texture_width)
 	diff = ft_vec2_sub(pos, start);
 	return ((int)ft_vec2_mag(diff) % texture_width);
 }
+
+// void		ft_render_wall_ceiling(t_graphical_scene *scene,
+// 	t_render_wall *render)
+// {
+
+// }
 
 void		ft_render_wall(t_graphical_scene *scene, t_render_wall *render)
 {

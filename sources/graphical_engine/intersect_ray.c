@@ -79,6 +79,7 @@ void	ft_handle_wall_intersection(t_graphical_scene *scene,
 	inter->distance = inter->real_distance / inter->ray.dist;
 	ft_prepare_wall_rendering(scene, inter, &wall_render);
 	ft_render_wall(scene, &wall_render);
+	ft_render_wall_ceiling(scene, &wall_render);
 }
 
 void	ft_handle_portal_intersection(t_graphical_scene *scene,

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 19:23:33 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 16:56:13 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/18 18:27:08 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,39 @@ static int	ft_map_texture_x(t_vec2 start, t_vec2 pos, int texture_width)
 	return ((int)ft_vec2_mag(diff) % texture_width);
 }
 
-// void		ft_render_wall_ceiling(t_graphical_scene *scene,
-// 	t_render_wall *render)
-// {
+t_vec2		ft_get_pixel_position(t_graphical_scene *scene, t_render_wall *render,
+	int y)
+{
+	double	distance;
+	double	real_height;
+	double	screen_height;
 
-// }
+	real_height = fabs(DEFAULT_WALL_HEIGHT / 2 +
+		render->inter->sector->ceil_height);
+	screen_height = abs(render->center - y);
+	distance = real_height / screen_height;
+	return (ft_vec2_add(scene->camera.position,
+		ft_vec2_scalar(render->inter->ray.dir, distance)));
+}
+
+void		ft_render_wall_ceiling(t_graphical_scene *scene,
+ 	t_render_wall *render)
+{
+	int		i;
+	t_vec2	position;
+
+	if (!render->inter->sector->ceil_texture)
+		return ;
+	i = render->top.y;
+	while (i > render->inter->render_min)
+	{
+		position = ft_get_pixel_position(scene, render, i);
+		ft_sdl_image_pixel(scene->render_image, render->inter->screen_x, i,
+			ft_sdl_get_image_pixel(render->inter->sector->ceil_texture,
+				position.x, position.y));
+		i++;
+	}
+}
 
 void		ft_render_wall(t_graphical_scene *scene, t_render_wall *render)
 {

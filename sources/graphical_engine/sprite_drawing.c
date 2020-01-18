@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 23:20:57 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 16:22:37 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/18 19:27:03 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	ft_prepare_sprite_rendering(t_graphical_scene *scene,
 	render->half_height = ((double)inter->object.object.sprite->height / 2) *
 		render->reverse_distance;
 	render->center = scene->render_image->height + scene->camera.tilt
-		+ (DEFAULT_WALL_HEIGHT / 2 - inter->object.object.sprite->height / 2
-		- inter->object.object.sprite->altitude) * render->reverse_distance;
+		- (inter->object.object.sprite->altitude - scene->camera.height) *
+		render->reverse_distance;
 	render->top.y = render->center - render->half_height;
 	render->bottom.y = render->center + render->half_height;
 	render->render_top = ft_min(render->top.y, inter->render_min);

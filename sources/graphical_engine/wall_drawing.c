@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 19:23:33 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/18 18:27:08 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/18 19:23:48 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vec2		ft_get_pixel_position(t_graphical_scene *scene, t_render_wall *render,
 	double	real_height;
 	double	screen_height;
 
-	real_height = fabs(DEFAULT_WALL_HEIGHT / 2 +
+	real_height = (((double)DEFAULT_WALL_HEIGHT - scene->camera.height) +
 		render->inter->sector->ceil_height);
 	screen_height = abs(render->center - y);
 	distance = real_height / screen_height;
@@ -57,13 +57,13 @@ void		ft_render_wall_ceiling(t_graphical_scene *scene,
 	if (!render->inter->sector->ceil_texture)
 		return ;
 	i = render->top.y;
-	while (i > render->inter->render_min)
+	while (i >= render->inter->render_min)
 	{
 		position = ft_get_pixel_position(scene, render, i);
 		ft_sdl_image_pixel(scene->render_image, render->inter->screen_x, i,
 			ft_sdl_get_image_pixel(render->inter->sector->ceil_texture,
 				position.x, position.y));
-		i++;
+		i--;
 	}
 }
 
@@ -102,14 +102,14 @@ void		ft_prepare_wall_rendering(t_graphical_scene *scene,
 	render->reverse_distance = 1.0 / inter->distance;
 	render->top.x = inter->ray.screen_x;
 	render->bottom.x = inter->ray.screen_x;
-	render->center = scene->render_image->height + scene->camera.tilt +
-	(DEFAULT_WALL_HEIGHT / 2 - scene->camera.height) * render->reverse_distance;
+	render->center = scene->render_image->height + scene->camera.tilt;
 	render->half_height = ((double)DEFAULT_WALL_HEIGHT / 2) *
 		render->reverse_distance;
-	render->top.y = render->center - render->half_height -
-		inter->sector->ceil_height * render->reverse_distance;
-	render->bottom.y = render->center + render->half_height -
-		inter->sector->floor_height * render->reverse_distance;
+	render->top.y = render->center - (DEFAULT_WALL_HEIGHT -
+		scene->camera.height + inter->sector->ceil_height) *
+		render->reverse_distance;
+	render->bottom.y = render->center + (scene->camera.height -
+		inter->sector->floor_height) * render->reverse_distance;
 	render->wall = inter->object.object.wall;
 	render->render_top = ft_min(render->top.y, inter->render_min);
 	render->render_bottom = ft_max(render->bottom.y, inter->render_max);

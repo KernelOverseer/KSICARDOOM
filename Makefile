@@ -6,12 +6,12 @@
 #    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/01/16 14:08:27 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/18 18:48:50 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -Ofast
 NAME = doom_nukem
 INC_DIR = ./includes
 SRC_DIR = ./sources

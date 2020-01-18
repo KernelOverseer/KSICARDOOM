@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 16:00:00 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/18 18:39:23 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define PROJECTION_DISTANCE 45.0
 # define CONFIG_RES_RATIO 1
 # define MAX_RENDER_DISTANCE INFINITY
-# define DEFAULT_WALL_HEIGHT 2000.0
+# define DEFAULT_WALL_HEIGHT 5000.0
 # define CONF_CAMERA_HEIGHT DEFAULT_WALL_HEIGHT / 2
 # define DEFAULT_WALL_COLOR 0xCC00CC
 # define ANIMATION_TYPE_TIME 1

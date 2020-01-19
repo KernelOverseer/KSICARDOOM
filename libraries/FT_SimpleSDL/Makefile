@@ -28,6 +28,7 @@ FILENAMES = init.c\
 			loop.c\
 			draw.c\
 			images.c\
+			image_set.c\
 			olddraw.c\
 			loop2.c\
 			ft_strdup.c\

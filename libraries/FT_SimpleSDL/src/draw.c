@@ -42,7 +42,7 @@ void			ft_sdl_image_line(t_sdl_image *image, t_point p0,
 	err = (d[0] > d[1] ? d[0] : -d[1]) / 2;
 	while (1)
 	{
-		ft_sdl_image_pixel(image, p0.x, p0.y, color);
+		ft_sdl_set_image_pixel(image, p0.x, p0.y, color);
 		if (p0.x == p1.x && p0.y == p1.y)
 			break ;
 		e2 = err;
@@ -104,6 +104,6 @@ void		ft_sdl_image_rect(t_sdl_image *img, t_rect rect, Uint32 c)
 	{
 		j = rect.x - 1;
 		while (++j < rect.x + rect.w)
-			ft_sdl_image_pixel(img, j, i, c);
+			ft_sdl_set_image_pixel(img, j, i, c);
 	}
 }

@@ -39,7 +39,7 @@ void    ft_blit_image(t_rect rect, t_sdl_image *texture,
         {
             color = texture->pixels[(int)y * texture->width + (int)x];
             if (RGB_A(color) != 0)
-                ft_sdl_image_pixel(main_image, rect.x, rect.y, color);
+                ft_sdl_set_image_pixel(main_image, rect.x, rect.y, color);
             x += x_inc;
             rect.x++;
         }

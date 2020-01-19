@@ -43,7 +43,7 @@ t_sdl_image	*newimage(int width, int height)
 **		and with the given color
 */
 
-void		ft_sdl_image_pixel(t_sdl_image *image, int x, int y, Uint32 color)
+void		ft_sdl_set_image_pixel(t_sdl_image *image, int x, int y, Uint32 color)
 {
 	if (x < 0 || x >= image->width || y < 0 || y >= image->height)
 		return ;

@@ -67,7 +67,7 @@ int	key_press_handler(void	*arg, SDL_Event e)
 	}
 
 	ft_SDL_clear_image(env->image, 0x0);
-	ft_SDL_image_pixel(env->image, env->pos.x, env->pos.y, 0xffffff);
+	ft_sdl_set_image_pixel(env->image, env->pos.x, env->pos.y, 0xffffff);
 	ft_SDL_image_line(env->image, (t_point){0,0}, (t_point){200,200}, 0xffffff);
 	ft_SDL_put_image(env->image, env->env);
 	ft_SDL_render_texture(env->env);

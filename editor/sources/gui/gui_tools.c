@@ -38,7 +38,7 @@ void	ft_blit_image(t_rect rect, t_sdl_image *texture, t_sdl_image *main_image)
 		{
 			color = texture->pixels[(int)y * texture->width + (int)x];
 			if (RGB_A(color) != 0)
-				ft_sdl_image_pixel(main_image, rect.x, rect.y, color);
+				ft_sdl_set_image_pixel(main_image, rect.x, rect.y, color);
 			x += x_inc;
 			rect.x++;
 		}
@@ -59,7 +59,7 @@ void	ft_draw_rect(t_sdl_image *image, t_rect rect, uint32_t color)
 		x = 0;
 		while (x < rect.w)
 		{
-			ft_sdl_image_pixel(image, rect.x + x, rect.y + y, color);
+			ft_sdl_set_image_pixel(image, rect.x + x, rect.y + y, color);
 			x++;
 		}
 		y++;

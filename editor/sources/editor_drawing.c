@@ -25,8 +25,8 @@ void	ft_draw_mouse_pointer(t_sdl_image *image, int x, int y, int status)
 	i = -10;
 	while (i < 11)
 	{
-		ft_sdl_image_pixel(image, x, y + i, CORRECT_COLOR(color));
-		ft_sdl_image_pixel(image, x + i, y, CORRECT_COLOR(color));
+		ft_sdl_set_image_pixel(image, x, y + i, CORRECT_COLOR(color));
+		ft_sdl_set_image_pixel(image, x + i, y, CORRECT_COLOR(color));
 		i++;
 	}
 }

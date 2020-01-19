@@ -38,7 +38,7 @@ int	ft_draw_skybox(t_graphical_scene *scene)
 		x = scene->render_image->width;
 		while (--x >= 0)
 		{
-			ft_sdl_image_pixel(scene->render_image, x, y,
+			ft_sdl_set_image_pixel(scene->render_image, x, y,
 				ft_sdl_get_image_pixel(scene->skybox, texture_start + x,
 				scene->skybox->height - (center - y)));
 		}

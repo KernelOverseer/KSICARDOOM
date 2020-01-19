@@ -23,6 +23,8 @@
 		"graphical_engine.h": "c",
 		"__locale": "c",
 		"functional": "c",
-		"physics_engine.h": "c"
+		"physics_engine.h": "c",
+		"vectors.h": "c",
+		"libgl.h": "c"
 	}
 }

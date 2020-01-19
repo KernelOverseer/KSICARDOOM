@@ -13,6 +13,7 @@
 #ifndef	GRAPHICAL_ENGINE_H
 # define GRAPHICAL_ENGINE_H
 # include "vectors.h"
+# include "libgl.h"
 # include "raycasting.h"
 # include "graphical_objects.h"
 # include "ttslist.h"

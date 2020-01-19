@@ -43,9 +43,11 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	t_sector *new_sector2;
 	t_wall	*new_wall;
 	t_portal	*new_portal;
-	t_sprite	*new_sprite;
+//	t_sprite	*new_sprite;
 
 	new_sector = ft_new_sector();
+	new_sector->floor_height = -500;
+	new_sector->ceil_height = 500;
 	new_sector2 = ft_new_sector();
 	new_wall = ft_new_wall((t_point){500, 500}, (t_point){1000, 1000});
 	new_sector->walls.push(&(new_sector->walls), new_wall);
@@ -67,39 +69,39 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	ft_sdl_load_image("floor.tex", new_wall->texture);
 	new_sector->walls.push(&(new_sector->walls), new_wall);
 
-	new_sprite = ft_memalloc(sizeof(t_sprite));
-	new_sprite->radius = 30;
-	new_sprite->height = DEFAULT_WALL_HEIGHT;
-	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
-		1, 60);
-	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
+// 	new_sprite = ft_memalloc(sizeof(t_sprite));
+// 	new_sprite->radius = 30;
+// 	new_sprite->height = DEFAULT_WALL_HEIGHT;
+// 	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
+// 		1, 60);
+// 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
 
-	new_sprite = ft_memalloc(sizeof(t_sprite));
-	new_sprite->radius = 30;
-	new_sprite->height = DEFAULT_WALL_HEIGHT;
-	new_sprite->position = (t_vec2){-200, -200};
-	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
-		1, 60);
-	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
+// 	new_sprite = ft_memalloc(sizeof(t_sprite));
+// 	new_sprite->radius = 30;
+// 	new_sprite->height = DEFAULT_WALL_HEIGHT;
+// 	new_sprite->position = (t_vec2){-200, -200};
+// 	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
+// 		1, 60);
+// 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
 
-	new_sprite = ft_memalloc(sizeof(t_sprite));
-	new_sprite->radius = 30;
-	new_sprite->height = DEFAULT_WALL_HEIGHT;
-	new_sprite->position = (t_vec2){-300, -300};
-	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
-		1, 60);
-	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
+// 	new_sprite = ft_memalloc(sizeof(t_sprite));
+// 	new_sprite->radius = 30;
+// 	new_sprite->height = DEFAULT_WALL_HEIGHT;
+// 	new_sprite->position = (t_vec2){-300, -300};
+// 	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
+// 		1, 60);
+// 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
 
-	new_sprite = ft_memalloc(sizeof(t_sprite));
-	new_sprite->position = (t_vec2){-100, -100};
-	new_sprite->radius = 50;
-	new_sprite->height = DEFAULT_WALL_HEIGHT / 2;
-/*	new_sprite->animation = ft_create_temp_animation("animation/ricardo_",
-		0.2, 56);*/
-	new_sprite->animation = ft_create_temp_animation("player_animation/doomguy_",
-		1, 8);
-	new_sprite->animation.type = ANIMATION_TYPE_DIRECTION;
-	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
+// 	new_sprite = ft_memalloc(sizeof(t_sprite));
+// 	new_sprite->position = (t_vec2){-100, -100};
+// 	new_sprite->radius = 50;
+// 	new_sprite->height = DEFAULT_WALL_HEIGHT / 2;
+// /*	new_sprite->animation = ft_create_temp_animation("animation/ricardo_",
+// 		0.2, 56);*/
+// 	new_sprite->animation = ft_create_temp_animation("player_animation/doomguy_",
+// 		1, 8);
+// 	new_sprite->animation.type = ANIMATION_TYPE_DIRECTION;
+// 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
 
 	new_wall = ft_new_wall((t_point){90, 290}, (t_point){290, 290});
 	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
@@ -197,7 +199,7 @@ int	temp_apply_movement(t_doom_env *env)
 	if (env->keys[SDL_SCANCODE_0])
 		ft_rotate_sectors(env);
 	env->main_scene.camera.position.x += movement_vector.x;
-	env->main_scene.camera.position.y += movement_vector.y;*/
+	env->main_scene.camera.position.y += movement_vector.y;
 	return (SUCCESS);
 }
 

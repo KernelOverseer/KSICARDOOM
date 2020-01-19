@@ -180,10 +180,10 @@ int	temp_apply_movement(t_doom_env *env)
 	// 	env->main_scene.camera.angle += 0.05;
 	// if (env->keys[SDL_SCANCODE_RIGHT])
 	// 	env->main_scene.camera.angle -= 0.05;
-	if (env->keys[SDL_SCANCODE_UP])
+	// if (env->keys[SDL_SCANCODE_UP])
 
-		movement_vector = ft_vec2_from_angle(10, env->main_scene.camera.angle);
-	if (env->keys[SDL_SCANCODE_DOWN])
+	// 	movement_vector = ft_vec2_from_angle(10, env->main_scene.camera.angle);
+	// if (env->keys[SDL_SCANCODE_DOWN])
 		movement_vector = ft_vec2_from_angle(-10, env->main_scene.camera.angle);
 	if (env->keys[SDL_SCANCODE_DELETE])
 		env->main_scene.camera.height += 50;
@@ -210,15 +210,28 @@ int	temp_apply_movement(t_doom_env *env)
 		env->main_scene.camera.tilt -= env->mouse_rel.y;
 	if (env->mouse_rel.x)
 		env->main_scene.camera.angle += env->mouse_rel.x * -0.01;
-	env->main_scene.camera.position.x += movement_vector.x;
-	env->main_scene.camera.position.y += movement_vector.y;
+	// env->main_scene.camera.position.x += movement_vector.x;
+	// env->main_scene.camera.position.y += movement_vector.y;
 	return (SUCCESS);
 }
 
-void	sync_camera_pos(t_doom_env *env, t_vec3 pos)
+void	sync_camera(t_doom_env *env, t_body *body)
 {
-	env->main_scene.camera.position.x = pos.x;
-	env->main_scene.camera.position.y = pos.y;
+	double angle;
+	t_vec3 cross;
+
+	if (body->flags & IS_CONTROLLED)
+	{
+		// body->player->height[0] = body->pos.z;
+		// env->main_scene.camera.height = body->player->height[1];
+	}
+	env->main_scene.camera.position.x = body->pos.x;
+	env->main_scene.camera.position.y = body->pos.y;
+	angle = acos(ft_vec3_dot_product(body->forw, RIGHT));
+	cross = ft_vec3_cross_product(body->forw, RIGHT);
+	if (ft_vec3_dot_product(DOWN, cross) < 0)
+		angle = -angle;
+	env->main_scene.camera.angle = angle;
 }
 
 void	ft_apply_controllers(t_doom_env *env)
@@ -239,7 +252,7 @@ int	ft_main_loop(void *arg)
 
 	env = arg;
 	ft_apply_controllers(env);
-	// sync_camera_pos(env, ((t_body *)env->bodies.first->content)->pos);
+	sync_camera(env, (t_body *)env->bodies.first->content);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0, CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt},
 			0x383838);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt , CONF_WINDOW_WIDTH, 2 * CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt},

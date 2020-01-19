@@ -22,12 +22,12 @@ void    ft_new_input_changes(t_body *body)
 	body->player->height[1] = (c[PLAYER_CROUCH]) ? body->player->height[0] / 2 : body->player->height[0];
 	if (c[PLAYER_TURN_RIGHT])
 	{
-		body->forw = ft_vec3_rotate_z(body->forw, ANGLE);
+		body->forw = ft_vec3_rotate_z(body->forw, -ANGLE);
 		body->right = ft_vec3_cross_product(body->forw, DOWN);
 	}
 	if (c[PLAYER_TURN_LEFT])
 	{
-		body->forw = ft_vec3_rotate_z(body->forw, -ANGLE);
+		body->forw = ft_vec3_rotate_z(body->forw, ANGLE);
 		body->right = ft_vec3_cross_product(body->forw, DOWN);
 	}
 	if (c[PLAYER_FORWARD])
@@ -43,10 +43,10 @@ void    ft_new_input_changes(t_body *body)
 		*v = ft_vec3_add(*v, ft_vec3_scalar(body->up, body->player->jump_power));
 		body->player->is_jumping = 1;
 	}
-	// printf("forw: x: %f, y: %f, z: %f | right: x: %f, y: %f, z: %f | pos: x: %f, y: %f, z: %f\n",
-	// body->forw.x, body->forw.y, body->forw.z,
-	// body->right.x, body->right.y, body->right.z,
-	// body->pos.x, body->pos.y, body->pos.z);
+	printf("forw: x: %f, y: %f, z: %f | right: x: %f, y: %f, z: %f | pos: x: %f, y: %f, z: %f\n",
+	body->forw.x, body->forw.y, body->forw.z,
+	body->right.x, body->right.y, body->right.z,
+	body->pos.x, body->pos.y, body->pos.z);
 }
 
 double	ft_lerp(double goal, double current, double delta_time)

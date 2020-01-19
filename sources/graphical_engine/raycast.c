@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:20:54 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/14 20:23:30 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/19 19:53:11 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	ft_init_raycasting(t_raycast *raygen, t_graphical_scene *env)
 
 void	ft_iter_ray(t_raycast *raygen, t_graphical_scene *env)
 {
-	raygen->plane.x += raygen->swipe.x * CONFIG_RES_RATIO;
-	raygen->plane.y += raygen->swipe.y * CONFIG_RES_RATIO;
+	raygen->plane.x += raygen->swipe.x * env->resolution_ratio;
+	raygen->plane.y += raygen->swipe.y * env->resolution_ratio;
 	raygen->ray.dir.x = raygen->direction.x + raygen->plane.x;
 	raygen->ray.dir.y = raygen->direction.y + raygen->plane.y;
 	raygen->ray.dist = ft_vec2_mag(raygen->ray.dir);
@@ -73,6 +73,6 @@ void	ft_raycast(t_graphical_scene *env)
 		ft_intersect_ray(env, &inter, env->current_sector);
 		ft_handle_intersect(env, &inter);
 		ft_iter_ray(raygen, env);
-		x += CONFIG_RES_RATIO;
+		x += env->resolution_ratio;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 19:55:06 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/18 19:21:21 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/19 17:51:52 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	ft_prepare_portal_rendering(t_graphical_scene *scene,
 	render->this_sector.inter = inter;
 	render->this_sector.center = render->center;
 	ft_render_wall_ceiling(scene, &render->this_sector);
-	ft_render_wall_ground(scene, &render->this_sector);
+	ft_render_wall_floor(scene, &render->this_sector);
 	inter->render_min = ft_min(render->render_top, inter->render_min);
 	inter->render_max = ft_max(render->render_bottom, inter->render_max);
 }

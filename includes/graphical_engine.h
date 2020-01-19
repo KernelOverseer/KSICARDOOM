@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:55:14 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/18 18:33:53 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/19 20:00:00 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	ft_handle_intersect(t_graphical_scene *scene, t_intersect *inter);
 int		ft_draw_skybox(t_graphical_scene *scene);
 void	ft_render_wall_ceiling(t_graphical_scene *scene,
  	t_render_wall *render);
-void	ft_render_wall_ground(t_graphical_scene *scene,
+void	ft_render_wall_floor(t_graphical_scene *scene,
  	t_render_wall *render);
+int		ft_apply_brightness(double brightness, int color);
+void	ft_set_image_pixel(t_graphical_scene *scene, int x, int y, int color);
 #endif

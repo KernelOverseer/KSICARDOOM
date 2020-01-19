@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/18 19:24:35 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/19 21:25:21 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	t_sprite	*new_sprite;
 
 	new_sector = ft_new_sector();
-	new_sector->floor_height = -500;
-	new_sector->ceil_height = 500;
+	new_sector->floor_height = 0;
+	new_sector->ceil_height = 0;
 	new_sector2 = ft_new_sector();
+	new_sector2->brightness = 1;
+	new_sector->brightness = 0.5;
 	new_wall = ft_new_wall((t_point){5000, 5000}, (t_point){10000, 10000});
 	new_sector->walls.push(&(new_sector->walls), new_wall);
 	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
@@ -69,6 +71,12 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	ft_sdl_load_image("floor.tex", new_wall->texture);
 	new_sector->walls.push(&(new_sector->walls), new_wall);
 
+	new_wall = ft_new_wall((t_point){1000, 3000}, (t_point){2500, 2500});
+	new_wall->props |= PROP_TRANSPARENT;
+	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("cell.tex", new_wall->texture);
+	new_sector->walls.push(&(new_sector->walls), new_wall);
+
 
 	new_sprite = ft_memalloc(sizeof(t_sprite));
 	new_sprite->radius = 30;
@@ -86,11 +94,12 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
 
 	new_sprite = ft_memalloc(sizeof(t_sprite));
-	new_sprite->radius = 30;
+	new_sprite->radius = 400;
 	new_sprite->height = DEFAULT_WALL_HEIGHT;
-	new_sprite->position = (t_vec2){-3000, -3000};
+	new_sprite->position = (t_vec2){2999, 1999};
 	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
 		1, 60);
+	new_sprite->props |= PROP_FIXED_ANGLE;
 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
 
 	new_sprite = ft_memalloc(sizeof(t_sprite));
@@ -102,6 +111,7 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	new_sprite->animation = ft_create_temp_animation("player_animation/doomguy_",
 		1, 8);
 	new_sprite->animation.type = ANIMATION_TYPE_DIRECTION;
+
 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
 	new_wall = ft_new_wall((t_point){900, 2900}, (t_point){2900, 2900});
 	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
@@ -119,12 +129,18 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	new_sector2->portals.push(&(new_sector2->portals), new_portal);
 
 	new_wall = ft_new_wall((t_point){1000, 3000}, (t_point){2000, 5000});
+	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("floor.tex", new_wall->texture);
 	new_sector2->walls.push(&(new_sector2->walls), new_wall);
 
 	new_wall = ft_new_wall((t_point){3000, 3000}, (t_point){4000, 5000});
+	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("floor.tex", new_wall->texture);
 	new_sector2->walls.push(&(new_sector2->walls), new_wall);
 
 	new_wall = ft_new_wall((t_point){2000, 5000}, (t_point){4000, 5000});
+	new_wall->texture = ft_memalloc(sizeof(t_sdl_image));
+	ft_sdl_load_image("floor.tex", new_wall->texture);
 	new_sector2->walls.push(&(new_sector2->walls), new_wall);
 
 	new_sector2->ceil_height = -1000;
@@ -140,6 +156,7 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 
 	new_sector2->ceil_texture = ft_memalloc(sizeof(t_sdl_image));
 	printf("LOADING ceiling : %d\n", ft_sdl_load_image("floor.tex", new_sector2->ceil_texture));
+
 	return (SUCCESS);
 }
 
@@ -181,10 +198,9 @@ int	temp_apply_movement(t_doom_env *env)
 	// if (env->keys[SDL_SCANCODE_RIGHT])
 	// 	env->main_scene.camera.angle -= 0.05;
 	if (env->keys[SDL_SCANCODE_UP])
-
-		movement_vector = ft_vec2_from_angle(10, env->main_scene.camera.angle);
+		movement_vector = ft_vec2_from_angle(50, env->main_scene.camera.angle);
 	if (env->keys[SDL_SCANCODE_DOWN])
-		movement_vector = ft_vec2_from_angle(-10, env->main_scene.camera.angle);
+		movement_vector = ft_vec2_from_angle(-50, env->main_scene.camera.angle);
 	if (env->keys[SDL_SCANCODE_DELETE])
 		env->main_scene.camera.height += 50;
 	if (env->keys[SDL_SCANCODE_HOME])
@@ -196,10 +212,6 @@ int	temp_apply_movement(t_doom_env *env)
 	if (env->keys[SDL_SCANCODE_PAGEUP] && env->main_scene.camera.tilt <=
 			- 10)
 		env->main_scene.camera.tilt += 10;
-	if (env->keys[SDL_SCANCODE_DELETE])
-		env->main_scene.current_sector->ceil_height += 50;
-	if (env->keys[SDL_SCANCODE_HOME])
-		env->main_scene.current_sector->ceil_height -= 50;
 	if (env->keys[SDL_SCANCODE_KP_7])
 		env->main_scene.current_sector->floor_height += 50;
 	if (env->keys[SDL_SCANCODE_KP_4])
@@ -257,11 +269,22 @@ int	ft_main_loop(void *arg)
 int	ft_menu_loop(void *arg)
 {
 	t_doom_env *env;
+	static	t_sdl_image	*background = NULL;
 
 	env = arg;
+	if (!background)
+	{
+		background = ft_memalloc(sizeof(t_sdl_image));
+		ft_sdl_load_image("background.tex", background);
+	}
+	ft_blit_image((t_rect){0, 0, env->main_image->width,
+		env->main_image->height}, background, env->main_image);
 	//ft_interact_menu(env);
 	//ft_render_menu(env);
-	ft_sdl_loop_hook(ft_main_loop, env);
+	if (env->keys[SDL_SCANCODE_RETURN])
+		ft_sdl_loop_hook(ft_main_loop, env);
+	ft_sdl_put_image(env->main_image, &env->display);
+	ft_sdl_render_texture(&env->display);
 	return (SUCCESS);
 }
 
@@ -284,6 +307,7 @@ int main(int argc, char **argv)
 	env.controllers.push(&(env.controllers), &physics_controller);
 	ft_init_bodies(&env);		// init players && objects
 	ft_debug_create_temp_map(&env.main_scene);
+	env.main_scene.resolution_ratio = 2;
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
 	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
 	ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEMOTION);

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:58:37 by msidqi            #+#    #+#             */
-/*   Updated: 2020/01/18 18:48:25 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/19 21:23:37 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int ft_init_bodies(t_doom_env *env)
 	t_body *body;
 	t_body default_body;
 
-	default_body = ft_default_body((t_vec3){1200, 1200, 2});
+	default_body = ft_default_body((t_vec3){2000, 2000, 2});
 	body = ft_memalloc(sizeof(t_body));
 	ft_memcpy(body, &default_body, sizeof(t_body));
 	ft_init_player(&body->player, 1337);

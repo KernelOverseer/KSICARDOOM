@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 09:29:41 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/25 17:21:12 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/19 17:58:28 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_sdl_image	*newimage(int width, int height)
 **		and with the given color
 */
 
-void		ft_sdl_set_image_pixel(t_sdl_image *image, int x, int y, Uint32 color)
+void		ft_sdl_image_pixel(t_sdl_image *image, int x, int y, Uint32 color)
 {
 	if (x < 0 || x >= image->width || y < 0 || y >= image->height)
 		return ;

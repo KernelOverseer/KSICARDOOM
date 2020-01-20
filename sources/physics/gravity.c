@@ -14,5 +14,5 @@
 
 void        ft_update_gravity(t_body *body, t_vec3 global_gravity, double delta_time)
 {
-    body->gravity = ft_vec3_add(body->gravity, ft_vec3_scalar(global_gravity, (delta_time * 10) * 0.5));
+    body->gravity = ft_vec3_add(body->gravity, ft_vec3_scalar(global_gravity, (delta_time * 10) * body->drag));
 }

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 19:23:33 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/18 19:23:48 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/19 20:05:04 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int	ft_map_texture_x(t_vec2 start, t_vec2 pos, int texture_width)
 	return ((int)ft_vec2_mag(diff) % texture_width);
 }
 
-t_vec2		ft_get_pixel_position(t_graphical_scene *scene, t_render_wall *render,
-	int y)
+t_vec2		ft_get_ceiling_pixel_position(t_graphical_scene *scene,
+	t_render_wall *render, int y)
 {
 	double	distance;
 	double	real_height;
@@ -42,6 +42,21 @@ t_vec2		ft_get_pixel_position(t_graphical_scene *scene, t_render_wall *render,
 
 	real_height = (((double)DEFAULT_WALL_HEIGHT - scene->camera.height) +
 		render->inter->sector->ceil_height);
+	screen_height = abs(render->center - y);
+	distance = real_height / screen_height;
+	return (ft_vec2_add(scene->camera.position,
+		ft_vec2_scalar(render->inter->ray.dir, distance)));
+}
+
+t_vec2		ft_get_floor_pixel_position(t_graphical_scene *scene,
+	t_render_wall *render, int y)
+{
+	double	distance;
+	double	real_height;
+	double	screen_height;
+
+	real_height = ((scene->camera.height) -
+		render->inter->sector->floor_height);
 	screen_height = abs(render->center - y);
 	distance = real_height / screen_height;
 	return (ft_vec2_add(scene->camera.position,
@@ -56,18 +71,20 @@ void		ft_render_wall_ceiling(t_graphical_scene *scene,
 
 	if (!render->inter->sector->ceil_texture)
 		return ;
-	i = render->top.y;
+	i = render->top.y > render->inter->render_max ?
+		render->inter->render_max : render->top.y;
 	while (i >= render->inter->render_min)
 	{
-		position = ft_get_pixel_position(scene, render, i);
-		ft_sdl_set_image_pixel(scene->render_image, render->inter->screen_x, i,
-			ft_sdl_get_image_pixel(render->inter->sector->ceil_texture,
-				position.x, position.y));
-		i--;
+		position = ft_get_ceiling_pixel_position(scene, render, i);
+		ft_set_image_pixel(scene, render->inter->screen_x, i,
+			ft_apply_brightness(render->inter->sector->brightness,
+				ft_sdl_get_image_pixel(render->inter->sector->ceil_texture,
+				position.x, position.y)));
+		i -= scene->resolution_ratio;
 	}
 }
 
-void		ft_render_wall_ground(t_graphical_scene *scene,
+void		ft_render_wall_floor(t_graphical_scene *scene,
  	t_render_wall *render)
 {
 	int		i;
@@ -75,14 +92,16 @@ void		ft_render_wall_ground(t_graphical_scene *scene,
 
 	if (!render->inter->sector->ceil_texture)
 		return ;
-	i = render->bottom.y;
-	while (i < render->inter->render_max)
+	i = render->bottom.y < render->inter->render_min ?
+		render->inter->render_min : render->bottom.y;
+	while (i <= render->inter->render_max)
 	{
-		position = ft_get_pixel_position(scene, render, i);
-		ft_sdl_set_image_pixel(scene->render_image, render->inter->screen_x, i,
-			ft_sdl_get_image_pixel(render->inter->sector->ceil_texture,
-				position.x, position.y));
-		i++;
+		position = ft_get_floor_pixel_position(scene, render, i);
+		ft_set_image_pixel(scene, render->inter->screen_x, i,
+			ft_apply_brightness(render->inter->sector->brightness,
+				ft_sdl_get_image_pixel(render->inter->sector->ceil_texture,
+				position.x, position.y)));
+		i += scene->resolution_ratio;
 	}
 }
 
@@ -102,17 +121,17 @@ void		ft_render_wall(t_graphical_scene *scene, t_render_wall *render)
 	y_ratio = ((double)render->wall->texture->height /
 		(double)(render->half_height * 2));
 	texture_y = (render->render_top - render->top.y) * y_ratio;
-	while (render->render_top < render->render_bottom)
+	while (render->render_top <= render->render_bottom)
 	{
 		color = ft_sdl_get_image_pixel(render->wall->texture,
 			render->texture_x, texture_y);
 		if (RGB_A(color))
-			ft_sdl_set_image_pixel(scene->render_image, render->top.x,
-				render->render_top, color);
-		texture_y += y_ratio;
-		render->render_top++;
+			ft_set_image_pixel(scene, render->top.x,
+				render->render_top, ft_apply_brightness(
+					render->inter->sector->brightness, color));
+		texture_y += scene->resolution_ratio * y_ratio;
+		render->render_top += scene->resolution_ratio;
 	}
-	ft_render_wall_ground(scene, render);
 }
 
 void		ft_prepare_wall_rendering(t_graphical_scene *scene,

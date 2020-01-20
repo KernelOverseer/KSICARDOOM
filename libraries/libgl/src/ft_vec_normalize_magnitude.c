@@ -53,6 +53,8 @@ t_vec3	ft_vec3_normalize(t_vec3 a)
 	double		hold;
 
 	hold = ft_vec3_mag(a);
+	if (hold == 0)
+		return (a);
 	ret.x = a.x / hold;
 	ret.y = a.y / hold;
 	ret.z = a.z / hold;

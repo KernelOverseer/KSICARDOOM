@@ -19,15 +19,15 @@
 # define DEFAULT_BODY_N ((t_body){(t_vec2){0, 0}, (t_vec2){0, 0, 0}, 0, 1, 3, 5, 1, 0.5, 0, true, true})
 # define DEFAULT_BODY(pos) (t_body){pos, (t_vec2){0, 0}, (t_vec2){0, 1}, (t_vec2){1, 0}, 0, 1, 3, 5, 1, 0.5, 0, true, true, true, NULL}
 # define HEIGHT {4, 0}
-# define P_SPEED 15
+# define P_SPEED 22
 # define P_RUN_SPEED 5
 # define MASS 10
-# define DRAG 1
-# define FRICTION 0.5
+# define DRAG 2
+# define FRICTION 0.7
 # define BOUNCE 0
-# define JUMP_POWER 60
+# define JUMP_POWER 200
 # define GLOBAL_GRAVITY -9
-# define GLOBAL_GRAVITY_VECTOR (t_vec3) {0, 0, -9}
+# define GLOBAL_GRAVITY_VECTOR (t_vec3) {0, 0, -15}
 # define ZERO_VEC3 (t_vec3){0, 0, 0}
 # define UP (t_vec3){0, 0, 1}
 # define DOWN (t_vec3){0, 0, -1}
@@ -72,7 +72,7 @@ typedef struct		s_player
 {
 	Uint64			id;
 	t_vec3			input_velocity;
-	Uint8			is_jumping;
+	Uint8			is_grounded;
 	double			jump_power;
 	double			max_jump;
 	double			height[2];
@@ -96,7 +96,7 @@ typedef struct		s_body
 	double			force_duration;
 	Uint8			flags; // HAS_GRAVITY | HAS_COLLISION | IS_CONTROLLED
 	t_player		*player;
-	void			(*update_velocity)(struct s_body *body, t_vec3 gravity, double delta_time);
+	void			(*update_velocity)(struct s_body *body, double delta_time);
 	void			(*collision)(struct s_body *body, double delta_time);
 	void			(*update_position)(struct s_body *body, double delta_time);
 	void			(*update_force)(struct s_body *body, double delta_time);
@@ -108,7 +108,7 @@ typedef struct		s_body
 t_body				ft_default_body(t_vec3 pos);
 void				ft_init_physics(t_physics_engine *phi);
 void				ft_new_input_changes(t_body *body);
-void				ft_update_velocity(t_body *body, t_vec3 gravity, double delta_time);
+void				ft_update_velocity(t_body *body, double delta_time);
 void				ft_force_add(t_body *body, t_vec3 force, double force_duration);
 void				ft_force_change(t_body *body, t_vec3 force, double force_duration);
 void				ft_update_gravity(t_body *body, t_vec3 gravity, double delta_time);

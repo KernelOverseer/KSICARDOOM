@@ -37,7 +37,7 @@ void    ft_physics_controllers(void *param)
 				ft_new_input_changes(body);
 			body->update_gravity(body, env->phi.gravity_vec, env->timer.delta_time);
 			body->update_force(body, env->timer.delta_time);
-			body->update_velocity(body, env->phi.gravity_vec, env->timer.delta_time);
+			body->update_velocity(body, env->timer.delta_time);
 		}
 		env->bodies.iterator = env->bodies.first;
 		while ((body = ttslist_iter_content(&(env->bodies))))

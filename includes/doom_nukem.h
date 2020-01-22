@@ -25,12 +25,13 @@
 # define SUCCESS 1
 # define SECOND 1000000000
 
-typedef void				t_controller_function(void *arg);
+typedef void				t_controller_function(void *env, void *body);
 
 typedef struct				s_controller
 {
 	t_controller_function	*function;
-	void					*arg;
+	void					*env;
+	void					*body;
 }							t_controller;
 
 typedef struct				s_timer
@@ -100,13 +101,19 @@ void						ft_update_time(t_timer *timer);
 **	PHYSICS FUNCTIONS
 */
 
-void						ft_physics_controllers();
+void						ft_physics_controllers(void *env);
 
 /*
 **	ENTITIES/BODIES FUNCTIONS
 */
 
 int							ft_init_bodies(t_doom_env *env);
-void						ft_bodies_input(void *env);
+
+/*
+** CONTROLLERS FUNCTIONS
+*/
+
+void						ft_local_player_input(void *env, void *body);
+void						ft_bot_input(void *env, void *body);
 
 #endif

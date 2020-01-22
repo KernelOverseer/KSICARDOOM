@@ -33,3 +33,20 @@ double		lerp(double x1, double x2, double lerp)
 {
 	return (x1 + lerp * (x2 - x1));
 }
+
+t_vec2		ft_vec2_lerp(t_vec2 v1, t_vec2 v2, double lrp)
+{
+	return ((t_vec2){lerp(v1.x, v2.x, lrp), lerp(v1.y, v2.y, lrp)});
+}
+
+double	ft_lerp(double goal, double current, double delta_time)
+{
+	double diff;
+
+	diff = goal - current;
+	if (diff > delta_time)
+		return (current + delta_time);
+	if (diff < -delta_time)
+		return (current - delta_time);
+	return (goal);
+}

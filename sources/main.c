@@ -220,7 +220,9 @@ int	temp_apply_movement(t_doom_env *env)
 		env->main_scene.current_sector->floor_height -= 50;
 	if (env->keys[SDL_SCANCODE_0])
 		ft_rotate_sectors(env);
-	if (env->mouse_rel.y)
+	if ((env->mouse_rel.y > 0 && env->main_scene.camera.tilt >=
+			- env->main_scene.render_image->height + 10)
+		|| (env->mouse_rel.y < 0 && env->main_scene.camera.tilt <= - 10))
 		env->main_scene.camera.tilt -= env->mouse_rel.y;
 	if (env->mouse_rel.x)
 		env->main_scene.camera.angle += env->mouse_rel.x * -0.01;
@@ -253,8 +255,9 @@ void	ft_apply_controllers(t_doom_env *env)
 	while ((controller = ttslist_iter_content(&(env->controllers))))
 	{
 		if (controller->function)
-			controller->function(controller->arg);
+			controller->function(controller->env, controller->body);
 	}
+	ft_physics_controllers(env);
 }
 
 int	ft_main_loop(void *arg)
@@ -304,21 +307,30 @@ int	ft_menu_loop(void *arg)
 int main(int argc, char **argv)
 {
 	t_doom_env		env;
-	t_controller	physics_controller;
-	t_controller	bodies_input_controller;
+	t_controller	local_player_input_controller;
+	t_controller	bot_input_controller;
+	t_body			*b;
 	(void)argc;
 	(void)argv;
 
 	ft_init_game_window(&env);
 	SDL_SetRelativeMouseMode(SDL_TRUE); // limits the mouse to the window and hides the cursor
 	ft_init_graphical_scene(&env);
-	bodies_input_controller.function = &ft_bodies_input;
-	bodies_input_controller.arg = &env;
-	env.controllers.push(&(env.controllers), &bodies_input_controller);
-	physics_controller.function = &ft_physics_controllers;
-	physics_controller.arg = &env;
-	env.controllers.push(&(env.controllers), &physics_controller);
-	ft_init_bodies(&env);		// init players && objects
+
+	b = ft_body_construct((t_vec3){2000, 2000, 0}, ft_player_construct(1337)); // id = 1337
+	env.bodies.push(&(env.bodies), (void *)b);
+	local_player_input_controller.function = &ft_local_player_input;
+	local_player_input_controller.env = &env;
+	local_player_input_controller.body = b;
+	env.controllers.push(&(env.controllers), &local_player_input_controller);
+
+	b = ft_body_construct((t_vec3){1900, 2000, 0}, ft_player_construct(42));
+	env.bodies.push(&(env.bodies), (void *)b);
+	bot_input_controller.function = &ft_bot_input;
+	bot_input_controller.env = &env;
+	bot_input_controller.body = b;
+	env.controllers.push(&(env.controllers), &bot_input_controller);
+
 	ft_debug_create_temp_map(&env.main_scene);
 	env.main_scene.resolution_ratio = 2;
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);

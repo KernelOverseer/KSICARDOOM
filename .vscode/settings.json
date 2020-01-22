@@ -25,6 +25,9 @@
 		"functional": "c",
 		"physics_engine.h": "c",
 		"vectors.h": "c",
-		"libgl.h": "c"
+		"libgl.h": "c",
+		"raycasting.h": "c",
+		"ray_calculations.h": "c",
+		"graphics_structs.h": "c"
 	}
 }

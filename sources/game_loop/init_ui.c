@@ -27,6 +27,7 @@ int	ft_init_game_window(t_doom_env *env)
 		return (ERROR);
 	ft_init_timer(&env->timer);
 	ft_init_physics(&env->phi);
+	ttslist_init(&(env->bodies));
 	ft_bzero(env->keys, sizeof(env->keys));
 	return (SUCCESS);
 }

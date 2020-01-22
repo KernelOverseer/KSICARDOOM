@@ -14,12 +14,25 @@
 
 void    ft_new_input_changes(t_body *body)
 {
+	t_vec3 move_dir;
 	unsigned char *c;
 	t_vec3 *v;
+
+	move_dir = ZERO_VEC3;
 	v = &body->player->input_velocity;
 	*v = (t_vec3){v->x, v->y, v->z};
-	c = body->player->controller;
-	body->player->height[1] = (c[PLAYER_CROUCH]) ? body->player->height[0] / 2 : body->player->height[0];
+	c = body->player->input;
+	// changing height on crouch
+	if (c[PLAYER_CROUCH])
+	{
+		body->player->height[1] = (body->player->height[1] > body->player->height[0] / 2) ? body->player->height[1] - 150 : body->player->height[1];
+		c[PLAYER_RUN] = 0;
+	}
+	else
+	{
+		body->player->height[1] = (body->player->height[1] < body->player->height[0]) ? body->player->height[1] + 150 : body->player->height[1];
+	}
+	// rotating player
 	if (c[PLAYER_TURN_RIGHT])
 	{
 		body->forw = ft_vec3_rotate_z(body->forw, -ANGLE);
@@ -30,8 +43,7 @@ void    ft_new_input_changes(t_body *body)
 		body->forw = ft_vec3_rotate_z(body->forw, ANGLE);
 		body->right = ft_vec3_cross_product(body->forw, UP);
 	}
-	t_vec3 move_dir;
-	move_dir = ZERO_VEC3;
+	// move direction
 	if (c[PLAYER_FORWARD] && body->player->is_grounded)
 		move_dir = body->forw;
 	if (c[PLAYER_BACKWARDS] && body->player->is_grounded)
@@ -41,30 +53,18 @@ void    ft_new_input_changes(t_body *body)
 	if (c[PLAYER_STRAFE_LEFT] && body->player->is_grounded)
 		move_dir = ft_vec3_add(move_dir, ft_vec3_scalar(body->right, -1));
 	move_dir = ft_vec3_normalize(move_dir);
-
-	*v = ft_vec3_add(*v, ft_vec3_scalar(move_dir, body->speed + (c[PLAYER_RUN] * P_RUN_SPEED)));
-
+	// applying movement+crouching speed+run speed
+	*v = ft_vec3_add(*v, ft_vec3_scalar(move_dir, body->speed + (c[PLAYER_RUN] * P_RUN_SPEED) - (c[PLAYER_CROUCH]  * body->speed / 2)));
+	// Jump
 	if (c[PLAYER_JUMP] && body->player->is_grounded)
 	{
 		*v = ft_vec3_add(*v, ft_vec3_scalar(body->up, body->player->jump_power));
 		body->player->is_grounded = false;
 	}
-	printf("forw: x: %f, y: %f, z: %f | right: x: %f, y: %f, z: %f | pos: x: %f, y: %f, z: %f\n",
-	body->forw.x, body->forw.y, body->forw.z,
-	body->right.x, body->right.y, body->right.z,
-	body->pos.x, body->pos.y, body->pos.z);
-}
-
-double	ft_lerp(double goal, double current, double delta_time)
-{
-	double diff;
-
-	diff = goal - current;
-	if (diff > delta_time)
-		return (current + delta_time);
-	if (diff < -delta_time)
-		return (current - delta_time);
-	return (goal);
+	// printf("forw: x: %f, y: %f, z: %f | right: x: %f, y: %f, z: %f | pos: x: %f, y: %f, z: %f\n",
+	// body->forw.x, body->forw.y, body->forw.z,
+	// body->right.x, body->right.y, body->right.z,
+	// body->pos.x, body->pos.y, body->pos.z);
 }
 
 void	ft_body_move(t_body *body, double delta_time)

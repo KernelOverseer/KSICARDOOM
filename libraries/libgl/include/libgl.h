@@ -204,6 +204,8 @@ typedef struct		s_obj_function
 }					t_obj_function;
 
 double				lerp(double x1, double x2, double lerp);
+t_vec2				ft_vec2_lerp(t_vec2 v1, t_vec2 v2, double lrp);
+double				ft_lerp(double goal, double current, double delta_time);
 double				ft_get_world_pos(double screen_coord,
 								double widthheight, double zoom);
 void				ft_multi_thread(t_data *data, void *(*f)(void *));

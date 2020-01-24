@@ -45,7 +45,7 @@ void        ft_body_collision(t_graphical_scene *scene, t_body *body, double del
 		if (inter.object.type == OBJECT_portal)
 		{
 			// inter.object.object.portal->sector->
-
+			
 		}
 		else
 		{

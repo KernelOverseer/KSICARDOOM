@@ -257,7 +257,7 @@ void	ft_apply_controllers(t_doom_env *env)
 		if (controller->function)
 			controller->function(controller->env, controller->body);
 	}
-	ft_physics_controllers(env);
+	// ft_physics_controllers(env);
 }
 
 int	ft_main_loop(void *arg)
@@ -266,18 +266,18 @@ int	ft_main_loop(void *arg)
 
 	env = arg;
 	ft_apply_controllers(env);
-	// sync_camera(env, (t_body *)env->bodies.first->content);
-	// ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0,
-	// CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt}, 0x383838);
-	// ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, CONF_WINDOW_HEIGHT
-	// + env->main_scene.camera.tilt, CONF_WINDOW_WIDTH, 2 * CONF_WINDOW_HEIGHT +
-	// env->main_scene.camera.tilt}, 0x707070);
-	// ft_render_scene(&env->main_scene);
-	// env->main_scene.frame_count++;
+	sync_camera(env, (t_body *)env->bodies.first->content);
+	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0,
+	CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt}, 0x383838);
+	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, CONF_WINDOW_HEIGHT
+	+ env->main_scene.camera.tilt, CONF_WINDOW_WIDTH, 2 * CONF_WINDOW_HEIGHT +
+	env->main_scene.camera.tilt}, 0x707070);
+	ft_render_scene(&env->main_scene);
+	env->main_scene.frame_count++;
 	// temp_apply_movement(env);
-	// temp_render_graphics(&(env->main_scene));
-	// ft_sdl_put_image(env->main_scene.render_image, &env->display);
-	// ft_sdl_render_texture(&env->display);
+	temp_render_graphics(&(env->main_scene));
+	ft_sdl_put_image(env->main_scene.render_image, &env->display);
+	ft_sdl_render_texture(&env->display);
 	// printf("cam_height : %d wallheight : %d\n", env->main_scene.camera.height, (int)DEFAULT_WALL_HEIGHT);
 	return (SUCCESS);
 }
@@ -293,14 +293,14 @@ int	ft_menu_loop(void *arg)
 		background = ft_memalloc(sizeof(t_sdl_image));
 		ft_sdl_load_image("background.tex", background);
 	}
-	// ft_blit_image((t_rect){0, 0, env->main_image->width,
-	// 	env->main_image->height}, background, env->main_image);
-	//ft_interact_menu(env);
-	//ft_render_menu(env);
+	ft_blit_image((t_rect){0, 0, env->main_image->width,
+		env->main_image->height}, background, env->main_image);
+	// ft_interact_menu(env);
+	// ft_render_menu(env);
 	if (env->keys[SDL_SCANCODE_RETURN])
 		ft_sdl_loop_hook(ft_main_loop, env);
-	// ft_sdl_put_image(env->main_image, &env->display);
-	// ft_sdl_render_texture(&env->display);
+	ft_sdl_put_image(env->main_image, &env->display);
+	ft_sdl_render_texture(&env->display);
 	return (SUCCESS);
 }
 
@@ -323,7 +323,7 @@ int main(int argc, char **argv)
 	(void)argv;
 
 	ft_init_game_window(&env);
-	
+
 	ft_init_timer(&env.timer);
 	ft_init_physics(&env.phi);
 	ttslist_init(&(env.controllers));
@@ -331,24 +331,17 @@ int main(int argc, char **argv)
 	ft_bzero(env.keys, sizeof(env.keys));
 	ttslist_init(&(env.main_scene.sectors));
 
-	// ft_init_graphical_scene(&env);
+	ft_init_graphical_scene(&env);
 
-	// ft_controller_construct(&env, &ft_local_player_input,
-	// 	ft_body_construct((t_vec3){2000, 2000, 0}, ft_player_construct(1337)));
+	ft_controller_construct(&env, &ft_local_player_input,
+		ft_body_construct((t_vec3){2000, 2000, 0}, ft_player_construct(1337)));
 
-	// ft_controller_construct(&env, &ft_bot_input,
-	// 	ft_body_construct((t_vec3){1900, 2000, 0}, ft_player_construct(42)));
-	while (1)
-	{
-		ft_apply_controllers(&env);
-	}
-
-	// ft_debug_create_temp_map(&env.main_scene);
-	// env.main_scene.resolution_ratio = 2;
-	// ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
-	// ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
-	// ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEMOTION);
-	// ft_sdl_loop_hook(ft_menu_loop, &env);
-	// ft_sdl_loop(&env.display);
+	ft_debug_create_temp_map(&env.main_scene);
+	env.main_scene.resolution_ratio = 2;
+	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
+	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
+	ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEMOTION);
+	ft_sdl_loop_hook(ft_menu_loop, &env);
+	ft_sdl_loop(&env.display);
 	return (0);
 }

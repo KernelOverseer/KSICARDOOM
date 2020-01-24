@@ -39,6 +39,24 @@ void	ft_local_player_input(void *env, void *body)
 	c[PLAYER_STRAFE_RIGHT]	= k[SDL_SCANCODE_D];
 	c[PLAYER_JUMP]			= k[SDL_SCANCODE_SPACE];
 	SDL_GetRelativeMouseState(&e->mouse_rel.x, &e->mouse_rel.y);
+	printf("%d\n", e->mouse_rel.x);
+	if (e->mouse_rel.x)
+		e->main_scene.camera.angle += e->mouse_rel.x;
+	if ((e->mouse_rel.y > 0 && e->main_scene.camera.tilt >=
+			- e->main_scene.render_image->height + 10)
+		|| (e->mouse_rel.y < 0 && e->main_scene.camera.tilt <= - 10))
+			e->main_scene.camera.tilt -= e->mouse_rel.y;
+	// rotating player
+	if (c[PLAYER_TURN_RIGHT])
+	{
+		b->forw = ft_vec3_rotate_z(b->forw, -ANGLE);
+		b->right = ft_vec3_cross_product(b->forw, UP);
+	}
+	if (c[PLAYER_TURN_LEFT])
+	{
+		b->forw = ft_vec3_rotate_z(b->forw, ANGLE);
+		b->right = ft_vec3_cross_product(b->forw, UP);
+	}
 }
 
 void	ft_init_player(t_player **player, Uint64 id) // init struct s_player values

@@ -14,7 +14,6 @@
 
 int	ft_init_graphical_scene(t_doom_env *env)
 {
-	ttslist_init(&(env->main_scene.sectors));
 	if (!(env->main_scene.render_image =
 				newimage(CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT)))
 		return (ERROR);

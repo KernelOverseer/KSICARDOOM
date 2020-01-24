@@ -61,10 +61,10 @@ void    ft_new_input_changes(t_body *body)
 		*v = ft_vec3_add(*v, ft_vec3_scalar(body->up, body->player->jump_power));
 		body->player->is_grounded = false;
 	}
-	// printf("forw: x: %f, y: %f, z: %f | right: x: %f, y: %f, z: %f | pos: x: %f, y: %f, z: %f\n",
-	// body->forw.x, body->forw.y, body->forw.z,
-	// body->right.x, body->right.y, body->right.z,
-	// body->pos.x, body->pos.y, body->pos.z);
+	printf("forw: x: %f, y: %f, z: %f | right: x: %f, y: %f, z: %f | pos: x: %f, y: %f, z: %f\n",
+	body->forw.x, body->forw.y, body->forw.z,
+	body->right.x, body->right.y, body->right.z,
+	body->pos.x, body->pos.y, body->pos.z);
 }
 
 void	ft_body_move(t_body *body, double delta_time)

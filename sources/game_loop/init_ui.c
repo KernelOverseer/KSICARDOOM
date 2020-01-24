@@ -27,11 +27,11 @@ int	ft_init_game_window(t_doom_env *env)
 	// limits the mouse to the window and hides the cursor
 	SDL_SetRelativeMouseMode(SDL_TRUE);	
 	// init somewhere else
-	ft_init_timer(&env->timer);
-	ft_init_physics(&env->phi);
-	ttslist_init(&(env->controllers));
-	ttslist_init(&(env->bodies));
-	ft_bzero(env->keys, sizeof(env->keys));
+	// ft_init_timer(&env->timer);
+	// ft_init_physics(&env->phi);
+	// ttslist_init(&(env->controllers));
+	// ttslist_init(&(env->bodies));
+	// ft_bzero(env->keys, sizeof(env->keys));
 	//------------------------------------
 	return (SUCCESS);
 }

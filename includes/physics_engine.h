@@ -26,7 +26,7 @@
 # define MASS 10
 # define DRAG 2
 # define FRICTION 0.7
-# define BOUNCE 0.7
+# define BOUNCE 0
 # define JUMP_POWER 200
 # define GLOBAL_GRAVITY -9
 # define GLOBAL_GRAVITY_VECTOR (t_vec3) {0, 0, -15}

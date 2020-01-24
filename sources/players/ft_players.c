@@ -86,6 +86,10 @@ t_player *ft_player_construct(Uint64 id)
 	return (player);
 }
 
+/*
+** init player with NULL for non controlled bodies
+*/
+
 t_body	*ft_body_construct(t_vec3 pos, void *player)
 {
 	t_body *body;

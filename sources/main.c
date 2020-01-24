@@ -304,32 +304,32 @@ int	ft_menu_loop(void *arg)
 	return (SUCCESS);
 }
 
+void	ft_controller_construct(t_doom_env *env, void f(void *, void *), t_body *b)
+{
+	t_controller	*new_controller;
+
+	new_controller = ft_memalloc(sizeof(t_controller));
+	env->bodies.push(&(env->bodies), (void *)b);
+	new_controller->function = f;
+	new_controller->env = env;
+	new_controller->body = b;
+	env->controllers.push(&(env->controllers), new_controller);
+}
+
 int main(int argc, char **argv)
 {
 	t_doom_env		env;
-	t_controller	local_player_input_controller;
-	t_controller	bot_input_controller;
-	t_body			*b;
 	(void)argc;
 	(void)argv;
 
 	ft_init_game_window(&env);
-	SDL_SetRelativeMouseMode(SDL_TRUE); // limits the mouse to the window and hides the cursor
 	ft_init_graphical_scene(&env);
 
-	b = ft_body_construct((t_vec3){2000, 2000, 0}, ft_player_construct(1337)); // id = 1337
-	env.bodies.push(&(env.bodies), (void *)b);
-	local_player_input_controller.function = &ft_local_player_input;
-	local_player_input_controller.env = &env;
-	local_player_input_controller.body = b;
-	env.controllers.push(&(env.controllers), &local_player_input_controller);
+	ft_controller_construct(&env, &ft_local_player_input,
+		ft_body_construct((t_vec3){2000, 2000, 0}, ft_player_construct(1337)));
 
-	b = ft_body_construct((t_vec3){1900, 2000, 0}, ft_player_construct(42));
-	env.bodies.push(&(env.bodies), (void *)b);
-	bot_input_controller.function = &ft_bot_input;
-	bot_input_controller.env = &env;
-	bot_input_controller.body = b;
-	env.controllers.push(&(env.controllers), &bot_input_controller);
+	ft_controller_construct(&env, &ft_bot_input,
+		ft_body_construct((t_vec3){1900, 2000, 0}, ft_player_construct(42)));
 
 	ft_debug_create_temp_map(&env.main_scene);
 	env.main_scene.resolution_ratio = 2;

@@ -62,26 +62,31 @@ void        ft_body_collision(t_graphical_scene *scene, t_body *body, double del
 			if (ft_vec3_mag(vec_perpendicular_towards_inter) < 50)
 			{
 				// body->pos = stopping_pos;
-				// printf("%14f %14f %14f || %14f + %14f, %14f + %14f, %14f + %14f \n", newdir.x, newdir.y, newdir.z, body->velocity.x, body->player->input_velocity.x, body->velocity.y, body->player->input_velocity.y, body->velocity.z, body->player->input_velocity.z);
-				if (body->bounce)
+				if (body->bounce) // reflect velocity
 				{
 					t_vec3 reflected_vec;
 					reflected_vec = ft_vec3_add(ft_vec3_scalar(normal, -2 * ft_vec3_dot_product(body->velocity, normal)), body->velocity);
 					body->velocity.x = reflected_vec.x * body->bounce;
 					body->velocity.y = reflected_vec.y * body->bounce;
-					reflected_vec = ft_vec3_add(ft_vec3_scalar(normal, -2 * ft_vec3_dot_product(body->player->input_velocity, normal)), body->player->input_velocity);
-					body->player->input_velocity.x = reflected_vec.x * body->bounce;
-					body->player->input_velocity.y = reflected_vec.y * body->bounce;
+					if (body->flags & IS_CONTROLLED)
+					{
+						reflected_vec = ft_vec3_add(ft_vec3_scalar(normal, -2 * ft_vec3_dot_product(body->player->input_velocity, normal)), body->player->input_velocity);
+						body->player->input_velocity.x = reflected_vec.x * body->bounce;
+						body->player->input_velocity.y = reflected_vec.y * body->bounce;
+					}
 				}
-				else
+				else // redirect velocity
 				{
 					t_vec3 newdir = ft_vec3_normalize(inter_to_p1);
 					double dot = ft_vec3_dot_product(newdir, body->velocity);
 					newdir = ft_vec3_scalar(newdir, dot);
 					body->velocity.x = newdir.x;
 					body->velocity.y = newdir.y;
-					body->player->input_velocity.x = newdir.x;
-					body->player->input_velocity.y = newdir.y;
+					if (body->flags & IS_CONTROLLED)
+					{
+						body->player->input_velocity.x = newdir.x;
+						body->player->input_velocity.y = newdir.y;
+					}
 				}
 			}
 		}

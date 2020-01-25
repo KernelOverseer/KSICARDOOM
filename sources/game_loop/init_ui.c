@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init_ui.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 11:12:12 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/04 12:40:05 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/22 17:50:28 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+
+int	ft_load_menu_ressources(t_doom_env *env)
+{
+}
 
 int	ft_init_game_window(t_doom_env *env)
 {
@@ -22,6 +26,8 @@ int	ft_init_game_window(t_doom_env *env)
 	config.window_title = CONF_WINDOW_TITLE;
 	ttslist_init(&(env->controllers));
 	if (!ft_sdl_init(&(env->display), config))
+		return (ERROR);
+	if (!ft_load_menu_ressources(env))
 		return (ERROR);
 	if (!(env->main_image = newimage(CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT)))
 		return (ERROR);

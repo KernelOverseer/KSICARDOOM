@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   doom_nukem.h                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/04 11:48:17 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 13:09:56 by abiri            ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   doom_nukem.h									   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: abiri <abiri@student.42.fr>				+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2020/01/04 11:48:17 by abiri			 #+#	#+#			 */
+/*   Updated: 2020/01/22 17:50:58 by abiri			###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #ifndef DOOM_NUKEM_H
@@ -24,6 +24,7 @@
 # define ERROR 0
 # define SUCCESS 1
 # define SECOND 1000000000
+# define BACKGROUND_IMAGE "background.tex"
 
 typedef void				t_controller_function(void *arg);
 
@@ -36,9 +37,9 @@ typedef struct				s_controller
 typedef struct				s_timer
 {
 	double					delta_time;
-	Uint64          		previous_tick;
-	Uint64          		current_time;
-	void            		(*update_time)(struct	s_timer *);
+	Uint64					previous_tick;
+	Uint64					current_time;
+	void					(*update_time)(struct	s_timer *);
 }							t_timer;
 
 typedef struct				s_doom_env
@@ -59,7 +60,7 @@ typedef struct				s_doom_env
 ** ERROR HANDLING
 */
 
-int		        ft_perror(char *command, char *arg, int err);
+int				ft_perror(char *command, char *arg, int err);
 
 # define N_SCENE 0
 # define F_OPEN 1

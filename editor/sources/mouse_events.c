@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mouse_events.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/24 14:04:39 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 15:56:39 by abiri            ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   mouse_events.c									 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: abiri <abiri@student.42.fr>				+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2019/12/24 14:04:39 by abiri			 #+#	#+#			 */
+/*   Updated: 2020/01/06 17:00:01 by abiri			###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "editor.h"
@@ -63,8 +63,10 @@ int	ft_add_point(t_doom_editor *env, int x, int y)
 
 	if (!(new_point = malloc(sizeof(t_point))))
 		return (0);
-	new_point->x = (x - env->editor_canvas->x_pos) * env->event.scale;
-	new_point->y = (y - env->editor_canvas->y_pos) * env->event.scale;
+	new_point->x = (x - env->editor_canvas->x_pos);
+	new_point->y = (y - env->editor_canvas->y_pos);
+	*new_point = ft_screen_to_map(*new_point, env->event.scale,
+			env->event.offset);
 	env->event.points.push(&(env->event.points), new_point);
 	return (1);
 }
@@ -76,18 +78,31 @@ t_point	*ft_select_point(t_doom_editor *env, int x, int y)
 	env->event.points.iterator = env->event.points.first;
 	while ((point = ttslist_iter_content(&(env->event.points))))
 	{
-		if (ft_point_in_radius(*point, (t_point) {
-                (x - env->editor_canvas->x_pos) * env->event.scale,
-            (y - env->editor_canvas->y_pos) * env->event.scale},
-                    5 * env->event.scale))
-				   return (point);
+		if (ft_point_in_radius(*point, ft_screen_to_map((t_point){x -
+		env->editor_canvas->x_pos, y - env->editor_canvas->y_pos},
+				env->event.scale, env->event.offset),
+						SELECT_DISTANCE * env->event.scale))
+			return (point);
 	}
 	return (NULL);
 }
 
 static	void	ft_editor_mouse_zoom(t_doom_editor *env, SDL_Event e)
 {
-	env->event.scale += e.wheel.y * env->event.scale;
+	double add;
+
+	add = ((double)e.wheel.y / 10) * env->event.scale;
+	env->event.scale += add;
+	if (env->event.scale < 1)
+		env->event.scale = 1;
+}
+
+static void		ft_editor_mouse_offset(t_doom_editor *env, SDL_Event e)
+{
+	if (!(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT)))
+		return ;
+	env->event.offset.x += e.motion.xrel;
+	env->event.offset.y += e.motion.yrel;
 }
 
 int	ft_editor_mouse_event(void *arg, SDL_Event e)
@@ -97,25 +112,52 @@ int	ft_editor_mouse_event(void *arg, SDL_Event e)
 	env = arg;
 	env->e = e;
 	if (env->gui.focused != env->editor_canvas ||
-	    env->event.preview_mode != PREVIEW_EDIT)
+		env->event.preview_mode != PREVIEW_EDIT)
 		return (1);
 	if (e.type == SDL_MOUSEWHEEL)
 		ft_editor_mouse_zoom(env, e);
-	else if (e.type == SDL_MOUSEBUTTONDOWN)
+	else if (e.type == SDL_MOUSEMOTION)
+		ft_editor_mouse_offset(env, e);
+	else if (e.type == SDL_MOUSEBUTTONDOWN &&
+		e.button.button == SDL_BUTTON_LEFT)
 	{
 		if (env->event.edit_mode == EDIT_MODE_ADD)
 		{
 			env->event.selected = NULL;
 			ft_add_point(env, e.button.x, e.button.y);
 		}
-		else if (env->event.edit_mode == EDIT_MODE_EDIT)
+		else if (env->event.edit_mode == EDIT_MODE_LINK_WALL)
 		{
-			if (env->event.selected)
+			if (env->event.selected && env->event.selected_type == SELECTED_POINT)
 				ft_add_wall(env, env->event.selected,
 					ft_select_point(env, e.button.x, e.button.y));
 			else
+			{
 				env->event.selected =
 					ft_select_point(env, e.button.x, e.button.y);
+				env->event.selected_type = SELECTED_POINT;
+			}
+		}
+		else if (env->event.edit_mode == EDIT_MODE_LINK_PORTAL)
+		{
+			if (env->event.selected && env->event.selected_type == SELECTED_POINT)
+				ft_add_portal(env, env->event.selected,
+					ft_select_point(env, e.button.x, e.button.y));
+			else
+			{
+				env->event.selected =
+					ft_select_point(env, e.button.x, e.button.y);
+				env->event.selected_type = SELECTED_POINT;
+			}
+		}
+		else if (env->event.edit_mode == EDIT_MODE_EDIT)
+		{
+			if (!ft_select_wall(env, e.button.x -
+			env->editor_canvas->x_pos, e.button.y - env->editor_canvas->y_pos))
+			{
+				ft_select_portal(env, e.button.x -
+				env->editor_canvas->x_pos, e.button.y - env->editor_canvas->y_pos);
+			}
 		}
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_area_constructors.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 11:23:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/09 00:11:23 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/26 18:20:23 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ttsgui.h"
 #include "ttsgui_assets.h"
 
-static int	ft_int_max(int a, int b)
+int	ft_int_max(int a, int b)
 {
 	if (a > b)
 		return (a);

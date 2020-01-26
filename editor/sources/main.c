@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:34:58 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 22:40:44 by merras           ###   ########.fr       */
+/*   Updated: 2020/01/26 20:23:10 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_main_loop(void *arg)
 		ft_draw_points(env);
 		ft_draw_player(env);
 		ft_draw_lines(env);
-	}
+    }
 	else if (env->event.preview_mode == PREVIEW_RENDER)
 		ft_render_scene(&(env->data));
 	ft_draw_gui_areas(&(env->gui));
@@ -61,15 +61,18 @@ int	ft_events_init(t_doom_editor *env)
 	env->editor_canvas->data = env->render_image;
 	env->editor_canvas = ft_get_component_by_id(&(env->gui), "main_edit_canvas");
 	env->editor_canvas->data = env->edit_image;
-	if (!(first_sector = ft_new_sector()))
+	if (!(first_sector = ft_create_new_sector()))
 		return (0);
 	if (!env->data.sectors.push(&(env->data.sectors), first_sector))
 		return (0);
 	env->data.current_sector = first_sector;
 	ft_reload_sector_settings(env);
 	env->event.scale = EDIT_SCALE;
+	env->data.camera.tilt = - CONF_WINDOW_HEIGHT / 2;
+	env->data.camera.height = CONF_CAMERA_HEIGHT;
+	env->data.resolution_ratio = CONFIG_RES_RATIO;
 	env->data.render_image = env->render_image;
-	env->data.camera.position = (t_vector){(env->render_image->width / 2) * env->event.scale, (env->render_image->height / 2) * env->event.scale};
+	env->data.camera.position = (t_vec2){(env->render_image->width / 2) * env->event.scale, (env->render_image->height / 2) * env->event.scale};
 	env->event.edit_mode = EDIT_MODE_ADD;
 	if (!ft_load_sector_events(&(env->gui), env))
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 20:50:42 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 17:58:34 by abiri            ###   ########.fr       */
+/*   Updated: 2019/12/26 12:27:03 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define RAYCASTING_H
 # include "vectors.h"
 # include "graphical_objects.h"
+# define HALF_PI 1.57079632679
 
 /*
 **	This is the ray that will be used to check intersections aftecr
@@ -28,6 +29,21 @@ typedef struct	s_ray
 	t_vector	direction;
 	double		distance;
 }				t_ray;
+
+typedef struct	s_segment_distance
+{
+    double	a;
+    double	b;
+    double	c;
+    double	d;
+    double	dot;
+    double	len_sq;
+    double	param;
+    double	xx;
+    double	yy;
+    double	dx;
+    double	dy;
+}				t_segment_distance;
 
 typedef struct          s_intercalc
 {

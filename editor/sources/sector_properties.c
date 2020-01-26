@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sector_properties.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 19:19:23 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 19:19:24 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/26 20:27:36 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void 		ft_reload_sector_settings(t_doom_editor *env)
 	t_gui_component	*component;
 
 	gui_env = &(env->gui);
+	ft_disable_area(&(env->gui), "wall_settings");
+	ft_disable_area(&(env->gui), "portal_settings");
+	ft_enable_area(&(env->gui), "sector_settings");
 	component = ft_get_component_by_id(gui_env, "sector_brightness_slider");
 	if (component && env->data.current_sector)
 		((t_gui_slider*)component->data)->value =

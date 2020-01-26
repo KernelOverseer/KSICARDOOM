@@ -23,16 +23,23 @@ void	ft_gui_checkbox_draw(t_tts_gui *gui_env, t_gui_component *component)
 	t_gui_checkbox *checkbox;
 
 	checkbox = component->data;
-	if (ft_check_checkbox_status(*checkbox->value,checkbox->mask))
+	if (!checkbox || !checkbox->value)
+	{
+        ft_blit_image((t_rect) {component->x_pos, component->y_pos,
+                                component->height, component->height},
+                      &gui_env->assets[asset_checkbox_unchecked],
+                      gui_env->image);
+    }
+	else if (ft_check_checkbox_status(*checkbox->value,checkbox->mask))
 	{
 		if (checkbox->state == STATE_ACTIVE)
 			ft_blit_image((t_rect){component->x_pos, component->y_pos,
-					CHECKBOX_SIZE, CHECKBOX_SIZE},
+					component->height, component->height},
 				&gui_env->assets[asset_checkbox_checked_insensitive],
 				gui_env->image);
 		else
 			ft_blit_image((t_rect){component->x_pos, component->y_pos,
-					CHECKBOX_SIZE, CHECKBOX_SIZE},
+					component->height, component->height},
 				&gui_env->assets[asset_checkbox_checked],
 				gui_env->image);
 	}
@@ -40,12 +47,12 @@ void	ft_gui_checkbox_draw(t_tts_gui *gui_env, t_gui_component *component)
 	{
 		if (checkbox->state == STATE_ACTIVE)
 			ft_blit_image((t_rect){component->x_pos, component->y_pos,
-					CHECKBOX_SIZE, CHECKBOX_SIZE},
+					component->height, component->height},
 				&gui_env->assets[asset_checkbox_unchecked_insensitive],
 				gui_env->image);
 		else
 			ft_blit_image((t_rect){component->x_pos, component->y_pos,
-					CHECKBOX_SIZE, CHECKBOX_SIZE},
+					component->height, component->height},
 				&gui_env->assets[asset_checkbox_unchecked],
 				gui_env->image);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation_textures.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 22:20:59 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 19:33:30 by merras           ###   ########.fr       */
+/*   Updated: 2019/12/26 12:25:53 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_texture
 
 typedef struct	s_animation
 {
-	t_sdl_image	**textures;
+	t_texture	**textures;
 	double		current_frame;
 	double		speed;
 	int			frame_count;

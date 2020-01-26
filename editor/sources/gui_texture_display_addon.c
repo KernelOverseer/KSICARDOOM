@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_texture_display_addon.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 16:34:45 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/27 16:34:46 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/07 17:12:10 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void			ft_gui_draw_texture_display(t_tts_gui	*gui_env,
 	rect.h = component->height;
 	if (gui_env->focused == component)
 		ft_sdl_image_rect(gui_env->image, rect, CORRECT_COLOR(UI_COLOR_GREEN));
+    else
+        ft_sdl_image_rect(gui_env->image, rect, CORRECT_COLOR(UI_COLOR_DARK_GREY));
 	image = component->data;
 	if (!image || !*image)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 17:53:45 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/26 16:05:21 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/06 16:17:35 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void	ft_draw_mouse_pointer(t_sdl_image *image, int x, int y, int status)
 	int			i;
 	uint32_t	color;
 
-	color = UI_COLOR_BLUE;
-	if (status == EDIT_MODE_EDIT)
+	color = UI_COLOR_WHITE;
+	if (status == EDIT_MODE_LINK_WALL || status == EDIT_MODE_LINK_PORTAL)
 		color = UI_COLOR_GREEN;
-	else if (status == EDIT_MODE_DELETE)
+	else if (status == EDIT_MODE_EDIT)
 		color = UI_COLOR_RED;
 	i = -10;
 	while (i < 11)
 	{
-		ft_sdl_set_image_pixel(image, x, y + i, CORRECT_COLOR(color));
-		ft_sdl_set_image_pixel(image, x + i, y, CORRECT_COLOR(color));
+		ft_sdl_image_pixel(image, x, y + i, CORRECT_COLOR(color));
+		ft_sdl_image_pixel(image, x + i, y, CORRECT_COLOR(color));
 		i++;
 	}
 }
@@ -59,40 +59,61 @@ int		ft_load_sector_events(t_tts_gui *gui_env, t_doom_editor *env)
 	return (0);
 }
 
-static	void	ft_draw_wall(t_doom_editor *env, t_wall *wall)
+static	void	ft_draw_wall(t_doom_editor *env, t_wall *wall, int color)
 {
+    if (wall == env->event.selected)
+        color = CORRECT_COLOR(UI_COLOR_RED);
 	ft_sdl_image_line(env->edit_image,
-		(t_point){wall->p1.x / env->event.scale, wall->p1.y / env->event.scale},
-		(t_point){wall->p2.x / env->event.scale, wall->p2.y / env->event.scale},
-		CORRECT_COLOR(UI_COLOR_GREEN));
+		ft_map_to_screen((t_point){wall->p1.x, wall->p1.y}, env->event.scale,
+		        env->event.offset),
+		ft_map_to_screen((t_point){wall->p2.x, wall->p2.y}, env->event.scale,
+		        env->event.offset),
+		color);
 }
 
 void	ft_draw_lines(t_doom_editor	*env)
 {
 	t_sector	*sector;
 	t_wall		*wall;
+	t_portal	*portal;
+	int			color;
 
 	env->data.sectors.iterator = env->data.sectors.first;
 	while ((sector = ttslist_iter_content(&(env->data.sectors))))
 	{
 		sector->walls.iterator = sector->walls.first;
+		sector->portals.iterator = sector->portals.first;
+		color = INACTIVE_WALL_COLOR;
+		if (sector == env->data.current_sector)
+			color = ACTIVE_WALL_COLOR;
 		while ((wall = ttslist_iter_content(&(sector->walls))))
-			ft_draw_wall(env, wall);
+	    	ft_draw_wall(env, wall, CORRECT_COLOR(color));
+		color = INACTIVE_PORTAL_COLOR;
+		if (sector == env->data.current_sector)
+			color = ACTIVE_PORTAL_COLOR;
+		while ((portal = ttslist_iter_content(&(sector->portals))))
+			ft_draw_wall(env, &portal->wall, CORRECT_COLOR(color));
 	}
 }
 
 void	ft_draw_points(t_doom_editor *env)
 {
 	t_point	*point;
+	t_point position;
 
-	ft_bzero(env->edit_image->pixels,env->edit_image->width * env->edit_image->height * sizeof(uint32_t));
+	ft_bzero(env->edit_image->pixels, env->edit_image->width *
+	env->edit_image->height * sizeof(uint32_t));
 	env->event.points.iterator = env->event.points.first;
-	while ((point = ttslist_iter_content(&(env->event.points))))
+    while ((point = ttslist_iter_content(&(env->event.points))))
 	{
+        position = ft_map_to_screen(*point, env->event.scale,
+                env->event.offset);
 		if (env->event.selected == point)
-			ft_sdl_image_disc(env->edit_image, (t_point){point->x / env->event.scale, point->y / env->event.scale}, 5, CORRECT_COLOR(UI_COLOR_RED));
+			ft_sdl_image_disc(env->edit_image, position, 5, CORRECT_COLOR
+			(UI_COLOR_RED));
 		else
-			ft_sdl_image_disc(env->edit_image, (t_point){point->x / env->event.scale, point->y / env->event.scale}, 5, CORRECT_COLOR(UI_COLOR_GREEN));
+			ft_sdl_image_disc(env->edit_image, position, 5, CORRECT_COLOR
+			(UI_COLOR_GREEN));
 	}
 	ft_draw_mouse_pointer(env->edit_image,
 			env->e.button.x - env->editor_canvas->x_pos,

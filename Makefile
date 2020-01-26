@@ -38,6 +38,7 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   physics/gravity.c\
 			   physics/collision.c\
 			   players/ft_players.c\
+			   players/ft_bots.c\
 			   shared_tools/time.c\
 			   shared_tools/display_events.c\
 			   shared_tools/error_management.c\

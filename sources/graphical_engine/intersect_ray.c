@@ -106,8 +106,11 @@ void	ft_handle_portal_intersection(t_graphical_scene *scene,
 	inter->distance = sqrt(inter->distance) / inter->ray.dist;
 	ft_prepare_portal_rendering(scene, inter, &render);
 	inter->distance = INFINITY;
-	ft_intersect_ray(scene, inter, inter->object.object.portal->sector);
-	ft_handle_intersect(scene, inter);
+	if (inter->object.object.portal->sector)
+	{
+		ft_intersect_ray(scene, inter, inter->object.object.portal->sector);
+		ft_handle_intersect(scene, inter);
+	}
 }
 
 int			ft_get_animation_angle(t_graphical_scene *scene,

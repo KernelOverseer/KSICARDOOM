@@ -6,19 +6,20 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 09:23:16 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/25 16:27:51 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/26 21:24:43 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ttsgui.h"
 
-void	ft_blit_image(t_rect rect, t_sdl_image *texture, t_sdl_image *main_image)
+void	ft_blit_image(t_rect rect, t_sdl_image *texture,
+		t_sdl_image *main_image)
 {
 	double x_inc;
 	double y_inc;
 	double x;
 	double y;
-	int		rect_x;
+	int	 rect_x;
 
 
 	if (!texture || !main_image)
@@ -29,7 +30,7 @@ void	ft_blit_image(t_rect rect, t_sdl_image *texture, t_sdl_image *main_image)
 	rect_x = rect.x;
 	int xmax = rect.x + rect.w;
 	int ymax = rect.y + rect.h;
-	int	color;
+	int color;
 	while (rect.y < ymax && y < texture->height)
 	{
 		x = 0;
@@ -37,8 +38,7 @@ void	ft_blit_image(t_rect rect, t_sdl_image *texture, t_sdl_image *main_image)
 		while (rect.x < xmax && x < texture->width)
 		{
 			color = texture->pixels[(int)y * texture->width + (int)x];
-			if (RGB_A(color) != 0)
-				ft_sdl_set_image_pixel(main_image, rect.x, rect.y, color);
+			ft_sdl_set_image_pixel(main_image, rect.x, rect.y, color);
 			x += x_inc;
 			rect.x++;
 		}
@@ -59,7 +59,7 @@ void	ft_draw_rect(t_sdl_image *image, t_rect rect, uint32_t color)
 		x = 0;
 		while (x < rect.w)
 		{
-			ft_sdl_set_image_pixel(image, rect.x + x, rect.y + y, color);
+			ft_sdl_image_pixel(image, rect.x + x, rect.y + y, color);
 			x++;
 		}
 		y++;

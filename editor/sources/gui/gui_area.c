@@ -29,7 +29,7 @@ static void	ft_draw_gui_area_background(t_sdl_image *image, t_gui_area *area)
 		x = 0;
 		while (x < area->width)
 		{
-			ft_sdl_set_image_pixel(image, area->x_pos + x, area->y_pos + y,
+			ft_sdl_image_pixel(image, area->x_pos + x, area->y_pos + y,
 					area->background_color);
 			x++;
 		}

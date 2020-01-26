@@ -15,6 +15,8 @@
 // # include "ray_casting.h"
 # include "libgl.h"
 # include "ft_simplesdl.h"
+# include "graphics_structs.h"
+#include "ray_calculations.h"
 // # include "doom_nukem.h"
 # define DEFAULT_BODY_N ((t_body){(t_vec2){0, 0}, (t_vec2){0, 0, 0}, 0, 1, 3, 5, 1, 0.5, 0, true, true})
 # define DEFAULT_BODY(pos) (t_body){pos, (t_vec2){0, 0}, (t_vec2){0, 1}, (t_vec2){1, 0}, 0, 1, 3, 5, 1, 0.5, 0, true, true, true, NULL}
@@ -74,9 +76,8 @@ typedef struct		s_player
 	t_vec3			input_velocity;
 	Uint8			is_grounded;
 	double			jump_power;
-	double			max_jump;
 	double			height[2];
-	unsigned char	controller[20];
+	unsigned char	input[20];
 }					t_player;
 
 typedef struct		s_body
@@ -97,7 +98,7 @@ typedef struct		s_body
 	Uint8			flags; // HAS_GRAVITY | HAS_COLLISION | IS_CONTROLLED
 	t_player		*player;
 	void			(*update_velocity)(struct s_body *body, double delta_time);
-	void			(*collision)(struct s_body *body, double delta_time);
+	void			(*collision)(t_graphical_scene *scene, struct s_body *body, double delta_time);
 	void			(*update_position)(struct s_body *body, double delta_time);
 	void			(*update_force)(struct s_body *body, double delta_time);
 	void			(*update_gravity)(struct s_body *body, t_vec3 gravity, double delta_time);
@@ -106,6 +107,10 @@ typedef struct		s_body
 }					t_body;
 
 t_body				ft_default_body(t_vec3 pos);
+t_player			*ft_player_construct(Uint64 id);
+t_body				*ft_body_construct(t_vec3 pos, void *player);
+
+
 void				ft_init_physics(t_physics_engine *phi);
 void				ft_new_input_changes(t_body *body);
 void				ft_update_velocity(t_body *body, double delta_time);
@@ -113,8 +118,9 @@ void				ft_force_add(t_body *body, t_vec3 force, double force_duration);
 void				ft_force_change(t_body *body, t_vec3 force, double force_duration);
 void				ft_update_gravity(t_body *body, t_vec3 gravity, double delta_time);
 void				ft_update_force(t_body *body, double delta_time);
-void				ft_body_collision(t_body *body, double delta_time);
+void				ft_body_collision(t_graphical_scene *scene, t_body *body, double delta_time);
 void				ft_body_move(t_body *body, double delta_time);
 void				ft_body_rotate(t_body *body, double delta_time);
+
 
 #endif

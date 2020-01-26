@@ -48,6 +48,8 @@ void	ft_gui_checkbox_on_release(t_tts_gui *gui_env, t_gui_component *checkbox)
 	(void)gui_env;
 	checkbox_data = checkbox->data;
 	checkbox_data->state = STATE_INACTIVE;
+	if (!checkbox_data->value)
+	    return ;
 	if (ft_is_mouse_in_component(checkbox, checkbox->event.e.button.x,
 				checkbox->event.e.button.y))
 		*(checkbox_data->value) ^= checkbox_data->mask;

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/19 20:07:38 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/26 18:40:37 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define ANIMATION_TYPE_DIRECTION 2
 # define PROP_TRANSPARENT 1
 # define PROP_FIXED_ANGLE 2
+# define PROP_NO_CLIP 4
 
 typedef struct  s_camera                t_camera;
 typedef struct  s_graphical_settings    t_graphical_settings;

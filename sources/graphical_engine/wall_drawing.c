@@ -90,7 +90,7 @@ void		ft_render_wall_floor(t_graphical_scene *scene,
 	int		i;
 	t_vec2	position;
 
-	if (!render->inter->sector->ceil_texture)
+	if (!render->inter->sector->floor_texture)
 		return ;
 	i = render->bottom.y < render->inter->render_min ?
 		render->inter->render_min : render->bottom.y;
@@ -99,7 +99,7 @@ void		ft_render_wall_floor(t_graphical_scene *scene,
 		position = ft_get_floor_pixel_position(scene, render, i);
 		ft_set_image_pixel(scene, render->inter->screen_x, i,
 			ft_apply_brightness(render->inter->sector->brightness,
-				ft_sdl_get_image_pixel(render->inter->sector->ceil_texture,
+				ft_sdl_get_image_pixel(render->inter->sector->floor_texture,
 				position.x, position.y)));
 		i += scene->resolution_ratio;
 	}

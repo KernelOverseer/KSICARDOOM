@@ -39,9 +39,9 @@ void 		ft_reload_sector_settings(t_doom_editor *env)
 	component = ft_get_component_by_id(gui_env, "floor_texture_canvas");
 	if (component && env->data.current_sector)
 		component->data = &(env->data.current_sector->floor_texture);
-	component = ft_get_component_by_id(gui_env, "sector_texture_selector");
+	/*component = ft_get_component_by_id(gui_env, "sector_texture_selector");
 	if (component && env->data.current_sector)
-		((t_gui_texture_selector*)component->data)->to_change = &(env->data.current_sector->floor_texture);
+		((t_gui_texture_selector*)component->data)->to_change = &(env->data.current_sector->floor_texture);*/
 }
 
 t_gui_area	*ft_load_sector_settings_gui(t_doom_editor	*env)

@@ -50,7 +50,9 @@ void			ft_gui_texture_selector_on_click(t_tts_gui *gui_env,
 			selected = ft_get_selected_texture(component,
 					gui_env->mouse_position);
 			if (selected)
+			{
 				*((t_sdl_image**)gui_env->focused->data) = selected;
+			}
 		}
 	}
 }

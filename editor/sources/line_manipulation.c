@@ -43,6 +43,7 @@ int ft_add_portal(t_doom_editor *env, t_point *p1, t_point *p2)
             return (0);
         new_portal->wall.p1 = (t_vec2){p1->x, p1->y};
         new_portal->wall.p2 = (t_vec2){p2->x, p2->y};
+		new_portal->sector = env->data.current_sector;
         env->data.current_sector->portals.push(
             &(env->data.current_sector->portals),
             new_portal);

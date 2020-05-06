@@ -156,5 +156,11 @@ int		ft_disable_area(t_tts_gui *gui_env, char *area_id);
 int		ft_enable_area(t_tts_gui *gui_env, char *area_id);
 double	ft_segment_distance_sq(t_point player_pos, t_point p1, t_point p2);
 
+/*
+**	SERIALISATION AND MAP SAVING FUNCTIONS
+*/
+
+void    ft_save_map_data(void *arg, t_gui_component *button);
+void	ft_load_map_data(void *arg, t_gui_component *button);
 
 # endif

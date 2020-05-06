@@ -208,6 +208,12 @@ static t_gui_area	*ft_load_sector_add_bar(t_tts_gui *gui_env, t_doom_editor *env
 	ft_gui_add_component(result, ft_gui_new_button((t_rect){343, 45, 46, 26},
 				ft_get_text_image(" NEW ", (t_rect){0, 0, 46, 26}, UI_COLOR_BLACK, gui_env->font),
 				ft_add_sector, env), "sector_create_new");
+	ft_gui_add_component(result, ft_gui_new_button((t_rect){17, 45, 46, 26},
+				ft_get_text_image(" SAVE ", (t_rect){0, 0, 46, 26}, UI_COLOR_BLACK, gui_env->font),
+				ft_save_map_data, env), "sector_create_new");
+	ft_gui_add_component(result, ft_gui_new_button((t_rect){117, 45, 46, 26},
+				ft_get_text_image(" LOAD ", (t_rect){0, 0, 46, 26}, UI_COLOR_BLACK, gui_env->font),
+				ft_load_map_data, env), "sector_create_new");
 	return (result);	
 }
 

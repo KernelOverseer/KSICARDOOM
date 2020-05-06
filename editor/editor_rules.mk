@@ -72,7 +72,10 @@ EDITOR_FILENAMES = coordinates_manipulation.c\
 				   sector_manipulation.c\
 				   sector_properties.c\
 				   wall_properties.c\
-				   wall_selection.c
+				   wall_selection.c\
+				   save_map_data.c\
+				   serialization/basic_type_serializer.c\
+				   serialization/custom_editor_serializer.c
 
 EDITOR_HEADER_FILES = editor.h\
 					  ttsgui.h\
@@ -80,6 +83,7 @@ EDITOR_HEADER_FILES = editor.h\
 					  gui_button.h\
 					  gui_checkbox.h\
 					  gui_slider.h\
+					  serializer.h
 
 EDITOR_SOURCES = $(addprefix $(EDITOR_SRC_DIR)/, $(EDITOR_FILENAMES))
 GRAPHICAL_ENGINE_SOURCES = $(addprefix $(SRC_DIR)/, $(GRAPHICAL_ENGINE_FILENAMES))
@@ -95,7 +99,7 @@ EDITOR_RUNTIME_LINK = editor_runtime_link
 editor: $(EDITOR_NAME) editor_runtime_link
 
 $(EDITOR_NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(EDITOR_OBJECTS) $(GRAPHICAL_ENGINE_OBJECTS)
-	$(CC) $(FLAGS) $(EDITOR_OBJECTS) $(GRAPHICAL_ENGINE_OBJECTS) $(LINKS) -o $(EDITOR_NAME)
+	$(CC) $(FLAGS) $(EDITOR_OBJECTS) $(GRAPHICAL_ENGINE_OBJECTS) $(LINKS) -o $(EDITOR_NAME) -headerpad_max_install_names
 
 $(EDITOR_OBJECTS): $(EDITOR_OBJ_DIR)/%.o : $(EDITOR_SRC_DIR)/%.c $(EDITOR_HEADERS) | $(EDITOR_DIRS)
 	$(CC) $(FLAGS) $(EDITOR_INCLUDES) -c $< -o $@

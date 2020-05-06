@@ -13,7 +13,6 @@
 #ifndef LIBGL_H
 # define LIBGL_H
 
-# include <mlx.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>

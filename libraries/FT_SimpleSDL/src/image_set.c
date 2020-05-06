@@ -19,5 +19,5 @@
 
 void		ft_sdl_set_image_pixel(t_sdl_image *image, int x, int y, Uint32 color)
 {
-	ft_sdl_image_pixel(image, x, y, color);
+	ft_sdl_image_pixel(image, x, y, (0xFF000000 | color));
 }

@@ -97,7 +97,7 @@ static t_gui_area	*ft_load_editor_logo(t_tts_gui *gui_env)
 		return (NULL);
 	result->background_color = UI_COLOR_GREEN;
 	ft_gui_add_component(result, ft_gui_new_label((t_rect){0, 0, 406, 39},
-				" DOOM NUKEM EDITOR ", 0xFFFFFF, gui_env), "main_logo");
+				" DOOM NUKEM EDITOR ", 0xFFFFFFFF, gui_env), "main_logo");
 	return (result);
 }
 

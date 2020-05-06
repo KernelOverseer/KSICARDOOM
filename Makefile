@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -Ofast
+FLAGS = -Ofast
 NAME = doom_nukem
 INC_DIR = ./includes
 SRC_DIR = ./sources

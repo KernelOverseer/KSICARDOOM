@@ -42,9 +42,7 @@ t_sdl_image	*ft_get_text_image(char *text, t_rect rect, uint32_t color,
 		for (int x = 0; x < result->width && x < surface->w; x++)
 		{
 			if (RGB_A(get_pixel(surface, x, y)))
-				result->pixels[y * result->width + x] = color;
-			else
-				result->pixels[y * result->width + x] = 0xFFFF00FF;
+				result->pixels[y * result->width + x] = (0xff000000 | color);
 		}
 	}	
 	SDL_UnlockSurface(surface);

@@ -4,7 +4,8 @@ SRCS=ttslist_constructors.c\
 	 ttslist_operations.c\
 	 ttslist_tools.c\
 	 ttslist_delete.c\
-	 ttslist_iterator.c
+	 ttslist_iterator.c\
+	 ttslist_purge.c
 
 OBJS=$(SRCS:.c=.o)
 

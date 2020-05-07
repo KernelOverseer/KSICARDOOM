@@ -75,7 +75,8 @@ EDITOR_FILENAMES = coordinates_manipulation.c\
 				   wall_selection.c\
 				   save_map_data.c\
 				   serialization/basic_type_serializer.c\
-				   serialization/custom_editor_serializer.c
+				   serialization/custom_editor_serializer.c\
+				   garbage_collector.c
 
 EDITOR_HEADER_FILES = editor.h\
 					  ttsgui.h\

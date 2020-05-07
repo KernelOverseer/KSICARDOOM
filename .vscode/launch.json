@@ -8,9 +8,9 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/doom_nukem",
+			"program": "${workspaceFolder}/editor/editor",
 			"args": [],
-			"cwd": "${workspaceFolder}",
+			"cwd": "${workspaceFolder}/editor",
 			// "stopOnEntry": true
 		}
 	]

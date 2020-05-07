@@ -26,6 +26,7 @@
 # include "gui_texture_display_addon.h"
 # include "graphics_structs.h"
 # include "graphical_engine.h"
+# include "serializer.h"
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 # define EDIT_WIDTH 1105
@@ -162,5 +163,12 @@ double	ft_segment_distance_sq(t_point player_pos, t_point p1, t_point p2);
 
 void    ft_save_map_data(void *arg, t_gui_component *button);
 void	ft_load_map_data(void *arg, t_gui_component *button);
+
+/*
+**	GARBAGE COLLECTING FUNCTIONS
+*/
+
+void	ft_purge_sector(void *sector);
+void	ft_purge_textures(int texture_count, t_sdl_image ***texture_pointer);
 
 # endif

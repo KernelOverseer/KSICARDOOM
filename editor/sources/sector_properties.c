@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sector_properties.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 19:19:23 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 20:27:36 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 04:54:07 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,16 @@ void 		ft_reload_sector_settings(t_doom_editor *env)
 	component = ft_get_component_by_id(gui_env, "floor_texture_canvas");
 	if (component && env->data.current_sector)
 		component->data = &(env->data.current_sector->floor_texture);
-	/*component = ft_get_component_by_id(gui_env, "sector_texture_selector");
+	component = ft_get_component_by_id(gui_env, "sector_texture_selector");
 	if (component && env->data.current_sector)
-		((t_gui_texture_selector*)component->data)->to_change = &(env->data.current_sector->floor_texture);*/
+	{
+		((t_gui_texture_selector*)component->data)->to_change =
+			&(env->data.current_sector->floor_texture);
+		((t_gui_texture_selector*)component->data)->texture_list_size =
+			env->data.textures_count;
+		((t_gui_texture_selector*)component->data)->texture_list =
+			env->data.textures;
+	}
 }
 
 t_gui_area	*ft_load_sector_settings_gui(t_doom_editor	*env)
@@ -62,12 +69,12 @@ t_gui_area	*ft_load_sector_settings_gui(t_doom_editor	*env)
 			" FLOOR ", UI_COLOR_BLACK, gui_env),
 						 "sector_floor_label");
 	ft_gui_fit_component(result, ft_gui_new_slider((t_rect){0, 0, 210, 32},
-			NULL,0, 1000),"sector_floor_slider");
+			NULL,-5000, 5000),"sector_floor_slider");
 	ft_gui_fit_component(result, ft_gui_new_label((t_rect){0, 0, 154, 32},
 			" CEILING ", UI_COLOR_BLACK, gui_env),
 						 "sector_ceiling_label");
 	ft_gui_fit_component(result, ft_gui_new_slider((t_rect){0, 0, 210, 32},
-			NULL,0, 1000),"sector_ceiling_slider");
+			NULL,-5000, 5000),"sector_ceiling_slider");
 	ft_gui_fit_component(result, ft_gui_new_label((t_rect){0, 0, 154, 64},
 			" CEILING TEXTURE ", UI_COLOR_BLACK, gui_env),
 						 "ceiling_texture_label");
@@ -79,6 +86,6 @@ t_gui_area	*ft_load_sector_settings_gui(t_doom_editor	*env)
 	ft_gui_fit_component(result, ft_gui_new_texture_display((t_rect){0, 0, 210, 64},
 			NULL),"floor_texture_canvas");
 	ft_gui_fit_component(result, ft_gui_new_texture_selector((t_rect){0, 0, 380, 242},
-			&(env->gui.assets[asset_render_placeholder + 1]), GUI_ASSET_COUNT, NULL),"sector_texture_selector");
+			env->data.textures, env->data.textures_count, NULL),"sector_texture_selector");
 	return (result);
 }

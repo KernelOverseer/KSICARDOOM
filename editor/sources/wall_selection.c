@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_selection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:19:00 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 19:15:44 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/07 21:41:16 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_wall  *ft_select_wall(t_doom_editor *env, int x, int y)
 
     min_dist = POS_INF;
     sector = env->data.current_sector;
+	if (!sector)
+		return (NULL);
     sector->walls.iterator = sector->walls.first;
     while ((current = ttslist_iter_content(&sector->walls)))
     {

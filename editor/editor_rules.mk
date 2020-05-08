@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    editor_rules.mk                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abiri <abiri@student.42.fr>                +#+  +:+       +#+         #
+#    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 18:34:05 by abiri             #+#    #+#              #
-#    Updated: 2020/01/26 19:22:59 by abiri            ###   ########.fr        #
+#    Updated: 2020/05/08 01:40:21 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ EDITOR_FILENAMES = coordinates_manipulation.c\
 				   save_map_data.c\
 				   serialization/basic_type_serializer.c\
 				   serialization/custom_editor_serializer.c\
+				   temp_asset_loading.c\
 				   garbage_collector.c
 
 EDITOR_HEADER_FILES = editor.h\

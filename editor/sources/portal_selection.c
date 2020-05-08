@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   portal_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:00:20 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 19:49:37 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/07 21:40:38 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_portal *ft_select_portal(t_doom_editor *env, int x, int y)
 
     min_dist = POS_INF;
     sector = env->data.current_sector;
+	if (!sector)
+		return NULL;
     sector->portals.iterator = sector->portals.first;
     while ((current = ttslist_iter_content(&sector->portals)))
     {

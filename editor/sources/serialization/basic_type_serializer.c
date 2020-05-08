@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_type_serializer.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 09:12:13 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 18:24:29 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 00:45:38 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,12 @@ int	ft_deserialize_double(int fd, double *object)
 
 int	ft_serialize_string(int fd, char *string, size_t max_size)
 {
-	// change this with ft_strlen libft function
 	int result;
 	size_t length;
 
 	if (string == NULL)
 		return (SERIALIZE_ERROR);
-	length = strlen(string);
+	length = ft_strlen(string);
 	if (length > max_size - 1)
 		length = max_size - 1;
 	result = ft_serialize_with_padding(fd, string, length, max_size);

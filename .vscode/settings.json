@@ -29,6 +29,9 @@
 		"raycasting.h": "c",
 		"ray_calculations.h": "c",
 		"graphics_structs.h": "c",
-		"editor.h": "c"
+		"editor.h": "c",
+		"serializer.h": "c",
+		"chrono": "c",
+		"centropy.h": "c"
 	}
 }

@@ -18,6 +18,7 @@
 # include "ft_simplesdl.h"
 # include "drawing.h"
 # include "config.h"
+# include "serializer.h"
 # include "error_management.h"
 # include "graphical_engine.h"
 # include "physics_engine.h"

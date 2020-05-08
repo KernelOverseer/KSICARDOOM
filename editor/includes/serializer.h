@@ -2,11 +2,13 @@
 # define SERIALIZER_H
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
 # include "graphics_structs.h"
 # include "libgl.h"
+# include "centropy.h"
 # define SERIALIZE_ERROR -1
 # define ALLOCATION_ERROR -2
+
+t_graphical_scene	*g_parsed_scene;
 
 int	ft_serialize_data(int fd, void *data, size_t size);
 int	ft_deserialize_data(int fd, void *buffer, size_t size);
@@ -28,5 +30,7 @@ int ft_serialize_texture(int fd, t_sdl_image *texture);
 int	ft_deserialize_texture(int fd, t_sdl_image *texture);
 int ft_serialize_sector(int fd, t_sector *sector);
 int ft_deserialize_sector(int fd, t_sector *sector);
+int	ft_serialize_sector_portals(int fd, t_sector *sector);
+int	ft_deserialize_sector_portals(int fd, t_sector *sector);
 
 #endif

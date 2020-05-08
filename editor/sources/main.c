@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:34:58 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 20:23:10 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 04:47:49 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int main(void) {
 		ft_putstr_fd("A GUI initialisation error occured\n", 2);
 		return (-1);
 	}
+	ft_load_temp_textures(&env);
 	ft_main_interface_loading(&(env.gui), &env);
 	if (!ft_events_init(&env))
 	{

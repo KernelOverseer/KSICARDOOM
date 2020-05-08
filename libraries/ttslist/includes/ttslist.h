@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ttslist.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 23:39:14 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/25 18:05:33 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 03:48:04 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,6 @@ t_list_node	*ttslist_iter(t_list_head *head);
 void		tts_bzero(void *mem, size_t size);
 void		*ttslist_get_id_content(t_list_head *head, int id);
 void		ttslist_purge(t_list_head *list, void (*purge)(void *));
+int			ttslist_get_content_id(t_list_head *head, void *content);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_area.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 09:39:24 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/25 16:29:36 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 02:27:54 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	ft_draw_gui_component(t_gui_component *gui_component, t_tts_gui	*gui_env)
 {
 	if (gui_component->draw)
+	{
 		gui_component->draw(gui_env, gui_component);
+	}
 }
 
 static void	ft_draw_gui_area_background(t_sdl_image *image, t_gui_area *area)

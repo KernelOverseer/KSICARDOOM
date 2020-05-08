@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
+#    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/01/19 19:07:58 by abiri            ###   ########.fr        #
+#    Updated: 2020/05/08 05:23:05 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,10 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   shared_tools/error_management.c\
 			   shared_tools/image_manipulations.c\
 			   shared_tools/intersections.c\
-			   shared_tools/keys.c
+			   shared_tools/keys.c\
+			   ../editor/sources/serialization/basic_type_serializer.c\
+			   ../editor/sources/serialization/custom_editor_serializer.c
+
 HEADER_FILES = animation_textures.h\
 			   config.h\
 			   doom_nukem.h\
@@ -58,6 +61,7 @@ HEADER_FILES = animation_textures.h\
 			   ray_calculations.h\
 			   raycasting.h\
 			   scene_parser.h
+
 SDL_VERSION = 2.0.10
 SDL_TTF_VERSION = 2.0.15
 
@@ -75,6 +79,8 @@ all: $(NAME) editor
 
 include $(LIBS_DIR)/library_linking.mk
 include $(EDITOR_DIR)/editor_rules.mk
+
+INCS := $(INCS) $(EDITOR_INCLUDES)
 
 $(NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(OBJECTS)
 	$(CC) $(FLAGS) -headerpad_max_install_names  $(OBJECTS) $(LINKS) -o $(NAME)

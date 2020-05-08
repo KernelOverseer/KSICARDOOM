@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_properties.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 19:38:32 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 18:40:42 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 04:22:20 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,14 @@ void 		ft_reload_wall_settings(t_doom_editor *env)
                 &(((t_wall *)env->event.selected)->props);
     component = ft_get_component_by_id(gui_env, "wall_texture_selector");
     if (component && env->event.selected)
+	{
         ((t_gui_texture_selector *)component->data)->to_change =
                 &(((t_wall *)env->event.selected)->texture);
+		((t_gui_texture_selector*)component->data)->texture_list_size =
+			env->data.textures_count;
+		((t_gui_texture_selector*)component->data)->texture_list =
+			env->data.textures;
+	}
 }
 
 t_gui_area	*ft_load_wall_settings_gui(t_doom_editor *env)
@@ -63,7 +69,7 @@ t_gui_area	*ft_load_wall_settings_gui(t_doom_editor *env)
     ft_gui_fit_component(result, ft_gui_new_texture_display((t_rect){0, 0, 210, 64},
             NULL), "wall_texture_canvas");
 	ft_gui_fit_component(result, ft_gui_new_texture_selector((t_rect){0, 0, 380, 242},
-			&(env->gui.assets[asset_render_placeholder + 1]), GUI_ASSET_COUNT, NULL),
+			env->data.textures, env->data.textures_count, NULL),
 			        "wall_texture_selector");
 	return (result);
 }

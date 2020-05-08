@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics_structs.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 18:40:37 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 01:30:59 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ struct			s_graphical_scene
 {
 	t_camera	camera;
 	t_list_head	sectors;
-	t_sdl_image	**textures;
+	t_sdl_image	*textures;
 	int			textures_count;
 	t_sector	*current_sector;
 	t_sdl_image	*render_image;

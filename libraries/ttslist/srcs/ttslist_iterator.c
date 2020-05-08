@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ttslist_iterator.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 03:00:49 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/25 18:08:44 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 03:47:35 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,20 @@ void		*ttslist_get_id_content(t_list_head *head, int id)
 		id--;
 	}
 	return (NULL);
+}
+
+int			ttslist_get_content_id(t_list_head *head, void *content)
+{
+	void	*element;
+	int		id;
+
+	id = 0;
+	head->iterator = head->first;
+	while ((element = ttslist_iter_content(head)))
+	{
+		if (content == element)
+			return (id);
+		id++;
+	}
+	return (-1);
 }

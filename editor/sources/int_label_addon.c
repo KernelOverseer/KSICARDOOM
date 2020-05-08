@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 18:20:53 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 17:12:27 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 04:17:55 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void ft_gui_draw_int_label(t_tts_gui *gui_env, t_gui_component *component)
     rect = (t_rect){component->x_pos, component->y_pos,
         component->width, component->height};
     ft_sdl_image_rect(gui_env->image, rect, CORRECT_COLOR(UI_COLOR_WHITE));
-    if (!data || !data->sector || !*(data->sector))
+    if (!data || !data->sector)
         return ;
-    sector = *(data->sector);
+    sector = *data->sector;
     rect.x += rect.w / 4;
     rect.w /= 2;
     if (data->last_value != sector->id || !data->text_image)

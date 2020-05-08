@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:35:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 21:10:32 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 04:37:18 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,13 @@ void	ft_load_map_data(void *arg, t_gui_component *button);
 */
 
 void	ft_purge_sector(void *sector);
-void	ft_purge_textures(int texture_count, t_sdl_image ***texture_pointer);
+void	ft_purge_textures(int texture_count, t_sdl_image **texture_pointer);
+
+
+/*
+**	TEMP DEBUG FUNCTIONS
+*/
+
+void	ft_load_temp_textures(t_doom_editor *env);
 
 # endif

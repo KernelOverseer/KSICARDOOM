@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skybox.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:53:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 15:42:27 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/08 01:02:11 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ int	ft_draw_default_sky(t_graphical_scene *scene)
 		scene->render_image->width,
 		scene->render_image->height + scene->camera.tilt},
 		0x0);
+	ft_sdl_image_rect(scene->render_image, (t_rect){0,
+		scene->render_image->height + scene->camera.tilt,
+		scene->render_image->width,
+		scene->render_image->height - scene->camera.tilt},
+		0x5F5F5F);
 	return (ERROR);
 }
 

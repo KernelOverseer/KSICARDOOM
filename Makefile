@@ -12,6 +12,11 @@
 
 CC = gcc
 FLAGS = -g -Ofast
+LMATH = -lm
+ifeq ($(shell uname -s), Darwin)
+	FLAGS := $(FLAGS) -headerpad_max_install_names
+	LMATH :=
+endif
 NAME = doom_nukem
 INC_DIR = ./includes
 SRC_DIR = ./sources
@@ -70,7 +75,7 @@ SDL_TTF_VERSION = 2.0.15
 SOURCES = $(addprefix $(SRC_DIR)/, $(SOURCE_FILES))
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(SOURCE_FILES:.c=.o))
 INCLUDES = $(addprefix $(INC_DIR)/, $(HEADER_FILES))
-LINKS = $(SIMPLESDL_LINK) $(CENTROPY_LINK) $(TTSLIST_LINK) $(LIBGL_LINK) $(SDL_LINK)
+LINKS = $(SIMPLESDL_LINK) $(CENTROPY_LINK) $(TTSLIST_LINK) $(LIBGL_LINK) $(SDL_LINK) $(LMATH)
 INCS = -I $(INC_DIR) $(SIMPLESDL_INC) $(CENTROPY_INC) $(TTSLIST_INC) $(LIBGL_INC) $(SDL_INC)
 OBJECT_DIRS = $(sort $(dir $(OBJECTS)))
 
@@ -83,7 +88,7 @@ include $(EDITOR_DIR)/editor_rules.mk
 INCS := $(INCS) $(EDITOR_INCLUDES)
 
 $(NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(OBJECTS)
-	$(CC) $(FLAGS) -headerpad_max_install_names  $(OBJECTS) $(LINKS) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJECTS) $(LINKS) -o $(NAME)
 	@install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/$(SDL2) $(NAME)
 	@install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/$(SDL2_IMAGE) $(NAME)
 	@install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/$(SDL2_TTF) $(NAME)

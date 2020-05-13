@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 09:07:20 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/12 20:46:39 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/13 02:32:28 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ static t_gui_area	*ft_load_render_mode_bar(t_tts_gui *gui_env, t_doom_editor *en
 {
 	t_gui_area		*result;
 	t_gui_component	*button;
+	t_gui_component	*slider;
 
 	if (!(result = ft_new_gui_area((t_rect){406, 0, 1109, 39}, "render_mode_bar")))
 		return (NULL);
@@ -113,16 +114,23 @@ static t_gui_area	*ft_load_render_mode_bar(t_tts_gui *gui_env, t_doom_editor *en
 				ft_get_text_image(" EDIT ", (t_rect){0, 0, 149, 39}, 0x0, gui_env->font),
 				ft_switch_edit_button, env);
 	((t_gui_button *)button->data)->always_on = 1;
-	ft_gui_add_component(result, button, "render_mode_edit");
-	ft_gui_add_component(result, ft_gui_new_button((t_rect){555, 0, 149, 39},
+	ft_gui_fit_component(result, button, "render_mode_edit");
+	ft_gui_fit_component(result, ft_gui_new_button((t_rect){555, 0, 149, 39},
 				ft_get_text_image(" RENDER ", (t_rect){0, 0, 149, 39}, 0x0, gui_env->font),
 				ft_switch_render_button, env), "render_mode_render");
+	ft_gui_fit_component(result, ft_gui_new_label((t_rect){0, 0, 210, 39},
+		" RENDER QUALITY ", UI_COLOR_BLACK, gui_env), "render_quality_label");
+	slider = ft_gui_new_slider((t_rect){0, 0, 210, 39},
+		(int *)&(env->data.resolution_ratio), 1, 5);
+	((t_gui_slider *)slider->data)->is_int = 1;
+	ft_gui_fit_component(result, slider, "render_quality_slider");
 	return (result);
 }
 
 static t_gui_area	*ft_load_main_render_area(t_tts_gui *gui_env)
 {
-	t_gui_area	*result;
+	t_gui_area		*result;
+	t_gui_component	*canvas;
 
 	(void)gui_env;
 	if (!(result = ft_new_gui_area((t_rect){406, 39, 1109, 1002},
@@ -130,9 +138,8 @@ static t_gui_area	*ft_load_main_render_area(t_tts_gui *gui_env)
 		return (NULL);
 	result->background_color = UI_COLOR_GREEN;
 	DISACTIVATE_PROP(result->props, GUI_ACTIVE);
-	ft_gui_add_component(result,
-			ft_gui_new_canvas((t_rect){408, 41, EDIT_WIDTH, EDIT_HEIGHT}, NULL),
-			"main_render_canvas");
+	canvas = ft_gui_new_canvas((t_rect){408, 41, EDIT_WIDTH, EDIT_HEIGHT}, NULL);
+	ft_gui_add_component(result, canvas, "main_render_canvas");
 	return (result);
 }
 

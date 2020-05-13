@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slider_draw.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:39:25 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/23 10:35:14 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/13 02:36:22 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,23 @@ static int	ft_get_slider_position(t_gui_component *element)
 {
 	t_gui_slider	*slider_data;
 	double			ratio;
+	float			slider_value;
 
 	slider_data = element->data;
 	if (!slider_data->value)
 		return (0);
-	*(slider_data->value) = ft_double_min_max(*(slider_data->value),
+	if (slider_data->is_int)
+		slider_value = *((int*)slider_data->value);
+	else
+		slider_value = *(slider_data->value);
+	slider_value = ft_double_min_max(slider_value,
 			slider_data->min, slider_data->max);
-	ratio = (*(slider_data->value) - slider_data->min)
+	ratio = (slider_value - slider_data->min)
 		/ (slider_data->max - slider_data->min);
+	if (slider_data->is_int)
+		*((int*)slider_data->value) = (int)round(slider_value);
+	else
+		*(slider_data->value) = slider_value;
 	return (element->width * ratio);
 }
 

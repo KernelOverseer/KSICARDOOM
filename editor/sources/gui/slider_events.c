@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slider_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:37:48 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/23 09:26:23 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/13 02:36:42 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_gui_slider_on_hover(t_tts_gui *gui_env, t_gui_component *button)
 {
 	t_gui_slider	*slider_data;
 	int				diff;
+	float			final_value;
 
 	(void)gui_env;
 	slider_data = button->data;
@@ -40,8 +41,12 @@ void	ft_gui_slider_on_hover(t_tts_gui *gui_env, t_gui_component *button)
 	else
 	{
 		diff = button->event.e.button.x - button->x_pos;
-		*(slider_data->value) = slider_data->min +
-			(slider_data->max - slider_data->min) * ((double)diff / (double)button->width);
+		final_value = slider_data->min + (slider_data->max - slider_data->min)
+			* ((double)diff / (double)button->width);
+		if (!slider_data->is_int)
+			*(slider_data->value) = final_value;
+		else
+			*((int *)slider_data->value) = (int)round(final_value);
 	}
 }
 

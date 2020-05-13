@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_load.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 08:33:18 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 14:24:24 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/13 00:34:56 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ int		ft_sdl_load_image(char *filename, t_sdl_image *result)
 		free(result->pixels);
 		return (IMAGE_ERROR_size);
 	}
+	close(fd);
 	return (1);
 }

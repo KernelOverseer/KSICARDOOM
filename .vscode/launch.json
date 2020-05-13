@@ -7,7 +7,16 @@
 		{
 			"type": "lldb",
 			"request": "launch",
-			"name": "Debug",
+			"name": "Debug Game",
+			"program": "${workspaceFolder}/doom_nukem",
+			"args": [],
+			"cwd": "${workspaceFolder}/",
+			// "stopOnEntry": true
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Debug Editor",
 			"program": "${workspaceFolder}/editor/editor",
 			"args": [],
 			"cwd": "${workspaceFolder}/editor",

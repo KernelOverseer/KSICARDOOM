@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/08 01:30:59 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/13 00:08:04 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,5 +277,12 @@ struct	s_sprite
 	t_list_head	*sectors;
 	t_list_node	*current_sector;
 }				t_graphical_scene;*/
+
+/*
+**	GARBAGE COLLECTOR
+*/
+
+void	ft_purge_sector(void *data);
+void	ft_purge_textures(int texture_count, t_sdl_image **texture_pointer);
 
 #endif

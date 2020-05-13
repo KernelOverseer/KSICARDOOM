@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:35:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/08 04:37:18 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/13 00:28:23 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@
 # define INACTIVE_PORTAL_COLOR 0xFF000068
 # define ACTIVE_SPRITE_COLOR 0xFF00FF00
 # define INACTIVE_SPRITE_COLOR 0xFF006800
+# define CAMERA_ANGLE_SPEED 0.1
+# define CAMERA_MOVE_SPEED 50
 
 typedef struct	s_editor_event
 {
@@ -177,5 +179,11 @@ void	ft_purge_textures(int texture_count, t_sdl_image **texture_pointer);
 */
 
 void	ft_load_temp_textures(t_doom_editor *env);
+
+/*
+**	RENDER MODE HELPER FUNCTIONS
+*/
+
+int		ft_render_move_player(void *arg, SDL_Event e);
 
 # endif

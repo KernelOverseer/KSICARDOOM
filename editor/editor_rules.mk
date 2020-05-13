@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 18:34:05 by abiri             #+#    #+#              #
-#    Updated: 2020/05/08 01:40:21 by abiri            ###   ########.fr        #
+#    Updated: 2020/05/13 00:28:26 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,11 @@ GRAPHICAL_ENGINE_FILENAMES = graphical_engine/color_manipulations.c\
 							 graphical_engine/temp_graphical_render.c\
 							 graphical_engine/wall_drawing.c\
 							 shared_tools/intersections.c\
-							 shared_tools/error_management.c
+							 shared_tools/error_management.c\
+							 shared_tools/garbage_collector.c\
+							 serialization/load_map_data.c\
+							 serialization/basic_type_serializer.c\
+							 serialization/custom_editor_serializer.c
 
 EDITOR_FILENAMES = coordinates_manipulation.c\
 				   disable_area.c\
@@ -74,18 +78,15 @@ EDITOR_FILENAMES = coordinates_manipulation.c\
 				   wall_properties.c\
 				   wall_selection.c\
 				   save_map_data.c\
-				   serialization/basic_type_serializer.c\
-				   serialization/custom_editor_serializer.c\
 				   temp_asset_loading.c\
-				   garbage_collector.c
+				   render_mode_movement.c
 
 EDITOR_HEADER_FILES = editor.h\
 					  ttsgui.h\
 					  ttsgui_assets.h\
 					  gui_button.h\
 					  gui_checkbox.h\
-					  gui_slider.h\
-					  serializer.h
+					  gui_slider.h
 
 EDITOR_SOURCES = $(addprefix $(EDITOR_SRC_DIR)/, $(EDITOR_FILENAMES))
 GRAPHICAL_ENGINE_SOURCES = $(addprefix $(SRC_DIR)/, $(GRAPHICAL_ENGINE_FILENAMES))
@@ -93,7 +94,7 @@ GRAPHICAL_ENGINE_OBJECTS = $(addprefix $(OBJ_DIR)/, $(GRAPHICAL_ENGINE_FILENAMES
 EDITOR_OBJECTS = $(addprefix $(EDITOR_OBJ_DIR)/, $(EDITOR_FILENAMES:.c=.o))
 EDITOR_HEADERS = $(addprefix $(EDITOR_INC_DIR)/, $(EDITOR_HEADER_FILES))
 EDITOR_DIRS = $(sort $(dir $(EDITOR_OBJECTS)))
-EDITOR_INCLUDES = -I $(EDITOR_INC_DIR) $(INCS) -I ../../includes
+EDITOR_INCLUDES = -I $(EDITOR_INC_DIR) $(INCS)
 
 EDITOR_RUNTIME_LINK = editor_runtime_link
 

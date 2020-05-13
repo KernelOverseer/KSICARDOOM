@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphical_init.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 19:55:20 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 20:22:48 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/13 02:15:11 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_init_graphical_scene(t_doom_env *env)
 {
+	ft_bzero(&(env->main_scene), sizeof(t_graphical_scene));
 	ttslist_init(&(env->main_scene.sectors));
 	if (!(env->main_scene.render_image =
 				newimage(CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT)))

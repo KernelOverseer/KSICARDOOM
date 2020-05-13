@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 19:16:50 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/13 02:16:59 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_animation	ft_create_temp_animation(char *anim_name, double speed, int count)
 	return (result);
 }
 
-int	ft_debug_create_temp_map(t_graphical_scene *scene)
+int	ft_old_debug_create_temp_map(t_graphical_scene *scene)
 {
 	t_sector *new_sector;
 	t_sector *new_sector2;
@@ -97,8 +97,10 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	new_sprite->radius = 400;
 	new_sprite->height = DEFAULT_WALL_HEIGHT;
 	new_sprite->position = (t_vec2){2999, 1999};
-	new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
-		1, 60);
+	/*new_sprite->animation = ft_create_temp_animation("fire_texture/fire_texture",
+		1, 60);*/
+	new_sprite->animation = ft_create_temp_animation("animation/ricardo_",
+		0.5, 56);
 	new_sprite->props |= PROP_FIXED_ANGLE;
 	new_sector->sprites.push(&(new_sector->sprites), new_sprite);
 
@@ -106,8 +108,6 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	new_sprite->position = (t_vec2){1400, 1400};
 	new_sprite->radius = 5;
 	new_sprite->height = 100;
-/*	new_sprite->animation = ft_create_temp_animation("animation/ricardo_",
-		0.2, 56);*/
 	new_sprite->animation = ft_create_temp_animation("player_animation/doomguy_",
 		1, 8);
 	new_sprite->animation.type = ANIMATION_TYPE_DIRECTION;
@@ -158,6 +158,13 @@ int	ft_debug_create_temp_map(t_graphical_scene *scene)
 	printf("LOADING ceiling : %d\n", ft_sdl_load_image("floor.tex", new_sector2->ceil_texture));
 
 	return (SUCCESS);
+}
+
+int	ft_debug_create_temp_map(t_graphical_scene *scene)
+{
+	//ft_old_debug_create_temp_map(scene);
+	//return (1);
+	return (ft_load_map(scene, "./editor/save_test_doom_map.map"));
 }
 
 t_vec2	ft_vector_from_angle(double size, double angle)
@@ -324,14 +331,16 @@ int main(int argc, char **argv)
 
 	ft_init_game_window(&env);
 	ft_init_graphical_scene(&env);
+	if (!(ft_debug_create_temp_map(&env.main_scene)))
+		return (1);
 
 	ft_controller_construct(&env, &ft_local_player_input,
-		ft_body_construct((t_vec3){2000, 2000, 0}, ft_player_construct(1337)));
+		ft_body_construct((t_vec3){env.main_scene.camera.position.x,
+			env.main_scene.camera.position.y, 0}, ft_player_construct(1337)));
 
 	ft_controller_construct(&env, &ft_bot_input,
 		ft_body_construct((t_vec3){1900, 2000, 0}, ft_player_construct(42)));
 
-	ft_debug_create_temp_map(&env.main_scene);
 	env.main_scene.resolution_ratio = 2;
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
 	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);

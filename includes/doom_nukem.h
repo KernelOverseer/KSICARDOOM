@@ -118,4 +118,10 @@ int							ft_init_bodies(t_doom_env *env);
 void						ft_local_player_input(void *env, void *body);
 void						ft_bot_input(void *env, void *body);
 
+/*
+**	SERIALIZATION FUNCTIONS
+*/
+
+int	ft_load_map(t_graphical_scene *scene, char *filename);
+
 #endif

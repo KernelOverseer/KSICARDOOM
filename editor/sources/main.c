@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:34:58 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/08 04:47:49 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/12 23:15:40 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	ft_events_init(t_doom_editor *env)
 	if (!ft_load_sector_events(&(env->gui), env))
 		return (0);
 	ft_sdl_loop_hook(&ft_main_loop, env);
+	ft_sdl_hook(&ft_render_move_player, env, SDL_KEYDOWN);
 	ft_sdl_hook(&ft_editor_mouse_event, env, SDL_MOUSEWHEEL);
 	ft_sdl_hook(&ft_editor_mouse_event, env, SDL_MOUSEMOTION);
 	ft_sdl_hook(&ft_editor_mouse_event, env, SDL_MOUSEBUTTONDOWN);

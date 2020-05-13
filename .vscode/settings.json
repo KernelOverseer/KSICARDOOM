@@ -32,6 +32,9 @@
 		"editor.h": "c",
 		"serializer.h": "c",
 		"chrono": "c",
-		"centropy.h": "c"
+		"centropy.h": "c",
+		"drawing.h": "c",
+		"gui_slider.h": "c",
+		"gui_texture_selector_addon.h": "c"
 	}
 }

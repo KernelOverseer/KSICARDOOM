@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 21:11:33 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/07 21:29:33 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/13 01:59:19 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ t_sector	*ft_new_sector(void)
 	t_sector	*result;
 
 	if (!(result = ft_memalloc(sizeof(t_sector))))
-		return (NULL + ft_raise_exception(ERROR_allocation_problem, NULL));
+	{
+		ft_raise_exception(ERROR_allocation_problem, NULL);
+		return (NULL);
+	}
 	ttslist_init(&(result->walls));
 	ttslist_init(&(result->portals));
 	ttslist_init(&(result->sprites));

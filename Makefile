@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/05/08 05:23:05 by abiri            ###   ########.fr        #
+#    Updated: 2020/05/13 00:21:15 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,11 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   shared_tools/image_manipulations.c\
 			   shared_tools/intersections.c\
 			   shared_tools/keys.c\
-			   ../editor/sources/serialization/basic_type_serializer.c\
-			   ../editor/sources/serialization/custom_editor_serializer.c
+			   shared_tools/garbage_collector.c\
+			   serialization/load_map_data.c\
+			   serialization/basic_type_serializer.c\
+			   serialization/custom_editor_serializer.c\
+			   serialization/load_map.c
 
 HEADER_FILES = animation_textures.h\
 			   config.h\

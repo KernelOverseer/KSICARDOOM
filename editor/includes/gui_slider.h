@@ -20,6 +20,7 @@ typedef struct	s_gui_slider
 	double	*value;
 	double	min;
 	double	max;
+	int		is_int;
 }				t_gui_slider;
 
 void	ft_gui_slider_on_click(t_tts_gui *gui_env, t_gui_component *slider);

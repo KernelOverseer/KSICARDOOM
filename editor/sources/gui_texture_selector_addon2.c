@@ -23,15 +23,17 @@ void	ft_gui_texture_selector_on_scroll(t_tts_gui *gui_env,
 	data = component->data;
 	margin = ((int)component->width % (int)ICON_MIN_SIZE) /
 			 (component->width / ICON_MIN_SIZE + 1);
-	max_offset = component->height / (margin + ICON_MIN_SIZE);
+	max_offset = (data->texture_list_size /
+		(component->width / (int)(margin + ICON_MIN_SIZE)));
 	if (component->event.e.wheel.y > 0)
 		data->scroll_offset++;
 	else if (component->event.e.wheel.y < 0)
 		data->scroll_offset--;
+	margin = component->height / (int)(margin + ICON_MIN_SIZE);
 	if (data->scroll_offset < 0)
 		data->scroll_offset = 0;
-	else if (data->scroll_offset > (max_offset - 1))
-		data->scroll_offset = max_offset - 1;
+	else if (data->scroll_offset > max_offset - margin)
+		data->scroll_offset = max_offset - margin;
 }
 
 void	ft_gui_texture_selector_scroll_bar(t_gui_texture_selector *data,
@@ -43,8 +45,10 @@ void	ft_gui_texture_selector_scroll_bar(t_gui_texture_selector *data,
 
 	margin = ((int)component->width % (int)ICON_MIN_SIZE) /
 		(component->width / ICON_MIN_SIZE + 1);
-	max_scroll = component->height / (margin + ICON_MIN_SIZE);
-	scroll_rect.h = (component->height / max_scroll);
+	max_scroll = data->texture_list_size /
+		(component->width / (int)(margin + ICON_MIN_SIZE));
+	scroll_rect.h = (component->height / (max_scroll -
+		(component->height / (int)(margin + ICON_MIN_SIZE))) - 1);
 	scroll_rect.w = SCROLL_RECT_WIDTH;
 	scroll_rect.x = component->x_pos + component->width - scroll_rect.w;
 	scroll_rect.y = component->y_pos + data->scroll_offset * scroll_rect.h;
@@ -68,12 +72,16 @@ int	ft_scroll_textures_selector(t_gui_component *component,
 	data = component->data;
 	margin = ((int)component->width % (int)ICON_MIN_SIZE) /
 			 (component->width / ICON_MIN_SIZE + 1);
-	max_offset = component->height / (margin + ICON_MIN_SIZE);
-	new_offset = mouse_position.y / (component->height / max_offset);
+	printf("texture_count : %d\n", data->texture_list_size);
+	max_offset = (data->texture_list_size /
+		(component->width / (int)(margin + ICON_MIN_SIZE)));
+	new_offset = mouse_position.y / (component->height / (max_offset -
+		(component->height / (int)(margin + ICON_MIN_SIZE))) - 1);
 	data->scroll_offset = new_offset;
+	margin = component->height / (int)(margin + ICON_MIN_SIZE);
 	if (data->scroll_offset < 0)
 		data->scroll_offset = 0;
-	else if (data->scroll_offset > (max_offset - 1))
-		data->scroll_offset = max_offset - 1;
+	else if (data->scroll_offset > max_offset - margin)
+		data->scroll_offset = max_offset - margin;
 	return (1);
 }

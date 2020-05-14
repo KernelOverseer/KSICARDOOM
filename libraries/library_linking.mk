@@ -42,7 +42,7 @@ OS_TYPE := $(shell uname -s)
 SDL_LINK = -F $(SDL_DIR) -framework SDL2 -framework SDL2_image\
 	-framework SDL2_ttf -framework SDL2_MIXER
 ifeq ($(OS_TYPE), Linux)
-	SDL_LINK = -lSDL_image -lSDL_ttf -lSDL_mixer
+	SDL_LINK = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 endif
 
 #simplesdl rules

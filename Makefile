@@ -15,6 +15,10 @@ FLAGS = -g -Ofast
 LMATH = -lm
 ifeq ($(shell uname -s), Darwin)
 	LMATH := -headerpad_max_install_names
+	INSTALL_NAME_TOOL = @-install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/$(SDL2) $(NAME)\
+			    @-install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/$(SDL2_IMAGE) $(NAME)\
+			    @-install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/$(SDL2_TTF) $(NAME)\
+			    @-install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer @loader_path/$(SDL2_MIXER) $(NAME)
 endif
 NAME = doom_nukem
 INC_DIR = ./includes
@@ -91,10 +95,7 @@ INCS := $(INCS) $(EDITOR_INCLUDES)
 
 $(NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(OBJECTS)
 	$(CC) $(FLAGS) $(OBJECTS) $(LINKS) -o $(NAME)
-	@install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/$(SDL2) $(NAME)
-	@install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/$(SDL2_IMAGE) $(NAME)
-	@install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/$(SDL2_TTF) $(NAME)
-	@install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer @loader_path/$(SDL2_MIXER) $(NAME)
+	$(INSTALL_NAME_TOOl)
 
 $(OBJECTS): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(INCLUDES) | $(OBJECT_DIRS)
 	$(CC) $(FLAGS) $(INCS) -c $< -o $@

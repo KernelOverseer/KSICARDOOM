@@ -23,7 +23,7 @@
 # define GUI_ACTIVE 1
 # define GUI_NEVER_FOCUS 2
 # define FONT_SIZE 19
-# define FONT_FILE "assets/RobotoCondensed-Regular.ttf"
+# define FONT_FILE "./assets/RobotoCondensed-Regular.ttf"
 # define GET_PROP(x, p) ((x) & p)
 # define ACTIVATE_PROP(x, p) x |= p
 # define DISACTIVATE_PROP(x, p) x &= ~p

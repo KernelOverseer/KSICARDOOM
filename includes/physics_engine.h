@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   physics_engine.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidqi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:32:35 by msidqi            #+#    #+#             */
-/*   Updated: 2020/01/04 16:39:50 by msidqi           ###   ########.fr       */
+/*   Updated: 2020/05/13 03:33:14 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define HAS_GRAVITY 1
 # define HAS_COLLISION 2
 # define IS_CONTROLLED 4
-# define ANGLE 0.0372665
+# define ANGLE 0.0672665
 
 typedef enum		e_player_controller_buttons
 {

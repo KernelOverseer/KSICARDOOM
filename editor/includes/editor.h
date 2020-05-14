@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:35:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/13 00:28:23 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/14 02:56:45 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define EDIT_MODE_LINK_WALL 2
 # define EDIT_MODE_LINK_PORTAL 3
 # define EDIT_MODE_EDIT 4
+# define EDIT_MODE_SPRITE 5
 # define SELECT_DISTANCE 10
 # define EDIT_SCALE 5
 # define POS_INF 1.0 / 0.0
@@ -54,6 +55,7 @@
 # define SELECTED_WALL 1
 # define SELECTED_PORTAL 2
 # define SELECTED_POINT 3
+# define SELECTED_SPRITE 4
 # define ACTIVE_WALL_COLOR 0xFFFFFFFF
 # define INACTIVE_WALL_COLOR 0xFF686868
 # define ACTIVE_PORTAL_COLOR 0xFF0000FF
@@ -62,6 +64,10 @@
 # define INACTIVE_SPRITE_COLOR 0xFF006800
 # define CAMERA_ANGLE_SPEED 0.1
 # define CAMERA_MOVE_SPEED 50
+# define SPRITE_RADIUS_MIN 0
+# define SPRITE_RADIUS_MAX 1000
+# define SECTOR_HEIGHT_MIN -5000
+# define SECTOR_HEIGHT_MAX 5000
 
 typedef struct	s_editor_event
 {
@@ -99,6 +105,7 @@ int			ft_main_interface_loading(t_tts_gui *gui_env, t_doom_editor *env);
 t_gui_area	*ft_load_sector_settings_gui(t_doom_editor	*env);
 t_gui_area  *ft_load_wall_settings_gui(t_doom_editor *env);
 t_gui_area	*ft_load_portal_settings_gui(t_doom_editor *env);
+t_gui_area	*ft_load_sprite_settings_gui(t_doom_editor *env);
 
 /*
 **	EDITOR EVENT FUNCTIONS
@@ -111,6 +118,7 @@ int			ft_load_sector_events(t_tts_gui *gui_env, t_doom_editor *env);
 void		ft_select_sector(t_tts_gui *gui_env, t_gui_component *component);
 t_wall		*ft_select_wall(t_doom_editor *env, int x, int y);
 t_portal	*ft_select_portal(t_doom_editor *env, int x, int y);
+t_sprite	*ft_select_sprite(t_doom_editor *env, int x, int y);
 
 /*
 **	ELEMENT MANIPULATION FUNCTIONS
@@ -134,6 +142,7 @@ t_portal	*ft_create_new_portal(void);
 void 		ft_reload_sector_settings(t_doom_editor *env);
 void 		ft_reload_wall_settings(t_doom_editor *env);
 void 		ft_reload_portal_settings(t_doom_editor *env);
+void 		ft_reload_sprite_settings(t_doom_editor *env);
 
 /*
 **	DRAWING FUNCTIONS
@@ -143,6 +152,7 @@ void	ft_list_sectors(t_doom_editor *env, t_list_head *sector_list);
 void	ft_draw_points(t_doom_editor *env);
 void	ft_draw_lines(t_doom_editor	*env);
 void	ft_draw_player(t_doom_editor *env);
+void	ft_draw_sprites(t_doom_editor *env);
 
 /*
 **  COORDINATE CONVERSION FUNCTIONS
@@ -158,6 +168,7 @@ t_point ft_map_to_screen(t_point point, double scale, t_point offset);
 int		ft_disable_area(t_tts_gui *gui_env, char *area_id);
 int		ft_enable_area(t_tts_gui *gui_env, char *area_id);
 double	ft_segment_distance_sq(t_point player_pos, t_point p1, t_point p2);
+int		ft_point_in_radius(t_point p1, t_point p2, int radius);
 
 /*
 **	SERIALISATION AND MAP SAVING FUNCTIONS

@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/05/13 00:21:15 by abiri            ###   ########.fr        #
+#    Updated: 2020/05/14 01:26:37 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ CC = gcc
 FLAGS = -g -Ofast
 LMATH = -lm
 ifeq ($(shell uname -s), Darwin)
-	FLAGS := $(FLAGS) -headerpad_max_install_names
-	LMATH :=
+	LMATH := -headerpad_max_install_names
 endif
 NAME = doom_nukem
 INC_DIR = ./includes

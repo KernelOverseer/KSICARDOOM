@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 17:53:45 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/08 01:29:36 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/14 02:03:29 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,29 @@ void	ft_draw_lines(t_doom_editor	*env)
 	}
 }
 
+void	ft_draw_sprites(t_doom_editor *env)
+{
+	t_sprite	*sprite;
+	t_list_head	*sprite_list;
+	t_point		position;
+	uint32_t	color;
+
+	sprite_list = &env->data.current_sector->sprites;
+	sprite_list->iterator = sprite_list->first;
+	while ((sprite = ttslist_iter_content(sprite_list)))
+	{
+		position = (t_point){sprite->position.x, sprite->position.y};
+		position = ft_map_to_screen(position, env->event.scale,
+			env->event.offset);
+		if (sprite == env->event.selected)
+			color = UI_COLOR_RED;
+		else
+			color = UI_COLOR_GREEN;
+		ft_sdl_image_rect(env->edit_image, (t_rect){position.x - 5,
+			position.y - 5, 10, 10}, color);
+	}
+}
+
 void	ft_draw_points(t_doom_editor *env)
 {
 	t_point	*point;
@@ -109,11 +132,9 @@ void	ft_draw_points(t_doom_editor *env)
         position = ft_map_to_screen(*point, env->event.scale,
                 env->event.offset);
 		if (env->event.selected == point)
-			ft_sdl_image_disc(env->edit_image, position, 5, CORRECT_COLOR
-			(UI_COLOR_RED));
+			ft_sdl_image_disc(env->edit_image, position, 5, UI_COLOR_RED);
 		else
-			ft_sdl_image_disc(env->edit_image, position, 5, CORRECT_COLOR
-			(UI_COLOR_GREEN));
+			ft_sdl_image_disc(env->edit_image, position, 5, UI_COLOR_GREEN);
 	}
 	ft_draw_mouse_pointer(env->edit_image,
 			env->e.button.x - env->editor_canvas->x_pos,

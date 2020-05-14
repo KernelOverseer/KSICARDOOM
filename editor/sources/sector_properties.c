@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 19:19:23 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/08 04:54:07 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/14 01:53:55 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void 		ft_reload_sector_settings(t_doom_editor *env)
 	gui_env = &(env->gui);
 	ft_disable_area(&(env->gui), "wall_settings");
 	ft_disable_area(&(env->gui), "portal_settings");
+	ft_disable_area(&(env->gui), "sprite_settings");
 	ft_enable_area(&(env->gui), "sector_settings");
 	component = ft_get_component_by_id(gui_env, "sector_brightness_slider");
 	if (component && env->data.current_sector)
@@ -57,7 +58,7 @@ t_gui_area	*ft_load_sector_settings_gui(t_doom_editor	*env)
 	t_gui_area	*result;
 
 	gui_env = &(env->gui);
-	if (!(result = ft_new_gui_area((t_rect){1528, 90, 378, 649}, "sector_settings")))
+	if (!(result = ft_new_gui_area((t_rect){1528, 90, 380, 749}, "sector_settings")))
 		return (NULL);
 	result->background_color = UI_COLOR_GREY;
 	ft_gui_fit_component(result, ft_gui_new_label((t_rect){0, 0, 154, 32},
@@ -69,12 +70,12 @@ t_gui_area	*ft_load_sector_settings_gui(t_doom_editor	*env)
 			" FLOOR ", UI_COLOR_BLACK, gui_env),
 						 "sector_floor_label");
 	ft_gui_fit_component(result, ft_gui_new_slider((t_rect){0, 0, 210, 32},
-			NULL,-5000, 5000),"sector_floor_slider");
+			NULL, SECTOR_HEIGHT_MIN, SECTOR_HEIGHT_MAX),"sector_floor_slider");
 	ft_gui_fit_component(result, ft_gui_new_label((t_rect){0, 0, 154, 32},
 			" CEILING ", UI_COLOR_BLACK, gui_env),
 						 "sector_ceiling_label");
 	ft_gui_fit_component(result, ft_gui_new_slider((t_rect){0, 0, 210, 32},
-			NULL,-5000, 5000),"sector_ceiling_slider");
+			NULL, SECTOR_HEIGHT_MIN, SECTOR_HEIGHT_MAX),"sector_ceiling_slider");
 	ft_gui_fit_component(result, ft_gui_new_label((t_rect){0, 0, 154, 64},
 			" CEILING TEXTURE ", UI_COLOR_BLACK, gui_env),
 						 "ceiling_texture_label");
@@ -85,7 +86,7 @@ t_gui_area	*ft_load_sector_settings_gui(t_doom_editor	*env)
 						 "floor_texture_label");
 	ft_gui_fit_component(result, ft_gui_new_texture_display((t_rect){0, 0, 210, 64},
 			NULL),"floor_texture_canvas");
-	ft_gui_fit_component(result, ft_gui_new_texture_selector((t_rect){0, 0, 380, 242},
+	ft_gui_fit_component(result, ft_gui_new_texture_selector((t_rect){0, 0, 380, 342},
 			env->data.textures, env->data.textures_count, NULL),"sector_texture_selector");
 	return (result);
 }

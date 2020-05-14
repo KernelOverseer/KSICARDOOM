@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 18:34:05 by abiri             #+#    #+#              #
-#    Updated: 2020/05/13 00:28:26 by abiri            ###   ########.fr        #
+#    Updated: 2020/05/14 01:41:02 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ EDITOR_FILENAMES = coordinates_manipulation.c\
 				   gui/textfield_events.c\
 				   gui_texture_display_addon.c\
 				   gui_texture_selector_addon.c\
+				   gui_texture_selector_addon2.c\
 				   int_label_addon.c\
 				   line_manipulation.c\
 				   main.c\
@@ -79,14 +80,17 @@ EDITOR_FILENAMES = coordinates_manipulation.c\
 				   wall_selection.c\
 				   save_map_data.c\
 				   temp_asset_loading.c\
-				   render_mode_movement.c
+				   render_mode_movement.c\
+				   sprite_selection.c\
+				   sprite_properties.c
 
 EDITOR_HEADER_FILES = editor.h\
 					  ttsgui.h\
 					  ttsgui_assets.h\
 					  gui_button.h\
 					  gui_checkbox.h\
-					  gui_slider.h
+					  gui_slider.h\
+					  gui_texture_selector_addon.h
 
 EDITOR_SOURCES = $(addprefix $(EDITOR_SRC_DIR)/, $(EDITOR_FILENAMES))
 GRAPHICAL_ENGINE_SOURCES = $(addprefix $(SRC_DIR)/, $(GRAPHICAL_ENGINE_FILENAMES))

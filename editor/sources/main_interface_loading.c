@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 09:07:20 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/13 02:32:28 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/14 02:16:37 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static void			ft_switch_mode_button(void *arg, t_gui_component *button)
 		gui_env->event.edit_mode = EDIT_MODE_LINK_WALL;
 	else if (ft_strequ(button->id, "edit_mode_link_portal"))
 		gui_env->event.edit_mode = EDIT_MODE_LINK_PORTAL;
+	else if (ft_strequ(button->id, "edit_mode_sprite"))
+		gui_env->event.edit_mode = EDIT_MODE_SPRITE;
 	else if (ft_strequ(button->id, "edit_mode_delete"))
 		gui_env->event.edit_mode = EDIT_MODE_EDIT;
 	ft_disable_other_buttons(button);
@@ -257,6 +259,9 @@ int		ft_main_interface_loading(t_tts_gui *gui_env, t_doom_editor *env)
 		return (0);
 	gui_env->gui_areas.push(&(gui_env->gui_areas), area);
 	if (!(area = ft_load_portal_settings_gui(env)))
+		return (0);
+	gui_env->gui_areas.push(&(gui_env->gui_areas), area);
+	if (!(area = ft_load_sprite_settings_gui(env)))
 		return (0);
 	gui_env->gui_areas.push(&(gui_env->gui_areas), area);
 	return (1);

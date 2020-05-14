@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:34:58 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/12 23:15:40 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/14 01:19:39 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_main_loop(void *arg)
 		ft_draw_points(env);
 		ft_draw_player(env);
 		ft_draw_lines(env);
+		ft_draw_sprites(env);
     }
 	else if (env->event.preview_mode == PREVIEW_RENDER)
 		ft_render_scene(&(env->data));

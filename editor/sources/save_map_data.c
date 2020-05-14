@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 21:26:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/13 02:08:36 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/14 02:20:19 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void	ft_load_map_data(void *arg, t_gui_component *button)
 	// relisting the sectors into the sector list field
 	ft_list_sectors(env, &(env->data.sectors));
 	// reload the sector settings menu
+	ft_reload_sprite_settings(env);
 	ft_reload_wall_settings(env);
 	ft_reload_portal_settings(env);
 	ft_reload_sector_settings(env);

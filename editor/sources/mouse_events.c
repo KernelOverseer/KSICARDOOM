@@ -12,7 +12,7 @@
 
 #include "editor.h"
 
-static int	ft_point_in_radius(t_point p1, t_point p2, int radius)
+int		ft_point_in_radius(t_point p1, t_point p2, int radius)
 {
 	double dist;
 
@@ -71,6 +71,27 @@ int	ft_add_point(t_doom_editor *env, int x, int y)
 	return (1);
 }
 
+int	ft_add_sprite(t_doom_editor	*env, int x, int y)
+{
+	t_sprite	*new_sprite;
+	t_point		new_point;
+
+	if (!(new_sprite = ft_memalloc(sizeof(t_sprite))))
+		return(0);
+	new_point.x = (x - env->editor_canvas->x_pos);
+	new_point.y = (y - env->editor_canvas->y_pos);
+	new_point = ft_screen_to_map(new_point, env->event.scale,
+			env->event.offset);
+	new_sprite->position.x = new_point.x;
+	new_sprite->position.y = new_point.y;
+	new_sprite->animation.textures = ft_memalloc(sizeof(t_sdl_image *));
+	new_sprite->animation.speed = 1;
+	new_sprite->animation.frame_count = 1;
+	new_sprite->animation.type = ANIMATION_TYPE_TIME;
+	ttslist_push_new(&env->data.current_sector->sprites, new_sprite);
+	return (1);
+}
+
 t_point	*ft_select_point(t_doom_editor *env, int x, int y)
 {
 	t_point	*point;
@@ -91,6 +112,8 @@ static	void	ft_editor_mouse_zoom(t_doom_editor *env, SDL_Event e)
 {
 	double add;
 
+	if (env->gui.hovered != env->editor_canvas)
+		return ;
 	add = ((double)e.wheel.y / 10) * env->event.scale;
 	env->event.scale += add;
 	if (env->event.scale < 1)
@@ -150,14 +173,22 @@ int	ft_editor_mouse_event(void *arg, SDL_Event e)
 				env->event.selected_type = SELECTED_POINT;
 			}
 		}
+		else if (env->event.edit_mode == EDIT_MODE_SPRITE)
+		{
+			env->event.selected = NULL;
+			ft_add_sprite(env, e.button.x, e.button.y);
+		}
 		else if (env->event.edit_mode == EDIT_MODE_EDIT)
 		{
-			if (!ft_select_wall(env, e.button.x -
+			if (ft_select_sprite(env, e.button.x -
 			env->editor_canvas->x_pos, e.button.y - env->editor_canvas->y_pos))
-			{
-				ft_select_portal(env, e.button.x -
-				env->editor_canvas->x_pos, e.button.y - env->editor_canvas->y_pos);
-			}
+				;
+			else if (ft_select_wall(env, e.button.x -
+			env->editor_canvas->x_pos, e.button.y - env->editor_canvas->y_pos))
+				;
+			else if (ft_select_portal(env, e.button.x -
+			env->editor_canvas->x_pos, e.button.y - env->editor_canvas->y_pos))
+				;
 		}
 	}
 	return (1);

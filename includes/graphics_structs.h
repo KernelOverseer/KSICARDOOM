@@ -189,10 +189,10 @@ struct          s_intercalc
 
 struct          s_animation
 {
-	t_sdl_image **textures;
+	int		frame_count;
+	t_sdl_image	**textures;
 	double		current_frame;
 	double		speed;
-	int			frame_count;
 	uint32_t	now_time;
 	uint32_t	type;
 	uint32_t	props;

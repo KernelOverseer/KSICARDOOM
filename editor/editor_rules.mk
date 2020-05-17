@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 18:34:05 by abiri             #+#    #+#              #
-#    Updated: 2020/05/14 01:41:02 by abiri            ###   ########.fr        #
+#    Updated: 2020/05/14 23:28:26 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,19 +100,17 @@ EDITOR_HEADERS = $(addprefix $(EDITOR_INC_DIR)/, $(EDITOR_HEADER_FILES))
 EDITOR_DIRS = $(sort $(dir $(EDITOR_OBJECTS)))
 EDITOR_INCLUDES = -I $(EDITOR_INC_DIR) $(INCS)
 
-ifeq ($(shell uname -s), Darwin)
-	EDITOR_INSTALL_NAME_TOOL = @-install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/../$(SDL2) $(EDITOR_NAME)\
-				   @-install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/../$(SDL2_IMAGE) $(EDITOR_NAME)\
-				   @-install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/../$(SDL2_TTF) $(EDITOR_NAME)\
-				   @-install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer @loader_path/../$(SDL2_MIXER) $(EDITOR_NAME)
-endif
-
 .PHONY: editor
 editor: $(EDITOR_NAME)
 
 $(EDITOR_NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(EDITOR_OBJECTS) $(GRAPHICAL_ENGINE_OBJECTS)
 	$(CC) $(FLAGS) $(EDITOR_OBJECTS) $(GRAPHICAL_ENGINE_OBJECTS) $(LINKS) -o $(EDITOR_NAME)
-	$(EDITOR_INSTALL_NAME_TOOL)
+ifeq ($(shell uname -s), Darwin)
+	@-install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/../$(SDL2) $(EDITOR_NAME)
+	@-install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/../$(SDL2_IMAGE) $(EDITOR_NAME)
+	@-install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/../$(SDL2_TTF) $(EDITOR_NAME)
+	@-install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer @loader_path/../$(SDL2_MIXER) $(EDITOR_NAME)
+endif
 
 $(EDITOR_OBJECTS): $(EDITOR_OBJ_DIR)/%.o : $(EDITOR_SRC_DIR)/%.c $(EDITOR_HEADERS) | $(EDITOR_DIRS)
 	$(CC) $(FLAGS) $(EDITOR_INCLUDES) -c $< -o $@

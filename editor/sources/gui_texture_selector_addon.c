@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 10:09:39 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/14 01:16:24 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/15 01:13:12 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static t_sdl_image	*ft_get_selected_texture(t_gui_component *component,
 			 (component->width / ICON_MIN_SIZE + 1);
 	mouse_position.x -= component->x_pos;
 	mouse_position.y -= component->y_pos;
-	texture_index.x = mouse_position.x / (margin + ICON_MIN_SIZE);
-	texture_index.y = mouse_position.y / (margin + ICON_MIN_SIZE);
+	texture_index.x = mouse_position.x / (int)(margin + ICON_MIN_SIZE);
+	texture_index.y = mouse_position.y / (int)(margin + ICON_MIN_SIZE);
 	line_count = component->width / (int)(margin + ICON_MIN_SIZE);
 	index = (texture_index.y + data->scroll_offset) * line_count
 		+ texture_index.x;
@@ -42,7 +42,10 @@ void			ft_gui_texture_selector_on_click(t_tts_gui *gui_env,
 {
 	t_gui_texture_selector	*selector;
 	t_sdl_image				*selected;
+	t_point					mouse_position;
 
+	mouse_position.x = gui_env->mouse_position.x - component->x_pos;
+	mouse_position.y = gui_env->mouse_position.y - component->y_pos;
 	selector = component->data;
 	if (ft_scroll_textures_selector(component, gui_env->mouse_position))
 		return ;
@@ -76,10 +79,10 @@ void 			ft_gui_texture_selector_draw(t_tts_gui *gui_env,
 			(t_rect){component->x_pos,component->y_pos,
 			component->width, component->height}, UI_COLOR_WHITE);
 	margin = ((int)component->width % (int)ICON_MIN_SIZE) /
-			(component->width / ICON_MIN_SIZE + 1);
+			(component->width / (ICON_MIN_SIZE + 2));
 	start.y = margin;
 	texture_index = data->scroll_offset * component->width
-		/ (ICON_MIN_SIZE + margin);
+		/ (int)(ICON_MIN_SIZE + margin);
 	while (texture_index < data->texture_list_size &&
 			start.y + ICON_MIN_SIZE <= component->height)
 	{

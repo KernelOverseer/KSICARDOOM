@@ -124,6 +124,120 @@ int	ft_deserialize_portal(int fd, t_portal *portal)
 	return (result);
 }
 
+int	ft_serialize_texture_reference_array(int fd,
+	t_sdl_image **texture_list, int size)
+{
+	int	result;
+	int	index;
+	int	texture_index;
+
+	if (!texture_list)
+		return (SERIALIZE_ERROR);
+	index = 0;
+	result = 0;
+	result += ft_serialize_int(fd, size);
+	while (index < size)
+	{
+		texture_index = ft_get_texture_index(texture_list[index]);
+		result += ft_serialize_int(fd, texture_index);
+		index++;
+	}
+	return (result);
+}
+
+int	ft_deserialize_texture_reference_index(int fd,
+	t_sdl_image ***texture_list_pointer, int *texture_count)
+{
+	int	result;
+	int	size;
+	int	texture_index;
+	int	index;
+
+	index = 0;
+	result = 0;
+	result += ft_deserialize_int(fd, &size);
+	if (size < 0)
+		return (SERIALIZE_ERROR);
+	*texture_count = size;
+	if (!(*texture_list_pointer =
+		ft_memalloc(sizeof(t_sdl_image *) * size)))
+		return (SERIALIZE_ERROR);
+	while (index < size)
+	{
+		result += ft_deserialize_int(fd, &texture_index);
+		(*texture_list_pointer)[index] =
+			ft_get_texture_from_index(texture_index);
+		index++;
+	}
+	return (result);
+}
+
+
+int	ft_serialize_animation(int fd, t_animation *animation)
+{
+	int	result;
+
+	if (!animation)
+		return (SERIALIZE_ERROR);
+	result = 0;
+	result += ft_serialize_texture_reference_array(fd,
+		animation->textures, animation->frame_count);
+	result += ft_serialize_double(fd, animation->speed);
+	result += ft_serialize_int(fd, (int)animation->type);
+	result += ft_serialize_int(fd, (int)animation->props);
+	return (result);
+}
+
+int	ft_deserialize_animation(int fd, t_animation *animation)
+{
+	int result;
+
+	if (!animation)
+		return (SERIALIZE_ERROR);
+	result = 0;
+	result += ft_deserialize_texture_reference_index(fd,
+		&animation->textures, &animation->frame_count);
+	result += ft_deserialize_double(fd, &animation->speed);
+	result += ft_deserialize_int(fd, (int *)(&animation->type));
+	result += ft_deserialize_int(fd, (int *)(&animation->props));
+	return (result);
+}
+
+int	ft_serialize_sprite(int fd, t_sprite *sprite)
+{
+	int	result;
+
+	if (!sprite)
+		return (SERIALIZE_ERROR);
+	result = 0;
+	result += ft_serialize_vec2(fd, sprite->position);
+	result += ft_serialize_double(fd, sprite->radius);
+	result += ft_serialize_double(fd, sprite->height);
+	result += ft_serialize_double(fd, sprite->altitude);
+	result += ft_serialize_double(fd, sprite->angle);
+	result += ft_serialize_int(fd, (int)(sprite->props));
+	result += ft_serialize_animation(fd, &sprite->animation);
+	return (result);
+}
+
+int	ft_deserialize_sprite(int fd, t_sprite *sprite)
+{
+	int	result;
+	
+	if (!sprite)
+		return (SERIALIZE_ERROR);
+	result = 0;
+	result += ft_deserialize_vec2(fd, &sprite->position);
+	result += ft_deserialize_double(fd, &sprite->radius);
+	result += ft_deserialize_double(fd, &sprite->height);
+	result += ft_deserialize_double(fd, &sprite->altitude);
+	result += ft_deserialize_double(fd, &sprite->angle);
+	result += ft_deserialize_int(fd, (int *)(&sprite->props));
+	result += ft_deserialize_animation(fd, &sprite->animation);
+	return (result);
+}
+
+
 int	ft_serialize_camera(int fd, t_camera *camera)
 {
 	int result;
@@ -230,7 +344,7 @@ int	ft_serialize_sector_portals(int fd, t_sector *sector)
 	sector->portals.iterator = sector->portals.first;
 	while ((portal = ttslist_iter_content(&(sector->portals))))
 		result += ft_serialize_portal(fd, portal);
-	return result;
+	return (result);
 }
 
 int	ft_deserialize_sector_portals(int fd, t_sector *sector)
@@ -252,7 +366,45 @@ int	ft_deserialize_sector_portals(int fd, t_sector *sector)
 		sector->portals.push(&(sector->portals), portal);
 		iter++;
 	}
-	return result;
+	return (result);
+}
+
+int	ft_serialize_sector_sprites(int fd, t_sector *sector)
+{
+	int		result;
+	t_sprite	*sprite;
+
+	result = 0;
+	if (!sector)
+		return (SERIALIZE_ERROR);
+	result = ft_serialize_int(fd, (int)sector->sprites.size);
+	sector->sprites.iterator = sector->sprites.first;
+	while ((sprite = ttslist_iter_content(&sector->sprites)))
+		result += ft_serialize_sprite(fd, sprite);
+	return (result);
+}
+
+int	ft_deserialize_sector_sprites(int fd, t_sector *sector)
+{
+	int		result;
+	int		index;
+	int		sprite_count;
+	t_sprite	*sprite;
+
+	if (!sector)
+		return (SERIALIZE_ERROR);
+	result = 0;
+	result += ft_deserialize_int(fd, &sprite_count);
+	index = 0;
+	while (index < sprite_count)
+	{
+		if (!(sprite = ft_memalloc(sizeof(t_sprite))))
+			return (SERIALIZE_ERROR);
+		result += ft_deserialize_sprite(fd, sprite);
+		sector->sprites.push(&(sector->sprites), sprite);
+		index++;
+	}
+	return (result);
 }
 
 int ft_serialize_sector(int fd, t_sector *sector)
@@ -271,6 +423,7 @@ int ft_serialize_sector(int fd, t_sector *sector)
 	result += ft_serialize_int(fd, ft_get_texture_index(sector->floor_texture));
 	result += ft_serialize_int(fd, ft_get_texture_index(sector->ceil_texture));
 	result += ft_serialize_sector_walls(fd, sector);
+	result += ft_serialize_sector_sprites(fd, sector);
 	return (result);
 }
 
@@ -296,5 +449,6 @@ int ft_deserialize_sector(int fd, t_sector *sector)
 	result += ft_deserialize_int(fd, &texture_index);
 	sector->ceil_texture = ft_get_texture_from_index(texture_index);
 	result += ft_deserialize_sector_walls(fd, sector);
+	result += ft_deserialize_sector_sprites(fd, sector);
 	return (result);
 }

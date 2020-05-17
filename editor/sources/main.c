@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:34:58 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/14 01:19:39 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/15 01:36:23 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int	ft_main_loop(void *arg)
 		ft_draw_sprites(env);
     }
 	else if (env->event.preview_mode == PREVIEW_RENDER)
+	{
 		ft_render_scene(&(env->data));
+		env->data.frame_count++;
+	}
 	ft_draw_gui_areas(&(env->gui));
 	ft_sdl_put_image(env->main_image, &(env->display_env));
 	ft_sdl_render_texture(&(env->display_env));

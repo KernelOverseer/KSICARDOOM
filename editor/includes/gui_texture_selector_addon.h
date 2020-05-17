@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 10:09:56 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/14 01:13:57 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/15 01:13:16 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,6 @@ void			ft_gui_texture_scroll_bar(t_gui_texture_selector *data,
 		t_gui_component *component, t_tts_gui *gui_env);
 int				ft_scroll_textures_selector(t_gui_component *component,
 		t_point	mouse_position);
+void			ft_gui_texture_selector_on_hover(t_tts_gui *gui_env,
+		t_gui_component *component);
 #endif

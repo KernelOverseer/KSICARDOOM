@@ -22,10 +22,10 @@
 # include "error_management.h"
 # include "graphical_engine.h"
 # include "physics_engine.h"
+# include "user_interface.h"
 # define ERROR 0
 # define SUCCESS 1
 # define SECOND 1000000000
-# define BACKGROUND_IMAGE "background.tex"
 
 typedef void				t_controller_function(void *env, void *body);
 
@@ -56,6 +56,7 @@ typedef struct				s_doom_env
 	t_vec2int				mouse_pos;
 	t_physics_engine		phi;
 	t_timer					timer;
+	t_menu_system			*menu_manager;
 }							t_doom_env;
 
 /*
@@ -122,6 +123,21 @@ void						ft_bot_input(void *env, void *body);
 **	SERIALIZATION FUNCTIONS
 */
 
-int	ft_load_map(t_graphical_scene *scene, char *filename);
+int							ft_load_map(t_graphical_scene *scene,
+	char *filename);
+
+/*
+**	GAME LOOP FUNCTION
+*/
+
+int							ft_main_loop(void *arg);
+
+/*
+**	GAME UI FUNCTIONS
+*/
+
+int							ft_menu_loop(void *arg);
+int							ft_main_menu_init(t_doom_env *env);
+void						ft_catch_button_input(t_menu *menu, t_doom_env *env);
 
 #endif

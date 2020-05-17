@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 20:29:06 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 21:24:42 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/16 03:00:55 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ const char	*g_error_codes[] =
 {
 	"Cannot initialise graphical environment",
 	"Cannot initialise scene",
-	"An allocation problem occured"
+	"An allocation problem occured",
+	"Missing asset : "
 };
 
-int	ft_raise_exception(int error_code, char *description)
+int	ft_raise_exception(int error_code, const char *description)
 {
 	const char	*error_decription;
 

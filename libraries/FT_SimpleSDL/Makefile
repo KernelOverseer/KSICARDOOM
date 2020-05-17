@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: merras <merras@student.42.fr>              +#+  +:+       +#+         #
+#    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/15 20:38:11 by abiri             #+#    #+#              #
-#    Updated: 2020/01/06 12:16:10 by oouklich         ###   ########.fr        #
+#    Updated: 2020/05/16 02:55:56 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ FILENAMES = init.c\
 			loop2.c\
 			ft_strdup.c\
 			ft_memalloc.c\
-			image_load.c
+			image_load.c\
+			text.c
 HEADER_FILE = ft_simplesdl.h\
 			  SDL2.h
 SRC_DIR = ./src
@@ -41,7 +42,7 @@ OBJ_DIR = ./obj
 INC_DIR = ./inc
 SRC = $(addprefix $(SRC_DIR)/, $(FILENAMES))
 OBJ = $(addprefix $(OBJ_DIR)/, $(FILENAMES:.c=.o))
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -g -Wall -Werror -Wextra
 #INCLUDES = -I $(INC_DIR)\
 #		   -I ~/.brew/Cellar/sdl2/$(SDL_VERSION)/include/SDL2\
 #		   -I ~/.brew/Cellar/sdl2_ttf/$(SDL_TTF_VERSION)/include/SDL2

@@ -3,6 +3,7 @@ import sys
 #im = Image.open(input("enter image path : ")) # Can be many different formats.
 #outfile = open(input("enter output texture : "), "wb")
 im = Image.open(sys.argv[1]);
+im = im.convert("RGBA")
 pix = im.load()
 print (im.size)  # Get the width and hight of the image for iterating over
 outfile = open(sys.argv[2], "wb");

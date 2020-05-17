@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ui.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 11:12:12 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/25 16:57:53 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/16 03:03:16 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ int	ft_init_game_window(t_doom_env *env)
 		return (ERROR);
 	// limits the mouse to the window and hides the cursor
 	SDL_SetRelativeMouseMode(SDL_TRUE);
+	if (TTF_Init())
+	{
+		ft_raise_exception(ERROR_graphical_init, SDL_GetError());
+		return (ERROR);
+	}
 	// init somewhere else
 	ft_init_timer(&env->timer);
 	ft_init_physics(&env->phi);

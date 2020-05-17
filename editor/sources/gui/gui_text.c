@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_text.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 14:48:47 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 21:13:00 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/16 03:16:24 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_sdl_image	*ft_get_text_image(char *text, t_rect rect, uint32_t color,
 	SDL_Surface	*surface;
 
 	surface = TTF_RenderText_Solid(font, text, (SDL_Color){255, 255, 255, 0});
+	if (!surface)
+		return (NULL);
 	SDL_LockSurface(surface);
 	if (surface->w < rect.w)
 		rect.w = surface->w;

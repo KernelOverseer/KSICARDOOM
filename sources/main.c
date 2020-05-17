@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/13 02:16:59 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/16 04:28:35 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,28 +289,6 @@ int	ft_main_loop(void *arg)
 	return (SUCCESS);
 }
 
-int	ft_menu_loop(void *arg)
-{
-	t_doom_env *env;
-	static	t_sdl_image	*background = NULL;
-
-	env = arg;
-	if (!background)
-	{
-		background = ft_memalloc(sizeof(t_sdl_image));
-		ft_sdl_load_image("background.tex", background);
-	}
-	ft_blit_image((t_rect){0, 0, env->main_image->width,
-		env->main_image->height}, background, env->main_image);
-	//ft_interact_menu(env);
-	//ft_render_menu(env);
-	if (env->keys[SDL_SCANCODE_RETURN])
-		ft_sdl_loop_hook(ft_main_loop, env);
-	ft_sdl_put_image(env->main_image, &env->display);
-	ft_sdl_render_texture(&env->display);
-	return (SUCCESS);
-}
-
 void	ft_controller_construct(t_doom_env *env, void f(void *, void *), t_body *b)
 {
 	t_controller	*new_controller;
@@ -331,6 +309,11 @@ int main(int argc, char **argv)
 
 	ft_init_game_window(&env);
 	ft_init_graphical_scene(&env);
+	if (!ft_main_menu_init(&env))
+	{
+		ft_raise_exception(ERROR_graphical_init, "Error loading menus");
+		return (ERROR);
+	}
 	if (!(ft_debug_create_temp_map(&env.main_scene)))
 		return (1);
 

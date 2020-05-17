@@ -84,9 +84,9 @@ int	ft_add_sprite(t_doom_editor	*env, int x, int y)
 			env->event.offset);
 	new_sprite->position.x = new_point.x;
 	new_sprite->position.y = new_point.y;
-	new_sprite->animation.textures = ft_memalloc(sizeof(t_sdl_image *));
+	new_sprite->animation.textures = ft_memalloc(sizeof(t_sdl_image *) * 5);
 	new_sprite->animation.speed = 1;
-	new_sprite->animation.frame_count = 1;
+	new_sprite->animation.frame_count = 11;
 	new_sprite->animation.type = ANIMATION_TYPE_TIME;
 	ttslist_push_new(&env->data.current_sector->sprites, new_sprite);
 	return (1);

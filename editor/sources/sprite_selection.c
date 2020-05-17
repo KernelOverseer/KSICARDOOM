@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 01:33:42 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/14 02:10:11 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/15 01:23:49 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_sprite	*ft_select_sprite(t_doom_editor *env, int x, int y)
 	t_sprite	*sprite;
 	t_point		sprite_pos;
 
-	printf("GONNA SELECT SPRITE\n");
 	sector = env->data.current_sector;
 	sector->sprites.iterator = sector->sprites.first;
 	while ((sprite = ttslist_iter_content(&(sector->sprites))))

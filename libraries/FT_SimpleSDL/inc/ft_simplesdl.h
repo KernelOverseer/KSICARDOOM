@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_simplesdl.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 00:15:45 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 14:26:52 by abiri            ###   ########.fr       */
+/*   Updated: 2020/05/16 04:58:54 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define RGB_G(c) ((c >> 8) & 255)
 # define RGB_R(c) ((c >> 16) & 255)
 # define RGB_A(c) ((c >> 24) & 255)
+# define ALIGN_LEFT_TOP 0
+# define ALIGN_CENTER_CENTER 1
 # define KEY(e) e.key.keysym.sym
 # define DEBUG 1
 
@@ -93,6 +95,14 @@ typedef struct	s_rect
 	int	h;
 }				t_rect;
 
+typedef struct	s_text
+{
+	int			x;
+	int			y;
+	uint32_t	color;
+	int			align;
+}				t_text;
+
 int					ft_sdl_init(t_sdl_env *env, t_sdl_init_config conf);
 t_sdl_init_config	ft_sdl_new_config(void);
 void				ft_sdl_free_config(t_sdl_init_config *conf);
@@ -135,4 +145,6 @@ void			ft_sdl_draw_color(t_sdl_env *env, Uint32 color);
 void			ft_sdl_clear_window(t_sdl_env *env, Uint32 color);
 void			ft_sdl_render(t_sdl_env *env);
 Uint32			ft_sdl_get_image_pixel(t_sdl_image *image, int x, int y);
+t_rect			ft_sdl_put_text(char *text, t_text info, TTF_Font *font,
+	t_sdl_image *image);
 #endif

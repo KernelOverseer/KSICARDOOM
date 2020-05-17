@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/05/14 01:26:37 by abiri            ###   ########.fr        #
+#    Updated: 2020/05/16 04:56:38 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,6 @@ FLAGS = -g -Ofast
 LMATH = -lm
 ifeq ($(shell uname -s), Darwin)
 	LMATH := -headerpad_max_install_names
-	INSTALL_NAME_TOOL = @-install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/$(SDL2) $(NAME)\
-			    @-install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/$(SDL2_IMAGE) $(NAME)\
-			    @-install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/$(SDL2_TTF) $(NAME)\
-			    @-install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer @loader_path/$(SDL2_MIXER) $(NAME)
 endif
 NAME = doom_nukem
 INC_DIR = ./includes
@@ -57,7 +53,10 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   serialization/load_map_data.c\
 			   serialization/basic_type_serializer.c\
 			   serialization/custom_editor_serializer.c\
-			   serialization/load_map.c
+			   serialization/load_map.c\
+			   user_interface/main_menu.c\
+			   user_interface/menu_management.c\
+			   user_interface/menu_buttons.c
 
 HEADER_FILES = animation_textures.h\
 			   config.h\
@@ -71,7 +70,8 @@ HEADER_FILES = animation_textures.h\
 			   physics_engine.h\
 			   ray_calculations.h\
 			   raycasting.h\
-			   scene_parser.h
+			   scene_parser.h\
+			   user_interface.h
 
 SDL_VERSION = 2.0.10
 SDL_TTF_VERSION = 2.0.15
@@ -95,7 +95,12 @@ INCS := $(INCS) $(EDITOR_INCLUDES)
 
 $(NAME): $(SIMPLESDL_NAME) $(CENTROPY_NAME) $(TTSLIST_NAME) $(LIBGL_NAME) $(OBJECTS)
 	$(CC) $(FLAGS) $(OBJECTS) $(LINKS) -o $(NAME)
-	$(INSTALL_NAME_TOOl)
+ifeq ($(shell uname -s), Darwin)
+	@-install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @loader_path/$(SDL2) $(NAME)
+	@-install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image @loader_path/$(SDL2_IMAGE) $(NAME)
+	@-install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf @loader_path/$(SDL2_TTF) $(NAME)
+	@-install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer @loader_path/$(SDL2_MIXER) $(NAME)
+endif
 
 $(OBJECTS): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(INCLUDES) | $(OBJECT_DIRS)
 	$(CC) $(FLAGS) $(INCS) -c $< -o $@

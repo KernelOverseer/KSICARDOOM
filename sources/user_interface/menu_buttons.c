@@ -26,7 +26,7 @@ void	ft_draw_menu_button(t_menu_button *button, t_sdl_image *image,
 		ft_blit_image(indicator_rect, select_indicator, image);
 }
 
-void	ft_draw_menu_buttons(t_menu	*menu, t_sdl_image *image)
+void	ft_draw_menu_buttons(t_menu *menu, t_sdl_image *image)
 {
 	t_menu_button	*button;
 	t_text			format;
@@ -40,6 +40,15 @@ void	ft_draw_menu_buttons(t_menu	*menu, t_sdl_image *image)
 		ft_draw_menu_button(button, image, format,
 			(menu->selected_button == button) ? menu->select_indicator : NULL);
 	}
+}
+
+void			ft_apply_button_handler(t_menu_button *button,
+	t_doom_env *env)
+{
+	if (!button)
+		return ;
+	if (button->handler)
+		button->handler(button, env);
 }
 
 void			ft_catch_button_input(t_menu *menu, t_doom_env *env)
@@ -67,6 +76,12 @@ void			ft_catch_button_input(t_menu *menu, t_doom_env *env)
 		if (!pressed)
 			new_button_node = menu->selected_button->parent_node->prev;
 		pressed = SDL_SCANCODE_UP;
+	}
+	else if (env->keys[SDL_SCANCODE_RETURN])
+	{
+		if (!pressed)
+			ft_apply_button_handler(menu->selected_button, env);
+		pressed = SDL_SCANCODE_RETURN;
 	}
 	else if (pressed)
 	{

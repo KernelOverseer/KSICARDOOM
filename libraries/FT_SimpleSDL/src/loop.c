@@ -81,18 +81,16 @@ int					ft_sdl_quit(t_sdl_env *env)
 
 int					ft_sdl_loop(t_sdl_env *env)
 {
-	int			quit;
 	SDL_Event	e;
 
-	quit = 0;
-	while (!quit)
+	while (!env->quit)
 	{
 		while (SDL_PollEvent(&e) != 0)
 		{
 			if (!ft_sdl_apply_event(e))
-				quit = 1;
+				env->quit = 1;
 			if (e.type == SDL_QUIT || e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-				quit = 1;
+				env->quit = 1;
 		}
 		ft_sdl_loop_hook(NULL, NULL);
 	}

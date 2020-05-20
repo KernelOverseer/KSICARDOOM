@@ -139,5 +139,13 @@ int							ft_main_loop(void *arg);
 int							ft_menu_loop(void *arg);
 int							ft_main_menu_init(t_doom_env *env);
 void						ft_catch_button_input(t_menu *menu, t_doom_env *env);
+void						ft_button_switch_menu(t_menu_button *button, void *arg);
+int						ft_load_settings_menu(t_menu_system *menu_manager,
+			t_doom_env *env, t_sdl_image *select_indicator);
+/*
+**	ASSET LOADING FUNCTIONS
+*/
+
+t_sdl_image	*ft_load_new_image(char *filename);
 
 #endif

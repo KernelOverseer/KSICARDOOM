@@ -14,19 +14,27 @@
 # define USER_INTERFACE_H
 # include "doom_nukem.h"
 # define BACKGROUND_IMAGE "./assets/background.tex"
+# define SETTINGS_BACKGROUND_IMAGE "./assets/settings_background.tex"
 # define MENU_FONT "./assets/font/bankrus.ttf"
 # define SELECT_INDICATOR "./assets/select_indicator.tex"
 # define SELECT_INDICATOR_OFFSET -50
 # define SELECT_INDICATOR_WIDTH 40
 # define SELECT_INDICATOR_HEIGHT 80
 
-typedef struct	s_menu_button
+typedef struct s_menu_button	t_menu_button;
+
+typedef	void t_menu_button_handler(t_menu_button *button,
+	void *env);
+
+struct	s_menu_button
 {
-	t_text		format;
-	char		*text;
-	TTF_Font	*font;
-	t_list_node	*parent_node;
-}				t_menu_button;
+	t_text			format;
+	char			*text;
+	TTF_Font		*font;
+	t_list_node		*parent_node;
+	t_menu_button_handler	*handler;
+	void			*arg;
+};
 
 typedef struct	s_menu
 {
@@ -74,4 +82,10 @@ void			ft_draw_menu_buttons(t_menu	*menu, t_sdl_image *image);
 t_menu_button	*ft_new_button(const char *text);
 int				ft_draw_menus(t_menu_system *menu_system, t_sdl_image *image);
 
+/*
+**	HELPER FUNCTIONS
+*/
+
+t_menu_button	*ft_helper_create_menu_button(t_menu *menu, const char *text,
+	t_text format, t_menu_button_handler *handler);
 #endif

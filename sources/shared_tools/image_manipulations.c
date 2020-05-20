@@ -47,3 +47,14 @@ void	ft_blit_image(t_rect rect, t_sdl_image *texture,
 		y += y_inc;
 	}
 }
+
+t_sdl_image	*ft_load_new_image(char *filename)
+{
+	t_sdl_image	*image;
+	if (!(image = ft_memalloc(sizeof(t_sdl_image))))
+		return (NULL);
+	if (ft_sdl_load_image(filename, image));
+		return (image);
+	free(image);
+	return (NULL);
+}

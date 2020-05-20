@@ -46,6 +46,7 @@ typedef struct		s_sdl_env
 	SDL_Texture		*texture;
 	int				width;
 	int				height;
+	int				quit;
 }					t_sdl_env;
 
 typedef	struct		s_sdl_init_config

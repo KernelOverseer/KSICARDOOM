@@ -91,6 +91,7 @@ static int			alloc_window_and_renderer(t_sdl_env *env,
 int					ft_sdl_init(t_sdl_env *env, t_sdl_init_config conf)
 {
 
+	env->quit = 0;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		ft_sdl_error("FT_SDL: Cannot initialise SDL");

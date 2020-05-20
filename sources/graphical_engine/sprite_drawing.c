@@ -19,7 +19,7 @@ void	ft_render_sprite(t_graphical_scene *scene, t_render_sprite *render)
 	int		color;
 
 	if (!render->wall.texture)
-		return ;
+		return;
 	render->texture_x = (ft_vec2_mag(ft_vec2_sub(render->wall.p1,
 		render->inter->pos)) / ft_vec2_mag(ft_vec2_sub(render->wall.p1,
 		render->wall.p2))) * render->wall.texture->width;

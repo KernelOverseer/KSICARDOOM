@@ -20,6 +20,12 @@
 # define SELECT_INDICATOR_OFFSET -50
 # define SELECT_INDICATOR_WIDTH 40
 # define SELECT_INDICATOR_HEIGHT 80
+# define LARGE_FONT_SIZE 50
+# define MEDIUM_FONT_SIZE 32
+# define SMALL_FONT_SIZE 26
+# define NOTIF_XPOS 0
+# define NOTIF_YPOS (CONF_WINDOW_HEIGHT - 30)
+# define NOTIF_OFFSET (- 30)
 
 typedef struct s_menu_button	t_menu_button;
 
@@ -47,13 +53,22 @@ typedef struct	s_menu
 	TTF_Font		*font;
 }				t_menu;
 
+typedef struct	s_notification
+{
+	char	*content;
+	double	duration;
+	int	color;
+}		t_notification;
+
 typedef struct	s_menu_system
 {
 	t_list_head	menu_list;
 	t_menu		*current;
 	TTF_Font	*font;
+	TTF_Font	*medium_font;
+	TTF_Font	*small_font;
+	t_list_head	notifications;
 }				t_menu_system;
-
 
 /*
 **	CONSTRUCTORS AND INIT

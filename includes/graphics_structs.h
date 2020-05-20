@@ -28,6 +28,7 @@
 # define PROP_TRANSPARENT 1
 # define PROP_FIXED_ANGLE 2
 # define PROP_NO_CLIP 4
+# define AMMO_TYPE_COUNT 5
 
 typedef struct  s_camera                t_camera;
 typedef struct  s_graphical_settings    t_graphical_settings;
@@ -40,6 +41,7 @@ typedef struct  s_sector                t_sector;
 typedef struct  s_wall                  t_wall;
 typedef struct  s_portal                t_portal;
 typedef struct  s_sprite                t_sprite;
+typedef struct	s_inventory		t_inventory;
 typedef struct  s_segment_distance      t_segment_distance;
 typedef struct  s_animation             t_animation;
 typedef struct	s_intersect_object		t_intersect_object;
@@ -163,7 +165,7 @@ struct			s_graphical_scene
 	t_camera	camera;
 	t_list_head	sectors;
 	t_sdl_image	*textures;
-	int			textures_count;
+	int		textures_count;
 	t_sector	*current_sector;
 	t_sdl_image	*render_image;
 	t_sdl_image	*skybox;
@@ -266,6 +268,14 @@ struct	s_sprite
 	double			angle;
 	uint32_t		props;
 	t_animation		animation;
+};
+
+struct	s_inventory
+{
+	int	xp;
+	int	health;
+	int	shield;
+	int	ammo[AMMO_TYPE_COUNT];
 };
 
 /*

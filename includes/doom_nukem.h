@@ -57,6 +57,7 @@ typedef struct				s_doom_env
 	t_physics_engine		phi;
 	t_timer					timer;
 	t_menu_system			*menu_manager;
+	t_inventory			main_inventory;
 }							t_doom_env;
 
 /*
@@ -142,6 +143,11 @@ void						ft_catch_button_input(t_menu *menu, t_doom_env *env);
 void						ft_button_switch_menu(t_menu_button *button, void *arg);
 int						ft_load_settings_menu(t_menu_system *menu_manager,
 			t_doom_env *env, t_sdl_image *select_indicator);
+int			ft_render_hud(t_doom_env *env);
+int			ft_draw_notifications(t_doom_env *env);
+int			ft_push_notification(t_menu_system *menu_manager,
+	char *content, double duration, int color);
+
 /*
 **	ASSET LOADING FUNCTIONS
 */

@@ -15,7 +15,7 @@
 # define CONF_WINDOW_WIDTH 1280
 # define CONF_WINDOW_HEIGHT 720
 # define CONF_WINDOW_TITLE "DOOM NUKEM"
-# define CONF_RES_RATIO 1
+# define CONF_RES_RATIO 3
 
 # define SDL_KEY_COUNT 284
 #endif

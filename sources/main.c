@@ -283,6 +283,7 @@ int	ft_main_loop(void *arg)
 	env->main_scene.frame_count++;
 	// temp_apply_movement(env);
 	temp_render_graphics(&(env->main_scene));
+	ft_render_hud(env);
 	ft_sdl_put_image(env->main_scene.render_image, &env->display);
 	ft_sdl_render_texture(&env->display);
 	// printf("cam_height : %d wallheight : %d\n", env->main_scene.camera.height, (int)DEFAULT_WALL_HEIGHT);
@@ -307,6 +308,7 @@ int main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 
+	ft_bzero(&env, sizeof(t_doom_env));
 	ft_init_game_window(&env);
 	ft_init_graphical_scene(&env);
 	if (!ft_main_menu_init(&env))
@@ -324,7 +326,7 @@ int main(int argc, char **argv)
 	ft_controller_construct(&env, &ft_bot_input,
 		ft_body_construct((t_vec3){1900, 2000, 0}, ft_player_construct(42)));
 
-	env.main_scene.resolution_ratio = 2;
+	env.main_scene.resolution_ratio = CONF_RES_RATIO;
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
 	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
 	ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEMOTION);

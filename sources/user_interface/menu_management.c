@@ -17,6 +17,7 @@ int		ft_init_menu_system(t_menu_system *menu_manager, TTF_Font *font)
 	ft_bzero(menu_manager, sizeof(t_menu));
 	menu_manager->font = font;
 	ttslist_init(&menu_manager->menu_list);
+	ttslist_init(&menu_manager->notifications);
 	return (1);
 }
 

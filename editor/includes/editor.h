@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:35:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/14 02:56:45 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/20 13:48:30 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int		ft_add_portal(t_doom_editor *env, t_point *p1, t_point *p2);
 **	GRAPHICAL OBJECTS CONSTRUCTORS
 */
 
-t_sector	*ft_create_new_sector(void);
+t_sector	*ft_create_new_sector(int id);
 t_wall		*ft_create_new_wall(void);
 t_portal	*ft_create_new_portal(void);
 

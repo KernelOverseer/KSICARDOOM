@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_map_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 21:26:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/14 02:20:19 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/20 13:36:40 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,12 @@ void	ft_save_portals(int fd, t_graphical_scene *env)
 	t_sector	*sector;
 	
 	env->sectors.iterator = env->sectors.first;
+	printf("NUMBER OF SECTORS : %d\n", env->sectors.size);
 	while ((sector = ttslist_iter_content(&env->sectors)))
+	{
+		printf("SAVING %u PORTALS FOR SECTOR %d\n", sector->portals.size, sector->id);
 		ft_serialize_sector_portals(fd, sector);
+	}
 }
 
 void    ft_save_map_data(void *arg, t_gui_component *button)

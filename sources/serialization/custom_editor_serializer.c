@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_editor_serializer.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 00:45:06 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/14 03:04:57 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/20 11:40:57 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,14 @@ int	ft_deserialize_portal(int fd, t_portal *portal)
 {
 	int	result;
 	int	sector_id;
-	
+
 	if (!portal)
 		return (SERIALIZE_ERROR);
 	result = 0;
 	result += ft_deserialize_wall(fd, &(portal->wall));
 	result += ft_deserialize_int(fd, &sector_id);
 	portal->sector = NULL;
+	printf("deserializing a portal with sector id : %d\n", sector_id);
 	if (sector_id != -1)
 		portal->sector = ttslist_get_id_content(&g_parsed_scene->sectors,
 			sector_id);
@@ -343,7 +344,10 @@ int	ft_serialize_sector_portals(int fd, t_sector *sector)
 	result = ft_serialize_int(fd, (int)sector->portals.size);
 	sector->portals.iterator = sector->portals.first;
 	while ((portal = ttslist_iter_content(&(sector->portals))))
+	{
+		printf("\t PORTAL FOR SECTOR %d\n", sector->id);
 		result += ft_serialize_portal(fd, portal);
+	}
 	return (result);
 }
 
@@ -423,6 +427,7 @@ int ft_serialize_sector(int fd, t_sector *sector)
 	result += ft_serialize_int(fd, ft_get_texture_index(sector->floor_texture));
 	result += ft_serialize_int(fd, ft_get_texture_index(sector->ceil_texture));
 	result += ft_serialize_sector_walls(fd, sector);
+	// result += ft_serialize_sector_portals(fd, sector);
 	result += ft_serialize_sector_sprites(fd, sector);
 	return (result);
 }
@@ -449,6 +454,7 @@ int ft_deserialize_sector(int fd, t_sector *sector)
 	result += ft_deserialize_int(fd, &texture_index);
 	sector->ceil_texture = ft_get_texture_from_index(texture_index);
 	result += ft_deserialize_sector_walls(fd, sector);
+	// result += ft_deserialize_sector_portals(fd, sector);
 	result += ft_deserialize_sector_sprites(fd, sector);
 	return (result);
 }

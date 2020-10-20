@@ -35,6 +35,7 @@
 		"centropy.h": "c",
 		"drawing.h": "c",
 		"gui_slider.h": "c",
-		"gui_texture_selector_addon.h": "c"
+		"gui_texture_selector_addon.h": "c",
+		"ios": "c"
 	}
 }

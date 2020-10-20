@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:58:37 by msidqi            #+#    #+#             */
-/*   Updated: 2020/01/19 21:23:37 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/20 14:03:06 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	ft_local_player_input(void *env, void *body)
 			k[SDL_SCANCODE_DOWN] : k[SDL_SCANCODE_S];
 	c[PLAYER_TURN_LEFT]		= k[SDL_SCANCODE_LEFT];
 	c[PLAYER_TURN_RIGHT]	= k[SDL_SCANCODE_RIGHT];
-	c[PLAYER_CROUCH]		= k[SDL_SCANCODE_LCTRL];
-	c[PLAYER_RUN]			= k[SDL_SCANCODE_LSHIFT];
+	c[PLAYER_CROUCH]		= k[SDL_SCANCODE_LSHIFT];
+	c[PLAYER_RUN]			= k[SDL_SCANCODE_RSHIFT];
 	c[PLAYER_STRAFE_LEFT]	= k[SDL_SCANCODE_A];
 	c[PLAYER_STRAFE_RIGHT]	= k[SDL_SCANCODE_D];
 	c[PLAYER_JUMP]			= k[SDL_SCANCODE_SPACE];

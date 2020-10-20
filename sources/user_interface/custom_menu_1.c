@@ -7,13 +7,7 @@ static void	ft_start_menu_button(t_menu_button *button, void *arg)
 	env = arg;
 	(void)button;
 	ft_sdl_loop_hook(ft_main_loop, env);
-	ft_push_notification(env->menu_manager, "message will stay for 50 frames", 50, 0xFFFFFF);
-	ft_push_notification(env->menu_manager, "message will stay for 60 frames", 60, 0xFFFFFF);
-	ft_push_notification(env->menu_manager, "message will stay for 70 frames", 70, 0xFFFFFF);
-	ft_push_notification(env->menu_manager, "message will stay for 80 frames", 80, 0xFFFFFF);
-	ft_push_notification(env->menu_manager, "message will stay for 90 frames", 90, 0xFFFFFF);
-	ft_push_notification(env->menu_manager, "message will stay for 100 frames", 100, 0xFFFFFF);
-	ft_push_notification(env->menu_manager, "message will stay for 150 frames", 150, 0xFFFFFF);
+	ft_push_notification(env->menu_manager, "Welcome to the game", 150, 0xFFFFFF);
 }
 
 static void	ft_exit_menu_button(t_menu_button *button, void *arg)

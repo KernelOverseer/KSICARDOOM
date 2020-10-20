@@ -3,15 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:25:49 by msidqi            #+#    #+#             */
-/*   Updated: 2020/05/13 03:37:40 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/20 14:42:52 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "physics_engine.h"
 
+void		ft_body_collision(t_graphical_scene *scene, t_body *body, double delta_time)
+{
+	t_vec3	next_position;
+
+	next_position = (t_vec3){body->pos.x + body->velocity.x * delta_time,
+							 body->pos.y + body->velocity.y * delta_time,
+							 body->pos.z + body->velocity.z * delta_time};
+	// Floor and Ceiling intersection check
+	// Floor intersection
+	if (next_position.z <= scene->current_sector->floor_height)
+	{
+		body->velocity.z = 0;
+	}
+
+	// Adding friction
+	body->velocity = ft_vec3_scalar(body->velocity, 0.2);
+}
+
+/*
 void        ft_body_collision(t_graphical_scene *scene, t_body *body, double delta_time)
 {
 	//ground collision
@@ -92,3 +111,4 @@ void        ft_body_collision(t_graphical_scene *scene, t_body *body, double del
 		}
 	}
 }
+*/

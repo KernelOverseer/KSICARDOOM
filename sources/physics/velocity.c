@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   velocity.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidqi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:26:02 by msidqi            #+#    #+#             */
-/*   Updated: 2020/01/04 16:26:03 by msidqi           ###   ########.fr       */
+/*   Updated: 2020/10/20 14:36:34 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    ft_new_input_changes(t_body *body)
 
 void	ft_body_move(t_body *body, double delta_time)
 {
-	body->pos = ft_vec3_add(body->pos, ft_vec3_scalar(body->velocity, delta_time * 20));
+	body->pos = ft_vec3_add(body->pos, ft_vec3_scalar(body->velocity, delta_time));
 }
 
 void	ft_update_velocity(t_body *body, double delta_time)

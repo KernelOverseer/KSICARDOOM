@@ -14,19 +14,19 @@ int	ft_load_settings_menu(t_menu_system *menu_manager,
 	if (!new_menu->background || !new_menu->select_indicator)
 		return (ERROR);
 	ft_add_menu(env->menu_manager, new_menu);
-	button = ft_helper_create_menu_button(new_menu, "OPTION 1",
+	button = ft_helper_create_menu_button(new_menu, "Graphics",
 		(t_text){new_menu->position.x + new_menu->position.w / 2,
 		new_menu->position.y + new_menu->position.h / 2 - 100,
 		0xFFFFFF, ALIGN_CENTER_CENTER}, &ft_button_switch_menu);
 	if (button)
 		button->arg = (void *)(0L);
-	button = ft_helper_create_menu_button(new_menu, "OPTION 2",
+	button = ft_helper_create_menu_button(new_menu, "Difficulty",
 		(t_text){new_menu->position.x + new_menu->position.w / 2,
 		new_menu->position.y + new_menu->position.h / 2,
 		0xFFFFFF, ALIGN_CENTER_CENTER}, &ft_button_switch_menu);
 	if (button)
 		button->arg = (void *)(0L);
-	button = ft_helper_create_menu_button(new_menu, "OPTION 3",
+	button = ft_helper_create_menu_button(new_menu, "Multiplayer",
 		(t_text){new_menu->position.x + new_menu->position.w / 2,
 		new_menu->position.y + new_menu->position.h / 2 + 100,
 		0xFFFFFF, ALIGN_CENTER_CENTER}, &ft_button_switch_menu);

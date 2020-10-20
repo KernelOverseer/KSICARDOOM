@@ -282,7 +282,7 @@ int	ft_main_loop(void *arg)
 	ft_render_scene(&env->main_scene);
 	env->main_scene.frame_count++;
 	// temp_apply_movement(env);
-	temp_render_graphics(&(env->main_scene));
+//	temp_render_graphics(&(env->main_scene));
 	ft_render_hud(env);
 	ft_sdl_put_image(env->main_scene.render_image, &env->display);
 	ft_sdl_render_texture(&env->display);

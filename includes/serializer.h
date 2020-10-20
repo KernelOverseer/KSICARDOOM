@@ -11,7 +11,7 @@
 # define MAP_FILE_HEADER 133742
 # define MAP_FILE_HEADER_SIZE 4
 
-t_graphical_scene	*g_parsed_scene;
+extern t_graphical_scene	*g_parsed_scene;
 
 int	ft_serialize_data(int fd, void *data, size_t size);
 int	ft_deserialize_data(int fd, void *buffer, size_t size);

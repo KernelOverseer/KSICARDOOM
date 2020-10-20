@@ -12,6 +12,8 @@
 
 #include "editor.h"
 
+t_graphical_scene	*g_parsed_scene;
+
 void 	ft_save_camera(int fd, t_graphical_scene *env)
 {
 	ft_serialize_camera(fd, &(env->camera));

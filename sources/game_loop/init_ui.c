@@ -12,6 +12,8 @@
 
 #include "doom_nukem.h"
 
+t_graphical_scene	*g_parsed_scene;
+
 int	ft_load_menu_ressources(t_doom_env *env)
 {
 	(void)env;

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 09:12:13 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 18:24:29 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/20 13:50:39 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    ft_add_sector(void *arg, t_gui_component *button)
 
     (void)button;
     env = arg;
-    if (!(new_sector = ft_create_new_sector()))
+    if (!(new_sector = ft_create_new_sector(env->data.sectors.size + 1)))
         return ;
     env->data.sectors.push(&(env->data.sectors), new_sector);
 	ft_list_sectors(env, &(env->data.sectors));

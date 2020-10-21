@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   physics_engine.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:32:35 by msidqi            #+#    #+#             */
-/*   Updated: 2020/05/13 03:33:14 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/20 14:33:56 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 # define DEFAULT_BODY_N ((t_body){(t_vec2){0, 0}, (t_vec2){0, 0, 0}, 0, 1, 3, 5, 1, 0.5, 0, true, true})
 # define DEFAULT_BODY(pos) (t_body){pos, (t_vec2){0, 0}, (t_vec2){0, 1}, (t_vec2){1, 0}, 0, 1, 3, 5, 1, 0.5, 0, true, true, true, NULL}
 # define HEIGHT {4, 0}
-# define P_SPEED 22
-# define P_RUN_SPEED 5
+# define P_SPEED 200
+# define P_RUN_SPEED 30
 # define MASS 10
 # define DRAG 2
-# define FRICTION 0.7
+# define FRICTION 0.8
 # define BOUNCE 0
-# define JUMP_POWER 200
+# define JUMP_POWER 5000
 # define GLOBAL_GRAVITY -9
-# define GLOBAL_GRAVITY_VECTOR (t_vec3) {0, 0, -15}
+# define GLOBAL_GRAVITY_VECTOR (t_vec3) {0, 0, -400}
 # define ZERO_VEC3 (t_vec3){0, 0, 0}
 # define UP (t_vec3){0, 0, 1}
 # define DOWN (t_vec3){0, 0, -1}

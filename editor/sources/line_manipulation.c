@@ -6,16 +6,15 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 19:07:39 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/26 20:23:54 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/20 13:39:42 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-t_sector	*ft_create_new_sector(void)
+t_sector	*ft_create_new_sector(int id)
 {
 	t_sector	*result;
-	static int	id = 0;
 
 	result = ft_memalloc(sizeof(t_sector));
 	if (!result)
@@ -24,7 +23,6 @@ t_sector	*ft_create_new_sector(void)
 	ttslist_init(&result->walls);
 	ttslist_init(&result->sprites);
 	result->brightness = 1;
-	result->id = ++id;
 	return (result);
 }
 

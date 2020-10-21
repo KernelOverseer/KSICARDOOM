@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 05:34:58 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/15 01:36:23 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/20 13:50:06 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_events_init(t_doom_editor *env)
 	env->editor_canvas->data = env->render_image;
 	env->editor_canvas = ft_get_component_by_id(&(env->gui), "main_edit_canvas");
 	env->editor_canvas->data = env->edit_image;
-	if (!(first_sector = ft_create_new_sector()))
+	if (!(first_sector = ft_create_new_sector(1)))
 		return (0);
 	if (!env->data.sectors.push(&(env->data.sectors), first_sector))
 		return (0);

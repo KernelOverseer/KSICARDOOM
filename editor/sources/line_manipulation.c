@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 19:07:39 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/20 13:39:42 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/21 17:31:32 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_sector	*ft_create_new_sector(int id)
 	ttslist_init(&result->portals);
 	ttslist_init(&result->walls);
 	ttslist_init(&result->sprites);
+	result->id = id;
 	result->brightness = 1;
 	return (result);
 }

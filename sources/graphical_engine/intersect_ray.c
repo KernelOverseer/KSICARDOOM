@@ -119,7 +119,10 @@ int			ft_get_animation_angle(t_graphical_scene *scene,
 	double	percent;
 	int		frame;
 
-	percent = scene->camera.angle / (2 * M_PI);
+	if (sprite->props & PROP_FOLLOW_ANGLE)
+		percent = (scene->camera.angle - sprite->angle + M_PI) / (2 * M_PI);
+	else
+		percent = scene->camera.angle / (2 * M_PI);
 	frame = (int)(percent * sprite->animation.frame_count) %
 		sprite->animation.frame_count;
 	if (frame < 0)

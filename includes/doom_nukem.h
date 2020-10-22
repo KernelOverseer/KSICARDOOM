@@ -20,6 +20,7 @@
 # include "config.h"
 # include "serializer.h"
 # include "error_management.h"
+# include "sound_engine.h"
 # include "graphical_engine.h"
 # include "physics_engine.h"
 # include "user_interface.h"
@@ -105,7 +106,7 @@ void						ft_update_time(t_timer *timer);
 **	PHYSICS FUNCTIONS
 */
 
-void						ft_physics_controllers(void *env);
+void						ft_physics_controllers(void *env, t_body *body);
 
 /*
 **	ENTITIES/BODIES FUNCTIONS

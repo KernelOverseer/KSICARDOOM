@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics_structs.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/13 00:08:04 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/22 13:46:45 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define PROP_TRANSPARENT 1
 # define PROP_FIXED_ANGLE 2
 # define PROP_NO_CLIP 4
+# define PROP_FOLLOW_ANGLE 8
 # define AMMO_TYPE_COUNT 5
 
 typedef struct  s_camera                t_camera;

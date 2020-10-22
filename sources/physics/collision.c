@@ -6,17 +6,17 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:25:49 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/20 14:42:52 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/22 11:04:54 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "physics_engine.h"
 #define INTER_DISTANCE 10
-#define INTERSECTION_MARGIN 50
+#define INTERSECTION_MARGIN 10
 
-void        ft_body_collision(t_graphical_scene *scene, t_body *body, double delta_time)
+void ft_body_collision(t_graphical_scene *scene, t_body *body, double delta_time)
 {
-	t_vec3	next_position;
+	t_vec3 next_position;
 
 	next_position = (t_vec3){body->pos.x + body->velocity.x * delta_time,
 							 body->pos.y + body->velocity.y * delta_time,
@@ -39,8 +39,7 @@ void        ft_body_collision(t_graphical_scene *scene, t_body *body, double del
 		body->player->input_velocity.z = 0;
 		body->velocity.z = 0;
 		body->pos.z = DEFAULT_WALL_HEIGHT + scene->current_sector->ceil_height - body->player->height[1];
-	}	
-
+	}
 
 	t_intersect inter;
 	t_vec3 future_pos;
@@ -59,30 +58,65 @@ void        ft_body_collision(t_graphical_scene *scene, t_body *body, double del
 		{
 			if (inter.object.type == OBJECT_portal)
 			{
+				// intersection with portal top
+				if (distance_to_intersection <= distance_to_next_position)
+				{
+					printf("intersection with portal\n");
+					double	head_altitude;
+					double	bottom_altitude;
+					double	portal_top_altitude = ft_max(scene->current_sector->ceil_height, inter.object.object.portal->sector->ceil_height) + DEFAULT_WALL_HEIGHT;
+					double	portal_bottom_altitude = ft_min(scene->current_sector->floor_height, inter.object.object.portal->sector->floor_height);
+
+					head_altitude = body->pos.z + body->player->height[1];
+					bottom_altitude = body->pos.z;
+					if (head_altitude > portal_top_altitude)
+					{
+						body->velocity.x = 0;
+						body->velocity.y = 0;
+						printf("HIT TOP\n");
+					}
+					else if (bottom_altitude < portal_bottom_altitude)
+					{
+						body->velocity.x = 0;
+						body->velocity.y = 0;
+						printf("HIT BOTTOM\n");
+					}
+					else {
+						printf("TRAVERSED PORTAL\n");
+						scene->current_sector = inter.object.object.portal->sector;
+					}
+				}
+
+				// intersection with portal bottom
+
 				//scene->current_sector = inter.object.object.portal->sector;
 			}
 			else
 			{
-				if (distance_to_intersection <= distance_to_next_position + INTERSECTION_MARGIN)
+				// Normal wall intersection behaviour
+				if (distance_to_intersection <= distance_to_next_position + body->player->height[0] / 2)
 				{
 					t_vec2 new_position_vector;
 					t_vec2 wall_push_vector;
 					t_vec2 orthogonal_projection;
 					double orthogonal_dot;
 
-
 					t_vec2 normalized_wall = ft_vec2_normalize((t_vec2){inter.object.object.wall->p2.x - inter.object.object.wall->p1.x, inter.object.object.wall->p2.y - inter.object.object.wall->p1.y});
 					orthogonal_dot = ft_vec2_dot_product((t_vec2){body->pos.x - inter.object.object.wall->p1.x, body->pos.y - inter.object.object.wall->p1.y}, normalized_wall);
 					orthogonal_projection = ft_vec2_scalar(normalized_wall, orthogonal_dot);
 					orthogonal_projection = (t_vec2){inter.object.object.wall->p1.x + orthogonal_projection.x, inter.object.object.wall->p1.y + orthogonal_projection.y};
 					wall_push_vector = ft_vec2_scalar(ft_vec2_normalize((t_vec2){body->pos.x - orthogonal_projection.x, body->pos.y - orthogonal_projection.y}), INTERSECTION_MARGIN);
-					body->pos.x = inter.pos.x + wall_push_vector.x;
-					body->pos.y = inter.pos.y + wall_push_vector.y;	
 					double new_velocity_scalar = ft_vec2_dot_product((t_vec2){body->velocity.x, body->velocity.y}, normalized_wall);
-					t_vec2 new_velocity = ft_vec2_scalar(normalized_wall, new_velocity_scalar);	
+					t_vec2 new_velocity = ft_vec2_scalar(normalized_wall, new_velocity_scalar);
 					body->velocity = (t_vec3){new_velocity.x, new_velocity.y, body->velocity.z};
+					double distance_to_corner = ft_max(ft_vec2_mag((t_vec2){inter.object.object.wall->p1.x - inter.pos.x, inter.object.object.wall->p1.y - inter.pos.y}),
+						ft_vec2_mag((t_vec2){inter.object.object.wall->p2.x - inter.pos.x, inter.object.object.wall->p2.y - inter.pos.y}));
+					if (distance_to_corner < INTERSECTION_MARGIN)
+					{
+						body->velocity.x = 0;
+						body->velocity.y = 0;
+					}
 				}
-				
 
 				/*t_vec3 vec_to_inter = ft_vec3_sub((t_vec3){inter.pos.x, inter.pos.y, 0}, (t_vec3){inter.ray.origin.x, inter.ray.origin.y, 0});
 				t_vec3 inter_to_p1 = ft_vec3_sub((t_vec3){inter.pos.x, inter.pos.y, 0}, (t_vec3){inter.object.object.wall->p1.x, inter.object.object.wall->p1.y, 0});

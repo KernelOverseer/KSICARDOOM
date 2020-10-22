@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/20 20:04:15 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/22 14:05:15 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,11 @@ void	ft_rotate_sectors(t_doom_env *env)
 	env->main_scene.current_sector = chosen->content;
 }
 
-void	sync_camera(t_doom_env *env, t_body *body)
-{
-	double angle;
-	t_vec3 cross;
-
-	if (body->flags & IS_CONTROLLED)
-		env->main_scene.camera.height = body->pos.z + body->player->height[1];
-	env->main_scene.camera.position.x = body->pos.x;
-	env->main_scene.camera.position.y = body->pos.y;
-	angle = acos(ft_vec3_dot_product(body->forw, RIGHT));
-	cross = ft_vec3_cross_product(body->forw, RIGHT);
-	if (ft_vec3_dot_product(DOWN, cross) < 0)
-		angle = -angle;
-	env->main_scene.camera.angle = angle;
-}
-
 void	ft_apply_controllers(t_doom_env *env)
 {
 	t_controller	*controller;
 
+	env->timer.update_time(&env->timer);
 	env->controllers.iterator = env->controllers.first;
 	while ((controller = ttslist_iter_content(&(env->controllers))))
 	{
@@ -75,6 +60,7 @@ void	ft_apply_controllers(t_doom_env *env)
 			controller->function(controller->env, controller->body);
 	}
 	//ft_physics_controllers(env);
+	env->timer.previous_tick = env->timer.current_time;
 }
 
 int	ft_main_loop(void *arg)
@@ -83,7 +69,6 @@ int	ft_main_loop(void *arg)
 
 	env = arg;
 	ft_apply_controllers(env);
-	sync_camera(env, (t_body *)env->bodies.first->content);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0,
 	CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt}, 0x383838);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, CONF_WINDOW_HEIGHT
@@ -129,15 +114,16 @@ int main(int argc, char **argv)
 	if (!(ft_debug_create_temp_map(&env.main_scene)))
 		return (1);
 
+	ft_controller_construct(&env, &ft_bot_input, ft_new_bot(env.main_scene.current_sector, (t_vec3){env.main_scene.camera.position.x - 4000,
+			env.main_scene.camera.position.y, 0}));
+
 	ft_controller_construct(&env, &ft_local_player_input,
 		ft_body_construct((t_vec3){env.main_scene.camera.position.x,
 			env.main_scene.camera.position.y, 0}, ft_player_construct(1337)));
 
-	/*ft_controller_construct(&env, &ft_bot_input,
-		ft_body_construct((t_vec3){env.main_scene.camera.position.x,
-			env.main_scene.camera.position.y, 0}, ft_player_construct(42)));*/
 
 	env.main_scene.resolution_ratio = CONF_RES_RATIO;
+	//ft_sound_play_track("sound/theme.wav");
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
 	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
 	ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEMOTION);

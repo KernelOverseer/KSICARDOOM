@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 21:26:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/20 13:36:40 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/22 10:08:19 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,16 @@ void	ft_load_list_dots(t_doom_editor *env)
 void	ft_save_portals(int fd, t_graphical_scene *env)
 {
 	t_sector	*sector;
+	t_list_node *node;
 	
 	env->sectors.iterator = env->sectors.first;
 	printf("NUMBER OF SECTORS : %d\n", env->sectors.size);
-	while ((sector = ttslist_iter_content(&env->sectors)))
+	//printf("SECTOR 1 IS : %p\n", ttslist_iter_content(&(env->sectors)));
+	//printf("SECTOR 2 IS : %p\n", ttslist_iter_content(&(env->sectors)));
+	//printf("SECTOR 3 IS : %p\n", ttslist_iter_content(&(env->sectors)));
+	while ((sector = ttslist_iter_content(&(env->sectors))))
 	{
+		ft_putstr("HELLO A SECTOR\n");
 		printf("SAVING %u PORTALS FOR SECTOR %d\n", sector->portals.size, sector->id);
 		ft_serialize_sector_portals(fd, sector);
 	}

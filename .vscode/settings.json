@@ -36,6 +36,7 @@
 		"drawing.h": "c",
 		"gui_slider.h": "c",
 		"gui_texture_selector_addon.h": "c",
-		"ios": "c"
+		"ios": "c",
+		"__node_handle": "c"
 	}
 }

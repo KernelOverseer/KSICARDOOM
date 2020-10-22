@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_buttons.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 03:38:59 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/16 05:19:13 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/22 12:21:42 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,50 @@ void			ft_apply_button_handler(t_menu_button *button,
 
 void			ft_catch_button_input(t_menu *menu, t_doom_env *env)
 {
+	static	t_sound_track	*menu_effect = NULL;
 	t_list_node	*new_button_node;
 	static int	pressed = false;
 
+	if (menu_effect == NULL)
+	{
+		printf("loading_track\n");
+		menu_effect = ft_new_track("sound/menu_effect.wav");
+	}
 	if (!menu)
 		return ;
 	new_button_node = NULL;
 	if (!menu->selected_button)
 	{
 		if (menu->buttons.first)
+		{
 			menu->selected_button = menu->buttons.first->content;
+		}
 		return ;
 	}
 	if (env->keys[SDL_SCANCODE_DOWN])
 	{
 		if (!pressed)
+		{
+			ft_sound_play_track(menu_effect);
 			new_button_node = menu->selected_button->parent_node->next;
+		}
 		pressed = SDL_SCANCODE_DOWN;
 	}
 	else if (env->keys[SDL_SCANCODE_UP])
 	{
 		if (!pressed)
+		{
+			ft_sound_play_track(menu_effect);
 			new_button_node = menu->selected_button->parent_node->prev;
+		}
 		pressed = SDL_SCANCODE_UP;
 	}
 	else if (env->keys[SDL_SCANCODE_RETURN])
 	{
 		if (!pressed)
+		{
 			ft_apply_button_handler(menu->selected_button, env);
+		}
 		pressed = SDL_SCANCODE_RETURN;
 	}
 	else if (pressed)

@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/05/16 04:56:38 by abiri            ###   ########.fr        #
+#    Updated: 2020/10/22 11:49:46 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,8 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   user_interface/custom_menu_2.c\
 			   user_interface/menu_load_helpers.c\
 			   user_interface/hud_main.c\
-			   user_interface/messages.c
+			   user_interface/messages.c\
+			   sound_engine/init.c
 
 HEADER_FILES = animation_textures.h\
 			   config.h\

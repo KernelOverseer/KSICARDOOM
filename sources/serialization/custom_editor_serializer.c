@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 00:45:06 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/20 11:40:57 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/22 09:58:25 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	ft_serialize_wall(int fd, t_wall *wall)
 
 	if (!wall)
 		return (SERIALIZE_ERROR);
-	printf("Serializing wall\n");
 	result = 0;
 	result += ft_serialize_vec2(fd, wall->p1);
 	result += ft_serialize_vec2(fd, wall->p2);
@@ -418,7 +417,7 @@ int ft_serialize_sector(int fd, t_sector *sector)
 	if (!sector)
 		return (SERIALIZE_ERROR);
 	result = 0;
-	printf("serializing a sector %d %p:%d %p:%d \n", sector->id, sector->ceil_texture, ft_get_texture_index(sector->ceil_texture), sector->floor_texture, ft_get_texture_index(sector->floor_texture));
+	printf("serializing a sector %d\n", sector->id);
 	result += ft_serialize_int(fd, sector->id);
 	result += ft_serialize_double(fd, sector->brightness);
 	result += ft_serialize_double(fd, sector->floor_height);

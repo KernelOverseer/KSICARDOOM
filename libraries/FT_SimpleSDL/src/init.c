@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 00:20:38 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/04 11:26:43 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/22 12:10:38 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int					ft_sdl_init(t_sdl_env *env, t_sdl_init_config conf)
 {
 
 	env->quit = 0;
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		ft_sdl_error("FT_SDL: Cannot initialise SDL");
 		return (0);

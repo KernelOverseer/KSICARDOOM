@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ttslist_iterator.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 03:00:49 by abiri             #+#    #+#             */
-/*   Updated: 2020/05/08 03:47:35 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/22 10:24:16 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,36 @@ t_list_node	*ttslist_iter(t_list_head	*head)
 
 void		*ttslist_get_id_content(t_list_head *head, int id)
 {
-	void	*content;
+	t_list_node	*iterator;
+	void		*content;
 
-	head->iterator = head->first;
-	while ((content = ttslist_iter_content(head)))
+	iterator = head->first;
+	while (iterator)
 	{
+		content = iterator->content;
 		if (!id)
 			return (content);
 		id--;
+		iterator = iterator->next;
 	}
 	return (NULL);
 }
 
 int			ttslist_get_content_id(t_list_head *head, void *content)
 {
-	void	*element;
+	void		*element;
+	t_list_node	*iterator;
 	int		id;
 
 	id = 0;
-	head->iterator = head->first;
-	while ((element = ttslist_iter_content(head)))
+	iterator = head->first;
+	while (iterator)
 	{
+		element = iterator->content;
 		if (content == element)
 			return (id);
 		id++;
+		iterator = iterator->next;
 	}
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:32:35 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/20 14:33:56 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/22 11:11:33 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define DEFAULT_BODY(pos) (t_body){pos, (t_vec2){0, 0}, (t_vec2){0, 1}, (t_vec2){1, 0}, 0, 1, 3, 5, 1, 0.5, 0, true, true, true, NULL}
 # define HEIGHT {4, 0}
 # define P_SPEED 200
-# define P_RUN_SPEED 30
+# define P_RUN_SPEED 1000
 # define MASS 10
 # define DRAG 2
 # define FRICTION 0.8
@@ -78,6 +78,7 @@ typedef struct		s_player
 	double			jump_power;
 	double			height[2];
 	unsigned char	input[20];
+	t_sprite		*sprite;
 }					t_player;
 
 typedef struct		s_body
@@ -107,6 +108,7 @@ typedef struct		s_body
 }					t_body;
 
 t_body				ft_default_body(t_vec3 pos);
+t_body				*ft_new_bot(t_sector *sector, t_vec3 pos);
 t_player			*ft_player_construct(Uint64 id);
 t_body				*ft_body_construct(t_vec3 pos, void *player);
 

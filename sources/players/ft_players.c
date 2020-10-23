@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:58:37 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/22 13:41:58 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/23 20:16:53 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	sync_camera(t_doom_env *env, t_body *body)
 	if (ft_vec3_dot_product(DOWN, cross) < 0)
 		angle = -angle;
 	env->main_scene.camera.angle = angle;
+	env->main_scene.current_sector = body->player->sector;
 }
 
-void	ft_local_player_input(void *env, void *body)
+int	ft_local_player_input(void *env, void *body)
 {
 	unsigned char	*c;
 	unsigned char	*k;
@@ -57,6 +58,7 @@ void	ft_local_player_input(void *env, void *body)
 	SDL_GetRelativeMouseState(&e->mouse_rel.x, &e->mouse_rel.y);
 	ft_physics_controllers(env, body);
 	sync_camera(env, body);
+	return (1);
 }
 
 void	ft_init_player(t_player **player, Uint64 id) // init struct s_player values
@@ -101,6 +103,7 @@ t_player *ft_player_construct(Uint64 id)
 	player->height[0] = 50;
 	player->height[1] = 1500;
 	ft_bzero(player->input, sizeof(player->input));
+	player->sector = g_parsed_scene->current_sector;
 	return (player);
 }
 

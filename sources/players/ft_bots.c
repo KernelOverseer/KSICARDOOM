@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:58:37 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/22 14:06:38 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/23 20:16:57 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_body	*ft_new_bot(t_sector *sector, t_vec3 pos)
 		*(body->player->sprite->animation.textures[i]) = g_parsed_scene->textures[g_parsed_scene->textures_count - 8 + i];
 	}
 	body->player->sprite->animation.frame_count = 8;
+	body->player->sector = sector;
 	sector->sprites.push(&(sector->sprites), body->player->sprite);
 	return body;
 }
@@ -62,7 +63,7 @@ void	sync_sprite(t_doom_env *env, t_body *body)
 	body->player->sprite->angle = angle;
 }
 
-void ft_bot_input(void *env, void *body) // pass env awsell
+int	ft_bot_input(void *env, void *body) // pass env awsell
 {
 	unsigned char *input;
 	t_body *b;
@@ -85,4 +86,5 @@ void ft_bot_input(void *env, void *body) // pass env awsell
 	b->velocity = (t_vec3){500, 0, 0};
 	ft_physics_controllers(env, body);
 	sync_sprite(env, body);
+	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/10/22 11:49:46 by abiri            ###   ########.fr        #
+#    Updated: 2020/10/23 20:51:46 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   physics/collision.c\
 			   players/ft_players.c\
 			   players/ft_bots.c\
+			   players/bot_template.c\
 			   shared_tools/time.c\
 			   shared_tools/display_events.c\
 			   shared_tools/error_management.c\

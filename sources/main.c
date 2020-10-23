@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/22 14:05:15 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/23 20:44:31 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_main_loop(void *arg)
 	return (SUCCESS);
 }
 
-void	ft_controller_construct(t_doom_env *env, void f(void *, void *), t_body *b)
+void	ft_controller_construct(t_doom_env *env, int f(void *, void *), t_body *b)
 {
 	t_controller	*new_controller;
 
@@ -114,12 +114,15 @@ int main(int argc, char **argv)
 	if (!(ft_debug_create_temp_map(&env.main_scene)))
 		return (1);
 
-	ft_controller_construct(&env, &ft_bot_input, ft_new_bot(env.main_scene.current_sector, (t_vec3){env.main_scene.camera.position.x - 4000,
+	ft_controller_construct(&env, &ft_bot_input, ft_new_bot(env.main_scene.current_sector, (t_vec3){env.main_scene.camera.position.x - 1000,
 			env.main_scene.camera.position.y, 0}));
 
 	ft_controller_construct(&env, &ft_local_player_input,
 		ft_body_construct((t_vec3){env.main_scene.camera.position.x,
 			env.main_scene.camera.position.y, 0}, ft_player_construct(1337)));
+	
+	ft_controller_construct(&env, &ft_default_bot_iter,
+	ft_default_bot_setup(&env, env.main_scene.current_sector, (t_vec3){0, 0, 0}));
 
 
 	env.main_scene.resolution_ratio = CONF_RES_RATIO;

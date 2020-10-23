@@ -28,7 +28,7 @@
 # define SUCCESS 1
 # define SECOND 1000000000
 
-typedef void				t_controller_function(void *env, void *body);
+typedef int					t_controller_function(void *env, void *body);
 
 typedef struct				s_controller
 {
@@ -118,8 +118,13 @@ int							ft_init_bodies(t_doom_env *env);
 ** CONTROLLERS FUNCTIONS
 */
 
-void						ft_local_player_input(void *env, void *body);
-void						ft_bot_input(void *env, void *body);
+int							ft_local_player_input(void *env, void *body);
+int							ft_bot_input(void *env, void *body);
+t_body						*ft_default_bot_setup(t_doom_env *env, t_sector *sector, t_vec3 pos);
+int							ft_default_bot_iter(void *env, void *body);
+int							ft_create_player_sprite(t_player *player);
+int							ft_fill_player_sprite_textures(t_graphical_scene *scene, t_player *player,
+	int texture_index, int texture_count);
 
 /*
 **	SERIALIZATION FUNCTIONS

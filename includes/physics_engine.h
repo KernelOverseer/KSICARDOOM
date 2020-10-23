@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:32:35 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/22 11:11:33 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/23 19:36:44 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct		s_player
 	double			height[2];
 	unsigned char	input[20];
 	t_sprite		*sprite;
+	t_sector		*sector;
 }					t_player;
 
 typedef struct		s_body

@@ -24,9 +24,11 @@
 # include "graphical_engine.h"
 # include "physics_engine.h"
 # include "user_interface.h"
+# include "bots.h"
 # define ERROR 0
 # define SUCCESS 1
 # define SECOND 1000000000
+
 
 typedef int					t_controller_function(void *env, void *body);
 
@@ -60,6 +62,8 @@ typedef struct				s_doom_env
 	t_menu_system			*menu_manager;
 	t_inventory			main_inventory;
 }							t_doom_env;
+
+extern	t_doom_env			*g_doom_env;
 
 /*
 ** ERROR HANDLING
@@ -119,12 +123,16 @@ int							ft_init_bodies(t_doom_env *env);
 */
 
 int							ft_local_player_input(void *env, void *body);
+void						sync_sprite(t_doom_env *env, t_body *body);
 int							ft_bot_input(void *env, void *body);
 t_body						*ft_default_bot_setup(t_doom_env *env, t_sector *sector, t_vec3 pos);
 int							ft_default_bot_iter(void *env, void *body);
 int							ft_create_player_sprite(t_player *player);
 int							ft_fill_player_sprite_textures(t_graphical_scene *scene, t_player *player,
 	int texture_index, int texture_count);
+void						ft_controller_construct(t_doom_env *env,
+							int f(void *, void *), t_body *b);
+int							ft_on_animation_end(t_animation animation);
 
 /*
 **	SERIALIZATION FUNCTIONS
@@ -159,5 +167,14 @@ int			ft_push_notification(t_menu_system *menu_manager,
 */
 
 t_sdl_image	*ft_load_new_image(char *filename);
+
+/*
+**	BOT CONSTRUCTORS AND ITER FUNCTIONS
+*/
+
+t_body	*ft_projectile_setup(t_doom_env *env, t_sector *sector,
+	t_projectile_data data);
+int		ft_projectile_iter(void *e, void *b);
+
 
 #endif

@@ -135,6 +135,7 @@ t_sdl_image	*ft_get_animation_texture(t_graphical_scene *scene,
 {
 	t_sdl_image	*result;
 	t_animation *animation;
+	uint32_t	animation_old_frame;
 
 	animation = &sprite->animation;
 	if (animation->type == ANIMATION_TYPE_DIRECTION)
@@ -146,9 +147,12 @@ t_sdl_image	*ft_get_animation_texture(t_graphical_scene *scene,
 	if (animation->type == ANIMATION_TYPE_TIME
 		&& animation->now_time != (uint32_t)scene->frame_count)
 	{
+		animation_old_frame = animation->current_frame;
 		animation->current_frame += animation->speed;
 		if (animation->current_frame > animation->frame_count - 1)
 			animation->current_frame = 0;
+		if (animation->current_frame < animation_old_frame)
+			animation->reps++;
 		animation->now_time = scene->frame_count;
 	}
 	return (result);

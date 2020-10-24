@@ -6,12 +6,14 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/23 20:44:31 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 14:16:25 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 #include <stdio.h>
+
+t_doom_env	*g_doom_env;
 
 int	ft_debug_create_temp_map(t_graphical_scene *scene)
 {
@@ -50,16 +52,20 @@ void	ft_rotate_sectors(t_doom_env *env)
 
 void	ft_apply_controllers(t_doom_env *env)
 {
+	t_list_node		*node;
 	t_controller	*controller;
 
 	env->timer.update_time(&env->timer);
 	env->controllers.iterator = env->controllers.first;
-	while ((controller = ttslist_iter_content(&(env->controllers))))
+	while ((node = ttslist_iter(&(env->controllers))))
 	{
+		controller = node->content;
 		if (controller->function)
-			controller->function(controller->env, controller->body);
+		{
+			if (!(controller->function(controller->env, controller->body)))
+				free(ttslist_splice(&(env->controllers), node));
+		}
 	}
-	//ft_physics_controllers(env);
 	env->timer.previous_tick = env->timer.current_time;
 }
 
@@ -103,6 +109,7 @@ int main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 
+	g_doom_env = &env;
 	ft_bzero(&env, sizeof(t_doom_env));
 	ft_init_game_window(&env);
 	ft_init_graphical_scene(&env);
@@ -121,10 +128,6 @@ int main(int argc, char **argv)
 		ft_body_construct((t_vec3){env.main_scene.camera.position.x,
 			env.main_scene.camera.position.y, 0}, ft_player_construct(1337)));
 	
-	ft_controller_construct(&env, &ft_default_bot_iter,
-	ft_default_bot_setup(&env, env.main_scene.current_sector, (t_vec3){0, 0, 0}));
-
-
 	env.main_scene.resolution_ratio = CONF_RES_RATIO;
 	//ft_sound_play_track("sound/theme.wav");
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);

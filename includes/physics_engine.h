@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:32:35 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/23 19:36:44 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 14:08:44 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define HAS_COLLISION 2
 # define IS_CONTROLLED 4
 # define ANGLE 0.0672665
+# define PARENT_TYPE_BODY 1
 
 typedef enum		e_player_controller_buttons
 {
@@ -80,7 +81,14 @@ typedef struct		s_player
 	unsigned char	input[20];
 	t_sprite		*sprite;
 	t_sector		*sector;
+	void			*data;
+	t_inventory		inventory;
 }					t_player;
+
+typedef struct		s_body_events
+{
+	void			(*on_intersect)(struct s_body *body, t_intersect inter);
+}					t_body_events;
 
 typedef struct		s_body
 {
@@ -106,6 +114,7 @@ typedef struct		s_body
 	void			(*update_gravity)(struct s_body *body, t_vec3 gravity, double delta_time);
 	void			(*force_add)(struct s_body *body,  t_vec3 force,double force_duration);
 	void			(*force_change)(struct s_body *body,  t_vec3 force,double force_duration);
+	t_body_events	events;
 }					t_body;
 
 t_body				ft_default_body(t_vec3 pos);

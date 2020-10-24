@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 20:13:49 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/23 20:51:09 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 14:40:31 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,27 @@ int		ft_fill_player_sprite_textures(t_graphical_scene *scene, t_player *player,
 	t_sprite	*sprite;
 	size_t		i;
 
-	texture_count += texture_index;
+	sprite = player->sprite;
 	i = 0;
 	if (!(sprite->animation.textures =
-		ft_memalloc(sizeof(t_sdl_image) * texture_count)))
+		ft_memalloc(sizeof(t_sdl_image *) * texture_count)))
 		return (0);
-	while (texture_index < texture_count + texture_index &&
-		texture_index < scene->textures_count)
+	sprite->props = PROP_FOLLOW_ANGLE;
+	sprite->animation.props = PROP_FOLLOW_ANGLE;
+	sprite->animation.type = ANIMATION_TYPE_DIRECTION;
+	while (i < texture_count && texture_index + i < scene->textures_count)
 	{
-		sprite->animation.textures[i] = scene->textures[texture_index];
-		texture_index++;
+		sprite->animation.textures[i] = &scene->textures[texture_index + i];
+		i++;
 	}
 	sprite->animation.frame_count = i;
-	sprite->animation.speed = 100;
+	sprite->animation.speed = 1;
 	return (1);
+}
+
+int		ft_on_animation_end(t_animation animation)
+{
+	if (animation.reps > 0)
+		return (1);
+	return (0);
 }

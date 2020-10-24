@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:58:37 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/23 20:16:57 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 14:45:18 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,13 @@ t_body	*ft_new_bot(t_sector *sector, t_vec3 pos)
 		return (NULL);
 	}
 	body->flags ^= IS_CONTROLLED;
-	body->player->sprite->position = (t_vec2){pos.x, pos.y};
-	body->player->sprite->props = PROP_FOLLOW_ANGLE;
-	body->player->sprite->radius = body->player->height[0];
-	body->player->sprite->height = body->player->height[1];
-	body->player->sprite->angle = acos(ft_vec3_dot_product(body->forw, RIGHT));
-	body->player->sprite->altitude = pos.z;
-	body->player->sprite->animation.props = PROP_FOLLOW_ANGLE;
-	body->player->sprite->animation.type = ANIMATION_TYPE_DIRECTION;
-	body->player->sprite->animation.textures = ft_memalloc(sizeof(t_sdl_image *) * 8);
-	for (int i = 0; i < 8; i++)
-	{
-		body->player->sprite->animation.textures[i] = ft_memalloc(sizeof(t_sdl_image));
-		*(body->player->sprite->animation.textures[i]) = g_parsed_scene->textures[g_parsed_scene->textures_count - 8 + i];
-	}
-	body->player->sprite->animation.frame_count = 8;
+	ft_create_player_sprite(body->player);
+	ft_fill_player_sprite_textures(g_parsed_scene, body->player,
+		g_parsed_scene->textures_count - 8, 8);
 	body->player->sector = sector;
 	sector->sprites.push(&(sector->sprites), body->player->sprite);
+	body->player->sprite->parent = body;
+	body->player->sprite->parent_type = PARENT_TYPE_BODY;
 	return body;
 }
 
@@ -65,6 +55,7 @@ void	sync_sprite(t_doom_env *env, t_body *body)
 
 int	ft_bot_input(void *env, void *body) // pass env awsell
 {
+	static t_vec3	go_pos = {0, 0, 0};
 	unsigned char *input;
 	t_body *b;
 	t_doom_env *e;
@@ -81,9 +72,16 @@ int	ft_bot_input(void *env, void *body) // pass env awsell
 		if (main_player_body->flags & IS_CONTROLLED)
 			break;
 	}
-	/*if (main_player_body)
-		b->velocity = ft_vec3_scalar(ft_vec3_normalize(ft_vec3_sub(main_player_body->pos, b->pos)), 200);*/
-	b->velocity = (t_vec3){500, 0, 0};
+	t_vec3 pos2d = (t_vec3){b->pos.x, b->pos.y, 0};
+	if (main_player_body)
+	{
+		if (go_pos.x == 0 && go_pos.y == 0 && go_pos.z == 0)
+			go_pos = (t_vec3){main_player_body->pos.x, main_player_body->pos.y, 0};
+		if (ft_vec3_mag(ft_vec3_sub(go_pos, pos2d)) < 100)
+			go_pos = (t_vec3){main_player_body->pos.x, main_player_body->pos.y, 0};
+	}
+	b->velocity = ft_vec3_scalar(ft_vec3_normalize(ft_vec3_sub(go_pos, pos2d)), 200);
+	//b->velocity = (t_vec3){500, 0, 0};
 	ft_physics_controllers(env, body);
 	sync_sprite(env, body);
 	return (1);

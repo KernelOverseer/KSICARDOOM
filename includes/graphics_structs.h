@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/22 13:46:45 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 14:24:01 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ struct          s_animation
 	uint32_t	now_time;
 	uint32_t	type;
 	uint32_t	props;
+	uint32_t	reps;
 };
 
 /*
@@ -269,6 +270,8 @@ struct	s_sprite
 	double			angle;
 	uint32_t		props;
 	t_animation		animation;
+	void			*parent;
+	uint32_t		parent_type;
 };
 
 struct	s_inventory

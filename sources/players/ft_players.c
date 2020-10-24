@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:58:37 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/23 20:16:53 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 14:12:59 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,21 @@ int	ft_local_player_input(void *env, void *body)
 	SDL_GetRelativeMouseState(&e->mouse_rel.x, &e->mouse_rel.y);
 	ft_physics_controllers(env, body);
 	sync_camera(env, body);
+	static int cooldown = 0;
+	if (cooldown <= 0)
+	{
+		if (k[SDL_SCANCODE_0])
+		{
+			ft_controller_construct(e, &ft_projectile_iter,
+			ft_projectile_setup(e, b->player->sector, (t_projectile_data){b,
+				(t_vec3){b->pos.x, b->pos.y, b->pos.z}, b->forw, 1000, 10}));
+			cooldown = 10;
+		}
+	}
+	else
+		cooldown--;
+	sync_sprite(e, b);
+	e->main_inventory = b->player->inventory;
 	return (1);
 }
 
@@ -67,8 +82,8 @@ void	ft_init_player(t_player **player, Uint64 id) // init struct s_player values
 	(*player)->id = id;
 	(*player)->is_grounded = 0;
 	(*player)->jump_power = JUMP_POWER;
-	(*player)->height[0] = 10;
-	(*player)->height[1] = 1500;
+	(*player)->height[0] = 2000;
+	(*player)->height[1] = 2000;
 	ft_bzero((*player)->input, sizeof((*player)->input));
 }
 
@@ -119,5 +134,11 @@ t_body	*ft_body_construct(t_vec3 pos, void *player)
 	*body = ft_default_body(pos);
 	body->flags ^= ((player == NULL) ? IS_CONTROLLED : 0);
 	body->player = player;
+	ft_create_player_sprite(player);
+	ft_fill_player_sprite_textures(g_parsed_scene, player,
+		g_parsed_scene->textures_count - 8, 8);
+	((t_player*)player)->sprite->parent = body;
+	((t_player*)player)->sprite->parent_type = PARENT_TYPE_BODY;
+	((t_player*)player)->inventory = (t_inventory){0, 100, 100, {0, 0, 0, 0, 0}};
 	return(body);
 }

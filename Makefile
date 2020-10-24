@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/10/23 20:51:46 by abiri            ###   ########.fr        #
+#    Updated: 2020/10/24 13:19:29 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   players/ft_players.c\
 			   players/ft_bots.c\
 			   players/bot_template.c\
+			   players/bot_tools.c\
+			   players/ft_projectile.c\
 			   shared_tools/time.c\
 			   shared_tools/display_events.c\
 			   shared_tools/error_management.c\
@@ -78,7 +80,8 @@ HEADER_FILES = animation_textures.h\
 			   ray_calculations.h\
 			   raycasting.h\
 			   scene_parser.h\
-			   user_interface.h
+			   user_interface.h\
+			   bots.h
 
 SDL_VERSION = 2.0.10
 SDL_TTF_VERSION = 2.0.15

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:43:01 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/24 14:24:01 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 19:44:17 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define PROP_NO_CLIP 4
 # define PROP_FOLLOW_ANGLE 8
 # define AMMO_TYPE_COUNT 5
+# define MOUSE_BUTTON_RIGHT 0
+# define MOUSE_BUTTON_LEFT 1
 
 typedef struct  s_camera                t_camera;
 typedef struct  s_graphical_settings    t_graphical_settings;

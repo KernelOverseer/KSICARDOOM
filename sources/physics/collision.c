@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:25:49 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/24 13:51:52 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 19:11:57 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ void ft_body_collision(t_graphical_scene *scene, t_body *body, double delta_time
 	t_vec3 future_pos;
 	t_vec3 stopping_pos;
 
-	ft_floor_ceiling_intersections(next_position, body);
+	if (ft_floor_ceiling_intersections(next_position, body))
+		ft_apply_intersection_event(body, inter);
 
 	inter.distance = INFINITY;
 	inter.min_dist = 0;

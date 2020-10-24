@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 20:13:49 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/24 14:40:31 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 19:40:05 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ int		ft_fill_player_sprite_textures(t_graphical_scene *scene, t_player *player,
 	return (1);
 }
 
-int		ft_on_animation_end(t_animation animation)
+int		ft_on_animation_end(t_animation animation, uint64_t expiration)
 {
+	if (g_doom_env->timer.current_time > expiration)
+		return (1);
 	if (animation.reps > 0)
 		return (1);
 	return (0);

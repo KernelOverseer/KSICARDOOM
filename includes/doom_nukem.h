@@ -53,6 +53,7 @@ typedef struct				s_doom_env
 	t_graphical_scene		main_scene;
 	t_sdl_image				*main_image;
 	unsigned char			keys[SDL_KEY_COUNT];
+	unsigned char			mouse_buttons[2];
 	t_list_head				controllers;
 	t_list_head				bodies;
 	t_vec2int				mouse_rel;
@@ -132,7 +133,8 @@ int							ft_fill_player_sprite_textures(t_graphical_scene *scene, t_player *pla
 	int texture_index, int texture_count);
 void						ft_controller_construct(t_doom_env *env,
 							int f(void *, void *), t_body *b);
-int							ft_on_animation_end(t_animation animation);
+int							ft_on_animation_end(t_animation animation,
+	uint64_t expiration);
 
 /*
 **	SERIALIZATION FUNCTIONS

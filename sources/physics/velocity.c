@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:26:02 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/22 13:09:45 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 19:02:23 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ void    ft_new_input_changes(t_body *body)
 	// changing height on crouch
 	if (c[PLAYER_CROUCH])
 	{
-		body->player->height[1] = (body->player->height[1] > body->player->height[0] / 2) ? body->player->height[1] - 150 : body->player->height[1];
+		if (body->player->height[1] > body->player->height[2] / 2)
+			body->player->height[1] *= 0.8;
 		c[PLAYER_RUN] = 0;
 	}
 	else
 	{
-		body->player->height[1] = (body->player->height[1] < body->player->height[0]) ? body->player->height[1] + 150 : body->player->height[1];
+		if (body->player->height[1] < body->player->height[2])
+			body->player->height[1] /= 0.8;
 	}
 	// rotating player
 	if (c[PLAYER_TURN_RIGHT])
@@ -58,7 +60,7 @@ void    ft_new_input_changes(t_body *body)
 	// Jump
 	if (c[PLAYER_JUMP] && body->player->is_grounded)
 	{
-		*v = ft_vec3_add(*v, ft_vec3_scalar(body->up, body->player->jump_power));
+		*v = ft_vec3_add(*v, ft_vec3_scalar(UP, body->player->jump_power));
 		body->player->is_grounded = false;
 	}
 	// printf("forw: x: %f, y: %f, z: %f | right: x: %f, y: %f, z: %f | pos: x: %f, y: %f, z: %f\n",

@@ -31,6 +31,8 @@ int	ft_draw_notifications(t_doom_env *env)
 		ft_sdl_put_text(notif->content, (t_text){NOTIF_XPOS, NOTIF_YPOS
 			+ offset, notif->color}, env->menu_manager->small_font,
 			main_image);
+		if (-offset > CONF_WINDOW_HEIGHT / 2)
+			break;
 		notif->duration--;
 		if (notif->duration < 0)
 		{

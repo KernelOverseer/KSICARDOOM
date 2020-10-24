@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:58:37 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/24 14:12:59 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 20:02:10 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	sync_camera(t_doom_env *env, t_body *body)
 	if (ft_vec3_dot_product(DOWN, cross) < 0)
 		angle = -angle;
 	env->main_scene.camera.angle = angle;
+	env->main_scene.camera.tilt = body->up.z;
 	env->main_scene.current_sector = body->player->sector;
 }
 
@@ -56,17 +57,33 @@ int	ft_local_player_input(void *env, void *body)
 	c[PLAYER_STRAFE_RIGHT]	= k[SDL_SCANCODE_D];
 	c[PLAYER_JUMP]			= k[SDL_SCANCODE_SPACE];
 	SDL_GetRelativeMouseState(&e->mouse_rel.x, &e->mouse_rel.y);
+	if (e->mouse_rel.x != 0)
+	{
+		b->forw = ft_vec3_rotate_z(b->forw, -e->mouse_rel.x * MOUSE_HORIZONTAL_SENSITIVITY);
+		b->right = ft_vec3_cross_product(b->forw, UP);
+	}
+	if (e->mouse_rel.y != 0)
+	{
+		b->up.z -= e->mouse_rel.y * MOUSE_VERTICAL_SENSITIVITY;
+		b->up.z = ft_min(b->up.z, -CONF_WINDOW_HEIGHT);
+		b->up.z = ft_max(b->up.z, 0);
+	}	
 	ft_physics_controllers(env, body);
 	sync_camera(env, body);
 	static int cooldown = 0;
 	if (cooldown <= 0)
 	{
-		if (k[SDL_SCANCODE_0])
+		if (e->mouse_buttons[MOUSE_BUTTON_LEFT])
 		{
+			////// TEMP DEBUG
+			t_vec3	direction;
+			direction = b->forw;
+			direction.z = (b->up.z + CONF_WINDOW_HEIGHT / 2) * 0.021;
 			ft_controller_construct(e, &ft_projectile_iter,
 			ft_projectile_setup(e, b->player->sector, (t_projectile_data){b,
-				(t_vec3){b->pos.x, b->pos.y, b->pos.z}, b->forw, 1000, 10}));
-			cooldown = 10;
+				(t_vec3){b->pos.x, b->pos.y, b->pos.z + b->player->height[1]},
+				direction, 1000, 10}));
+			cooldown = 2;
 		}
 	}
 	else
@@ -117,6 +134,7 @@ t_player *ft_player_construct(Uint64 id)
 	player->jump_power = JUMP_POWER;
 	player->height[0] = 50;
 	player->height[1] = 1500;
+	player->height[2] = player->height[1];
 	ft_bzero(player->input, sizeof(player->input));
 	player->sector = g_parsed_scene->current_sector;
 	return (player);
@@ -140,5 +158,6 @@ t_body	*ft_body_construct(t_vec3 pos, void *player)
 	((t_player*)player)->sprite->parent = body;
 	((t_player*)player)->sprite->parent_type = PARENT_TYPE_BODY;
 	((t_player*)player)->inventory = (t_inventory){0, 100, 100, {0, 0, 0, 0, 0}};
+	body->up.z = -CONF_WINDOW_HEIGHT / 2;
 	return(body);
 }

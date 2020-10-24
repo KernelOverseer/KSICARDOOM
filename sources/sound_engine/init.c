@@ -25,6 +25,7 @@ int	ft_sound_play_track(t_sound_track *track)
 	track->audio_len = track->length;
 
 	SDL_QueueAudio(deviceId, track->buffer, track->length);
+	printf("%d\n", SDL_GetQueuedAudioSize(deviceId));
 	SDL_PauseAudioDevice(deviceId, 0);
 	return 1;
 }

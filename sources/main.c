@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/24 14:16:25 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 19:47:19 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ int main(int argc, char **argv)
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
 	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
 	ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEMOTION);
+	ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEBUTTONUP);
+	ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEBUTTONDOWN);
 	ft_sdl_loop_hook(ft_menu_loop, &env);
 	ft_sdl_loop(&env.display);
 	return (0);

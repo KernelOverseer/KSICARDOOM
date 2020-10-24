@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:32:35 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/24 14:08:44 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 19:14:49 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@
 # define IS_CONTROLLED 4
 # define ANGLE 0.0672665
 # define PARENT_TYPE_BODY 1
+# define MOUSE_HORIZONTAL_SENSITIVITY 0.0025
+# define MOUSE_VERTICAL_SENSITIVITY 1
+# define TILT_PROJECTILE_RATIO 0.001
 
 typedef enum		e_player_controller_buttons
 {
@@ -55,7 +58,7 @@ typedef enum		e_player_controller_buttons
 	PLAYER_JUMP,
 	PLAYER_RUN,
 	PLAYER_CROUCH,
-	EMPTY3,
+	PLAYER_SHOOT,
 	EMPTY4,
 	EMPTY5,
 	EMPTY6,
@@ -77,7 +80,7 @@ typedef struct		s_player
 	t_vec3			input_velocity;
 	Uint8			is_grounded;
 	double			jump_power;
-	double			height[2];
+	double			height[3];
 	unsigned char	input[20];
 	t_sprite		*sprite;
 	t_sector		*sector;

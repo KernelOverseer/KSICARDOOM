@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 03:38:59 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/22 12:21:42 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/24 20:22:46 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ void			ft_catch_button_input(t_menu *menu, t_doom_env *env)
 	static int	pressed = false;
 
 	if (menu_effect == NULL)
-	{
-		printf("loading_track\n");
 		menu_effect = ft_new_track("sound/menu_effect.wav");
-	}
 	if (!menu)
 		return ;
 	new_button_node = NULL;

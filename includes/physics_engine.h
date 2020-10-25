@@ -43,6 +43,7 @@
 # define MOUSE_HORIZONTAL_SENSITIVITY 0.0025
 # define MOUSE_VERTICAL_SENSITIVITY 1
 # define TILT_PROJECTILE_RATIO 0.001
+# define STEP_MAX_HEIGHT 50
 
 typedef enum		e_player_controller_buttons
 {

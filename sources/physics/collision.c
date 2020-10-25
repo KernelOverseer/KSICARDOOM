@@ -14,6 +14,35 @@
 #define INTER_DISTANCE 10
 #define INTERSECTION_MARGIN 10
 
+int		ft_switch_body_sector(t_body *body, t_sector *new_sector)
+{
+	t_list_node	*list_node;
+
+	if (body->player->sprite)
+	{
+		list_node = body->player->sector->sprites.first;
+		while (list_node)
+		{
+			if (list_node->content == body->player->sprite)
+			{
+				ttslist_splice(&body->player->sector->sprites, list_node);
+				new_sector->sprites.push(&new_sector->sprites, body->player->sprite);
+				printf("switched\n");
+				break;
+			}
+			list_node = list_node->next;
+		}
+	}
+	body->player->sector = new_sector;
+	return (0);
+}
+
+int		ft_step_effect(t_body *body)
+{
+	body->velocity.z += JUMP_POWER / 2;
+	return (0);
+}
+
 int		ft_set_new_intersection_slide_velocity(t_body *body, t_intersect inter, double delta_time)
 {
 	t_vec2 new_position_vector;
@@ -98,9 +127,13 @@ int		ft_portal_intersections(t_intersect inter, t_body *body, double delta_time)
 	if (head_altitude > portal_top_altitude)
 		return (ft_set_new_intersection_slide_velocity(body, inter, delta_time));
 	else if (bottom_altitude < portal_bottom_altitude)
+	{
+		if (bottom_altitude - portal_bottom_altitude <= STEP_MAX_HEIGHT)
+			ft_step_effect(body);
 		return (ft_set_new_intersection_slide_velocity(body, inter, delta_time));
+	}
 	else
-		body->player->sector = inter.object.object.portal->sector;
+		ft_switch_body_sector(body, inter.object.object.portal->sector);
 	return (0);
 }
 int		ft_sprite_intersections(t_intersect inter, t_body *body, double delta_time)

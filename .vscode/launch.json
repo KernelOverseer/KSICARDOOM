@@ -5,22 +5,23 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "lldb",
+			"type": "gdb",
 			"request": "launch",
 			"name": "Debug Game",
-			"program": "${workspaceFolder}/doom_nukem",
-			"args": [],
-			"cwd": "${workspaceFolder}/",
-			// "stopOnEntry": true
+			"target": "${workspaceRoot}/doom_nukem",
+			"cwd": "${workspaceRoot}",
+			"valuesFormatting": "parseText"
 		},
 		{
-			"type": "lldb",
+			"name": "(lldb) Lauch Game",
+			"type": "cppdbg",
 			"request": "launch",
-			"name": "Debug Editor",
-			"program": "${workspaceFolder}/editor/editor",
+			"program": "${workspaceFolder}/doom_nukem",
 			"args": [],
-			"cwd": "${workspaceFolder}/editor",
-			// "stopOnEntry": true
-		}
+			"stopAtEntry": true,
+			"cwd": "${workspaceFolder}",
+			"externalConsole": false,
+			"MIMode": "lldb"
+		},
 	]
 }

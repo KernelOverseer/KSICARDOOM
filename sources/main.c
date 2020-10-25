@@ -113,6 +113,7 @@ int main(int argc, char **argv)
 	ft_bzero(&env, sizeof(t_doom_env));
 	ft_init_game_window(&env);
 	ft_init_graphical_scene(&env);
+	ft_init_sound();
 	if (!ft_main_menu_init(&env))
 	{
 		ft_raise_exception(ERROR_graphical_init, "Error loading menus");
@@ -128,8 +129,11 @@ int main(int argc, char **argv)
 		ft_body_construct((t_vec3){env.main_scene.camera.position.x,
 			env.main_scene.camera.position.y, 0}, ft_player_construct(1337)));
 	
+	ft_controller_construct(&env, &ft_collectible_iter, ft_collectible_setup(&env,
+		env.main_scene.current_sector, (t_vec3){env.main_scene.camera.position.x - 1300,
+			env.main_scene.camera.position.y - 500, env.main_scene.current_sector->floor_height + 20}, (t_inventory){0, 0, 0, {10, 0, 0, 0, 0}}));
+	
 	env.main_scene.resolution_ratio = CONF_RES_RATIO;
-	//ft_sound_play_track("sound/theme.wav");
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
 	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);
 	ft_sdl_hook(ft_mouse_data, &env, SDL_MOUSEMOTION);

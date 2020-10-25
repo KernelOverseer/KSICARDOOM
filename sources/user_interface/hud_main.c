@@ -23,6 +23,9 @@ int	ft_render_hud(t_doom_env *env)
 	ft_place_label_value(env, "SHIELD: ",
 		ft_itoa(env->main_inventory.shield),
 		(t_text){0, 35, 0xFFFFFF, 0});
+	ft_place_label_value(env, "AMMO: ",
+		ft_itoa(env->main_inventory.ammo[0]),
+		(t_text){0, 65, 0xFFFFFF, 0});
 	ft_draw_notifications(env);
 	return (SUCCESS);
 }

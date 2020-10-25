@@ -3,15 +3,12 @@
 static void	ft_start_menu_button(t_menu_button *button, void *arg)
 {
 	t_doom_env	*env;
-	t_sound_track	*sound;
 
 	env = arg;
 	(void)button;
 	ft_sdl_loop_hook(ft_main_loop, env);
-
-	sound = ft_new_track("sound/theme.wav");
-	ft_sound_play_track(sound);
 	ft_push_notification(env->menu_manager, "Welcome to the game", 150, 0xFFFFFF);
+	ft_sound_play_track(sound_main_theme, 0, -1);
 }
 
 static void	ft_exit_menu_button(t_menu_button *button, void *arg)

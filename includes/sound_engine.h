@@ -12,23 +12,25 @@
 
 #ifndef SOUND_ENGINE_H
 # define SOUND_ENGINE_H
-# include <SDL.h>
+# include <SDL_mixer.h>
+# include "doom_nukem.h"
 # include "ttslist.h"
+# define SOUND_EFFECTS_COUNT 5
+# define MAX_SOUND_DISTANCE 5000.0
 
-typedef struct s_sound_track
+extern	Mix_Chunk *g_sound_list[SOUND_EFFECTS_COUNT];
+extern	char *g_sound_file_names[SOUND_EFFECTS_COUNT];
+enum	e_sound_names
 {
-	Uint32 length;
-	Uint8 	*buffer;
-	SDL_AudioSpec spec;
-	Uint8 *audio_pos;
-	Uint32 audio_len;
-} t_sound_track;
+	sound_main_theme,
+	sound_menu_move,
+	sound_gun_shoot,
+	sound_projectile_explosion,
+	sound_empty_gun
+};
 
-typedef struct s_sound_engine
-{
-	t_list_head		sound_tracks;
-} t_sound_engine;
+int	ft_sound_play_track(uint32_t sound_index, double distance, int loop);
+int	ft_init_sound(void);
+int	ft_get_sound_body_distance(t_body *body);
 
-t_sound_track	*ft_new_track(char *path);
-int				ft_sound_play_track(t_sound_track *track);
 #endif

@@ -22,7 +22,7 @@
 # define DEFAULT_BODY(pos) (t_body){pos, (t_vec2){0, 0}, (t_vec2){0, 1}, (t_vec2){1, 0}, 0, 1, 3, 5, 1, 0.5, 0, true, true, true, NULL}
 # define HEIGHT {4, 0}
 # define P_SPEED 200
-# define P_RUN_SPEED 1000
+# define P_RUN_SPEED 0
 # define MASS 10
 # define DRAG 2
 # define FRICTION 0.8
@@ -43,7 +43,7 @@
 # define MOUSE_HORIZONTAL_SENSITIVITY 0.0025
 # define MOUSE_VERTICAL_SENSITIVITY 1
 # define TILT_PROJECTILE_RATIO 0.001
-# define STEP_MAX_HEIGHT 50
+# define STEP_MAX_HEIGHT 10
 
 typedef enum		e_player_controller_buttons
 {

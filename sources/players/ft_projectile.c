@@ -20,6 +20,8 @@ int		ft_projectile_destroy(t_body *body)
 		{
 			if (body->player->sprite)
 			{
+				ttslist_remove_node_with_content(&body->player->sector->sprites,
+					body->player->sprite);
 				free(body->player->sprite->animation.textures);
 				free(body->player->sprite);
 			}
@@ -59,6 +61,8 @@ void	ft_projectile_intersection_handler(t_body *body, t_intersect inter)
 						"+1 KILL", 100, 0xFFFFFF);
 				}
 			}
+			else
+				return ;
 		}
 	}
 	data->distance = 0;
@@ -72,11 +76,7 @@ void	ft_projectile_intersection_handler(t_body *body, t_intersect inter)
 t_body	*ft_projectile_setup(t_doom_env *env, t_sector *sector, t_projectile_data data)
 {
 	t_body					*body;
-	static t_sound_track	*sound = NULL;
 
-	if (!sound)
-		sound = ft_new_track("sound/gun.wav");
-	ft_sound_play_track(sound);
 	if (!(body = ft_memalloc(sizeof(t_body))))
 		return (NULL);
 	*body = ft_default_body(data.source);
@@ -100,6 +100,8 @@ t_body	*ft_projectile_setup(t_doom_env *env, t_sector *sector, t_projectile_data
 	body->player->sprite->parent_type = PARENT_TYPE_BODY;
 	body->update_gravity = NULL;
 	body->events.on_intersect = &ft_projectile_intersection_handler;
+	ft_sound_play_track(sound_gun_shoot,
+		ft_get_sound_body_distance(body), 0);
 	return body;
 }
 
@@ -139,14 +141,19 @@ int		ft_projectile_iter(void *e, void *b)
 	if (data->distance <= 0)
 	{
 		if (data->distance == 0)
+		{
+			ft_sound_play_track(sound_projectile_explosion,
+				ft_get_sound_body_distance(body), 0);
 			body->player->sprite->animation = ft_load_destroy_animation();
+		}
 		else if (ft_on_animation_end(body->player->sprite->animation,
-			g_doom_env->timer.current_time + 1000))
+			g_doom_env->timer.current_time + 1)
+			|| data->distance < -100)
 			return (ft_projectile_destroy(body));
 		data->distance--;
 		return (1);
 	}
-	body->velocity = ft_vec3_scalar(data->direction, 5000);
+	body->velocity = ft_vec3_scalar(data->direction, 2000);
 	data->distance--;
 	sync_sprite(env, body);
 	ft_physics_controllers(env, body);

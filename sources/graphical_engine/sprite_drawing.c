@@ -20,6 +20,12 @@ void	ft_render_sprite(t_graphical_scene *scene, t_render_sprite *render)
 
 	if (!render->wall.texture)
 		return;
+	if (!render)
+		printf("RENDER\n");
+	if (!render->wall.texture)
+		printf("RENDER->WALL.texture\n");
+	if (!render->wall.texture->pixels)
+		printf("RENDER->wall.texture->pixels\n");
 	render->texture_x = (ft_vec2_mag(ft_vec2_sub(render->wall.p1,
 		render->inter->pos)) / ft_vec2_mag(ft_vec2_sub(render->wall.p1,
 		render->wall.p2))) * render->wall.texture->width;

@@ -46,6 +46,7 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   players/bot_template.c\
 			   players/bot_tools.c\
 			   players/ft_projectile.c\
+			   players/ft_collectible.c\
 			   shared_tools/time.c\
 			   shared_tools/display_events.c\
 			   shared_tools/error_management.c\
@@ -81,7 +82,8 @@ HEADER_FILES = animation_textures.h\
 			   raycasting.h\
 			   scene_parser.h\
 			   user_interface.h\
-			   bots.h
+			   bots.h\
+			   sound_engine.h
 
 SDL_VERSION = 2.0.10
 SDL_TTF_VERSION = 2.0.15

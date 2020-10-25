@@ -20,11 +20,12 @@
 # include "config.h"
 # include "serializer.h"
 # include "error_management.h"
-# include "sound_engine.h"
 # include "graphical_engine.h"
 # include "physics_engine.h"
 # include "user_interface.h"
 # include "bots.h"
+# include <SDL_mixer.h>
+# include "sound_engine.h"
 # define ERROR 0
 # define SUCCESS 1
 # define SECOND 1000000000
@@ -135,6 +136,9 @@ void						ft_controller_construct(t_doom_env *env,
 							int f(void *, void *), t_body *b);
 int							ft_on_animation_end(t_animation animation,
 	uint64_t expiration);
+t_body	*ft_collectible_setup(t_doom_env *env, t_sector *sector, t_vec3 pos,
+	t_inventory data);
+int		ft_collectible_iter(void *e, void *b);
 
 /*
 **	SERIALIZATION FUNCTIONS

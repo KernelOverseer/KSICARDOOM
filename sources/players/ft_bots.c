@@ -34,6 +34,7 @@ t_body	*ft_new_bot(t_sector *sector, t_vec3 pos)
 	sector->sprites.push(&(sector->sprites), body->player->sprite);
 	body->player->sprite->parent = body;
 	body->player->sprite->parent_type = PARENT_TYPE_BODY;
+	body->player->inventory = (t_inventory){0, 100, 100, {0, 0, 0, 0, 0}};
 	return body;
 }
 
@@ -81,6 +82,10 @@ int	ft_bot_input(void *env, void *body) // pass env awsell
 			go_pos = (t_vec3){main_player_body->pos.x, main_player_body->pos.y, 0};
 	}
 	b->velocity = ft_vec3_scalar(ft_vec3_normalize(ft_vec3_sub(go_pos, pos2d)), 200);
+	if (b->player->inventory.health <= 0)
+	{
+		b->player->sprite->animation.type = ANIMATION_TYPE_TIME;
+	}
 	//b->velocity = (t_vec3){500, 0, 0};
 	ft_physics_controllers(env, body);
 	sync_sprite(env, body);

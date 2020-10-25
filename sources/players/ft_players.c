@@ -79,10 +79,16 @@ int	ft_local_player_input(void *env, void *body)
 			t_vec3	direction;
 			direction = b->forw;
 			direction.z = (b->up.z + CONF_WINDOW_HEIGHT / 2) * 0.021;
-			ft_controller_construct(e, &ft_projectile_iter,
-			ft_projectile_setup(e, b->player->sector, (t_projectile_data){b,
-				(t_vec3){b->pos.x, b->pos.y, b->pos.z + b->player->height[1]},
-				direction, 1000, 10}));
+			if (b->player->inventory.ammo[0] > 0)
+			{
+				ft_controller_construct(e, &ft_projectile_iter,
+				ft_projectile_setup(e, b->player->sector, (t_projectile_data){b,
+					(t_vec3){b->pos.x, b->pos.y, b->pos.z + b->player->height[1]},
+					direction, 10000, 10}));
+				b->player->inventory.ammo[0]--;
+			}
+			else
+				ft_sound_play_track(sound_empty_gun, 0, 0);
 			cooldown = 2;
 		}
 	}
@@ -157,7 +163,7 @@ t_body	*ft_body_construct(t_vec3 pos, void *player)
 		g_parsed_scene->textures_count - 8, 8);
 	((t_player*)player)->sprite->parent = body;
 	((t_player*)player)->sprite->parent_type = PARENT_TYPE_BODY;
-	((t_player*)player)->inventory = (t_inventory){0, 100, 100, {0, 0, 0, 0, 0}};
+	((t_player*)player)->inventory = (t_inventory){0, 100, 100, {20, 0, 0, 0, 0}};
 	body->up.z = -CONF_WINDOW_HEIGHT / 2;
 	return(body);
 }

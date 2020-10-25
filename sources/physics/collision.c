@@ -27,7 +27,6 @@ int		ft_switch_body_sector(t_body *body, t_sector *new_sector)
 			{
 				ttslist_splice(&body->player->sector->sprites, list_node);
 				new_sector->sprites.push(&new_sector->sprites, body->player->sprite);
-				printf("switched\n");
 				break;
 			}
 			list_node = list_node->next;
@@ -39,7 +38,7 @@ int		ft_switch_body_sector(t_body *body, t_sector *new_sector)
 
 int		ft_step_effect(t_body *body)
 {
-	body->velocity.z += JUMP_POWER / 2;
+	body->velocity.z += JUMP_POWER;
 	return (0);
 }
 
@@ -84,8 +83,20 @@ int		ft_set_new_intersection_slide_velocity(t_body *body, t_intersect inter, dou
 
 void	ft_apply_intersection_event(t_body *body, t_intersect inter)
 {
+	t_body		*inter_body;
+	t_intersect	temp_intersect;
+
 	if (body->events.on_intersect)
 		body->events.on_intersect(body, inter);
+	if (inter.object.type == OBJECT_sprite &&
+		inter.object.object.sprite->parent_type == PARENT_TYPE_BODY)
+	{
+		inter_body = inter.object.object.sprite->parent;
+		temp_intersect = inter;
+		temp_intersect.object.object.sprite->parent = body;
+		if (inter_body->events.on_intersect)
+			inter_body->events.on_intersect(inter_body, inter);
+	}
 }
 
 int		ft_floor_ceiling_intersections(t_vec3 next_position, t_body *body)

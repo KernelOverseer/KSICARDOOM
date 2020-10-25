@@ -53,12 +53,9 @@ void			ft_apply_button_handler(t_menu_button *button,
 
 void			ft_catch_button_input(t_menu *menu, t_doom_env *env)
 {
-	static	t_sound_track	*menu_effect = NULL;
 	t_list_node	*new_button_node;
 	static int	pressed = false;
 
-	if (menu_effect == NULL)
-		menu_effect = ft_new_track("sound/menu_effect.wav");
 	if (!menu)
 		return ;
 	new_button_node = NULL;
@@ -74,7 +71,7 @@ void			ft_catch_button_input(t_menu *menu, t_doom_env *env)
 	{
 		if (!pressed)
 		{
-			ft_sound_play_track(menu_effect);
+			ft_sound_play_track(sound_menu_move, 0, 0);
 			new_button_node = menu->selected_button->parent_node->next;
 		}
 		pressed = SDL_SCANCODE_DOWN;
@@ -83,7 +80,7 @@ void			ft_catch_button_input(t_menu *menu, t_doom_env *env)
 	{
 		if (!pressed)
 		{
-			ft_sound_play_track(menu_effect);
+			ft_sound_play_track(sound_menu_move, 0, 0);
 			new_button_node = menu->selected_button->parent_node->prev;
 		}
 		pressed = SDL_SCANCODE_UP;

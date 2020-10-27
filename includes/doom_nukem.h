@@ -25,6 +25,10 @@
 # include "user_interface.h"
 # include "bots.h"
 # include <SDL_mixer.h>
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <netinet/in.h>
+# include <netdb.h>
 # include "sound_engine.h"
 # define ERROR 0
 # define SUCCESS 1
@@ -48,6 +52,13 @@ typedef struct				s_timer
 	void					(*update_time)(struct	s_timer *);
 }							t_timer;
 
+typedef struct				s_doom_multiplayer
+{
+	int	sockfd;
+	struct	sockaddr_in	serv_addr;
+	struct	hostent		*server;
+}					t_doom_multiplayer;
+
 typedef struct				s_doom_env
 {
 	t_sdl_env				display;
@@ -63,6 +74,7 @@ typedef struct				s_doom_env
 	t_timer					timer;
 	t_menu_system			*menu_manager;
 	t_inventory			main_inventory;
+	t_doom_multiplayer		network;
 }							t_doom_env;
 
 extern	t_doom_env			*g_doom_env;

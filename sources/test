@@ -1,0 +1,28 @@
+- the messaging is realtime using firebase cloud messaging
+- The maximum payload is of 4kb
+- Firebase is free with 100 simultaneous connections
+- Storage given is 1GB in the free plan
+- Pay as you go with 200k/database simultaneous connections
+- Multiple DBs per project is supported in the pay as you go plan
+- gb downloaded this presentation is finished now
+- technologies used:
+	- Express js with node js
+	- Mongodb
+	- Firebase messaging
+- Needs for the admin dashboard
+	- Analytics
+	- Approval and moderation
+	- Management (users and ressources)
+
+- Firebase messaging is used for
+	- Authentication
+	- Instant messaging
+
+- Configuration should relay on multiple nodes
+	- Load balancer
+	- Firewall
+
+- Why you decided to use firebase and not twillio
+	- other setvices like authentication are integrated with firebase's instant messaging
+
+- duplicates the database using shading and duplication

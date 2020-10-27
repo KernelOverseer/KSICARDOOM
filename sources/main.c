@@ -103,6 +103,24 @@ void	ft_controller_construct(t_doom_env *env, int f(void *, void *), t_body *b)
 	env->controllers.push(&(env->controllers), new_controller);
 }
 
+int	ft_init_multiplayer(t_doom_env *env)
+{
+	ft_putstr("started connection");
+	if ((env->network.sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+		return (0);
+	if (!(env->network.server = gethostbyname("localhost")))
+		return (0);
+	ft_bzero(&env->network.serv_addr, sizeof(env->network.serv_addr));
+	env->network.serv_addr.sin_family = AF_INET;
+	bcopy((char *)env->network.server->h_addr,
+         (char *)&env->network.serv_addr.sin_addr.s_addr,
+         env->network.server->h_length);
+	env->network.serv_addr.sin_port = htons(7331);
+	if (connect(env->network.sockfd, (struct sockaddr *)&env->network.serv_addr, sizeof(env->network.serv_addr) < 0))
+		return (0);
+	return (1);
+}
+
 int main(int argc, char **argv)
 {
 	t_doom_env		env;
@@ -113,6 +131,7 @@ int main(int argc, char **argv)
 	ft_bzero(&env, sizeof(t_doom_env));
 	ft_init_game_window(&env);
 	ft_init_graphical_scene(&env);
+	ft_init_multiplayer(&env);
 	ft_init_sound();
 	if (!ft_main_menu_init(&env))
 	{

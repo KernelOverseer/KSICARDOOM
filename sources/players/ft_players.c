@@ -56,6 +56,7 @@ int	ft_local_player_input(void *env, void *body)
 	c[PLAYER_STRAFE_LEFT]	= k[SDL_SCANCODE_A];
 	c[PLAYER_STRAFE_RIGHT]	= k[SDL_SCANCODE_D];
 	c[PLAYER_JUMP]			= k[SDL_SCANCODE_SPACE];
+	write(e->network.sockfd, c, sizeof(c));
 	SDL_GetRelativeMouseState(&e->mouse_rel.x, &e->mouse_rel.y);
 	if (e->mouse_rel.x != 0)
 	{

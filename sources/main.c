@@ -105,19 +105,29 @@ void	ft_controller_construct(t_doom_env *env, int f(void *, void *), t_body *b)
 
 int	ft_init_multiplayer(t_doom_env *env)
 {
-	ft_putstr("started connection");
-	if ((env->network.sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+	int sockfd, portno, n;
+
+    struct sockaddr_in serv_addr;
+    struct hostent *server;
+
+	portno = 7331;
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0) 
+        return (0);
+    server = gethostbyname("localhost");
+    if (server == NULL)
 		return (0);
-	if (!(env->network.server = gethostbyname("localhost")))
-		return (0);
-	ft_bzero(&env->network.serv_addr, sizeof(env->network.serv_addr));
-	env->network.serv_addr.sin_family = AF_INET;
-	bcopy((char *)env->network.server->h_addr,
-         (char *)&env->network.serv_addr.sin_addr.s_addr,
-         env->network.server->h_length);
-	env->network.serv_addr.sin_port = htons(7331);
-	if (connect(env->network.sockfd, (struct sockaddr *)&env->network.serv_addr, sizeof(env->network.serv_addr) < 0))
-		return (0);
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr, 
+         (char *)&serv_addr.sin_addr.s_addr,
+         server->h_length);
+    serv_addr.sin_port = htons(portno);
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) 
+        return (0);
+	env->network.sockfd = sockfd;
+	env->network.serv_addr = serv_addr;
+	env->network.server = server;
 	return (1);
 }
 
@@ -131,7 +141,10 @@ int main(int argc, char **argv)
 	ft_bzero(&env, sizeof(t_doom_env));
 	ft_init_game_window(&env);
 	ft_init_graphical_scene(&env);
-	ft_init_multiplayer(&env);
+	if (!ft_init_multiplayer(&env))
+		printf("NOT CONNECTED\n");
+	else
+		printf("CONNECTED TO SERVER\n");
 	ft_init_sound();
 	if (!ft_main_menu_init(&env))
 	{

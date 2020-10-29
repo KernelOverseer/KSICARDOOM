@@ -65,6 +65,7 @@ int	ft_listen_for_client(t_multiplayer_server *server)
 		return (0);
 	remote_client->client_addr = cli_addr;
 	remote_client->socket_fd = client_fd;
+	fcntl(client_fd, F_SETFL, O_NONBLOCK);
 	server->clients.push(&server->clients, remote_client);
 	return (1);
 }

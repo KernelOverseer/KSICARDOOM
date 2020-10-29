@@ -56,9 +56,9 @@ int	ft_remote_client_player_input(void *env, void *body)
 		i++;
 	}
 	ft_client_sync_body_input_server(b, client);
+	fsync(client->socket_fd);
 	ft_client_sync_body_server(b, client);
 	ft_client_sync_scene_server(e, client);
-	fsync(client->socket_fd);
 	sync_camera(env, body);
 	e->main_inventory = b->player->inventory;
 	return (1);

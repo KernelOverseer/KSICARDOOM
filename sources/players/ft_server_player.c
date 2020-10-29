@@ -27,6 +27,7 @@ int	ft_remote_server_player_input(void *env, void *body)
 	client = b->player->data;
 	ft_bzero(b->player->input, sizeof(b->player->input));
 	requested_change = ft_server_sync_body_input_client(b, client);
+	fsync(client->socket_fd);
 	
 	if (b->player->mouse_rel.x != 0)
 	{
@@ -65,7 +66,6 @@ int	ft_remote_server_player_input(void *env, void *body)
 	else
 		cooldown--;
 	sync_sprite(e, b);
-	fsync(client->socket_fd);
 	if (requested_change)
 	{
 		ft_server_sync_body_client(b, client);

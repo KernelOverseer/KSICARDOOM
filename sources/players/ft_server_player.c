@@ -66,12 +66,18 @@ int	ft_remote_server_player_input(void *env, void *body)
 	else
 		cooldown--;
 	sync_sprite(e, b);
+	if (b->player->inventory.health <= 0)
+	{
+		b->player->inventory = (t_inventory){0, 100, 100, {20, 0, 0, 0, 0}};
+		b->pos.x = 0;
+		b->pos.y = 0;
+		b->pos.z = 0;
+	}
 	if (requested_change)
 	{
 		ft_server_sync_body_client(b, client);
 		ft_server_sync_scene_client(e, client);
 	}
-	e->main_inventory = b->player->inventory;
 	return (1);
 }
 

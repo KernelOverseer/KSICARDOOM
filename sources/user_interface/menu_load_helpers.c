@@ -7,6 +7,7 @@ void	ft_button_switch_menu(t_menu_button *button, void *arg)
 	long		menu_index;
 
 	env = arg;
+	ft_sound_play_track(sound_menu_return, 0, 0);
 	menu_index = (long long)(button->arg);
 	next = ttslist_get_id_content(&env->menu_manager->menu_list,
 	menu_index);

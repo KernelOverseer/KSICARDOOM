@@ -56,24 +56,26 @@ int	ft_local_player_input(void *env, void *body)
 	c[PLAYER_STRAFE_LEFT]	= k[SDL_SCANCODE_A];
 	c[PLAYER_STRAFE_RIGHT]	= k[SDL_SCANCODE_D];
 	c[PLAYER_JUMP]			= k[SDL_SCANCODE_SPACE];
-	/*SDL_GetRelativeMouseState(&e->mouse_rel.x, &e->mouse_rel.y);
-	if (e->mouse_rel.x != 0)
+	SDL_GetRelativeMouseState(&b->player->mouse_rel.x, &b->player->mouse_rel.y);
+	if (b->player->mouse_rel.x != 0)
 	{
-		b->forw = ft_vec3_rotate_z(b->forw, -e->mouse_rel.x * MOUSE_HORIZONTAL_SENSITIVITY);
+		b->forw = ft_vec3_rotate_z(b->forw, -b->player->mouse_rel.x * MOUSE_HORIZONTAL_SENSITIVITY);
 		b->right = ft_vec3_cross_product(b->forw, UP);
 	}
-	if (e->mouse_rel.y != 0)
+	if (b->player->mouse_rel.y != 0)
 	{
-		b->up.z -= e->mouse_rel.y * MOUSE_VERTICAL_SENSITIVITY;
+		b->up.z -= b->player->mouse_rel.y * MOUSE_VERTICAL_SENSITIVITY;
 		b->up.z = ft_min(b->up.z, -CONF_WINDOW_HEIGHT);
 		b->up.z = ft_max(b->up.z, 0);
-	}*/	
+	}
+	ft_memcpy(&b->player->mouse_buttons, e->mouse_buttons,
+		sizeof(b->player->mouse_buttons));
 	ft_physics_controllers(env, body);
 	sync_camera(env, body);
 	static int cooldown = 0;
 	if (cooldown <= 0)
 	{
-		if (e->mouse_buttons[MOUSE_BUTTON_LEFT])
+		if (b->player->mouse_buttons[MOUSE_BUTTON_LEFT])
 		{
 			////// TEMP DEBUG
 			t_vec3	direction;
@@ -94,6 +96,13 @@ int	ft_local_player_input(void *env, void *body)
 	}
 	else
 		cooldown--;
+	if (b->player->inventory.health <= 0)
+	{
+		b->player->inventory = (t_inventory){0, 100, 100, {20, 0, 0, 0, 0}};
+		b->pos.x = 0;
+		b->pos.y = 0;
+		b->pos.z = 0;
+	}
 	sync_sprite(e, b);
 	e->main_inventory = b->player->inventory;
 	return (1);

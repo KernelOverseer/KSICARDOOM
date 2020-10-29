@@ -41,6 +41,7 @@ int	ft_init_server(t_multiplayer_server *server)
     if (bind(sockfd, (struct sockaddr *) &serv_addr,
     	sizeof(serv_addr)) < 0) 
 		return (0);
+	fcntl(sockfd, F_SETFL, O_NONBLOCK);
 	server->server_addr = serv_addr;
 	server->socket_fd = sockfd;
 	ttslist_init(&server->clients);
@@ -64,8 +65,24 @@ int	ft_listen_for_client(t_multiplayer_server *server)
 		return (0);
 	remote_client->client_addr = cli_addr;
 	remote_client->socket_fd = client_fd;
-	fcntl(remote_client->socket_fd, F_SETFL, fcntl(remote_client->socket_fd,
-		F_GETFL, 0) | O_NONBLOCK);
 	server->clients.push(&server->clients, remote_client);
+	return (1);
+}
+
+int	ft_listen_for_client_async(t_multiplayer_server *server, int max_clients)
+{
+	int	pid;
+	int	i;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		while (max_clients--)
+		{
+			printf("WAITING FOR CLIENT\n");
+			printf("listening to client result %d\n", ft_listen_for_client(server));
+		}
+		exit(0);
+	}
 	return (1);
 }

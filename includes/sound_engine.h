@@ -15,7 +15,7 @@
 # include <SDL_mixer.h>
 # include "doom_nukem.h"
 # include "ttslist.h"
-# define SOUND_EFFECTS_COUNT 5
+# define SOUND_EFFECTS_COUNT 7
 # define MAX_SOUND_DISTANCE 5000.0
 
 extern	Mix_Chunk *g_sound_list[SOUND_EFFECTS_COUNT];
@@ -26,7 +26,9 @@ enum	e_sound_names
 	sound_menu_move,
 	sound_gun_shoot,
 	sound_projectile_explosion,
-	sound_empty_gun
+	sound_empty_gun,
+	sound_menu_return,
+	sound_menu_error
 };
 
 int	ft_sound_play_track(uint32_t sound_index, double distance, int loop);

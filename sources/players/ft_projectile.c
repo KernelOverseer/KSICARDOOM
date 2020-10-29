@@ -39,6 +39,9 @@ void	ft_projectile_intersection_handler(t_body *body, t_intersect inter)
 	t_body				*intersected_body;
 
 	data = body->player->data;
+	printf("%p\n", data);
+	if (!data)
+		return ;
 	if (inter.object.type == OBJECT_sprite)
 	{
 		if (inter.object.object.sprite->parent_type == PARENT_TYPE_BODY)
@@ -51,15 +54,12 @@ void	ft_projectile_intersection_handler(t_body *body, t_intersect inter)
 					intersected_body->player->inventory.shield -=
 						2 * data->damage;
 					if (intersected_body->player->inventory.shield < 0)
-						intersected_body->player->inventory.shield == 0;
+						intersected_body->player->inventory.shield = 0;
 				}
 				else
 					intersected_body->player->inventory.health -= data->damage;
 				if (intersected_body->player->inventory.health <= 0)
-				{
-					ft_push_notification(g_doom_env->menu_manager,
-						"+1 KILL", 100, 0xFFFFFF);
-				}
+					ft_push_notification("+1 KILL", 100, 0xFFFFFF);
 			}
 			else
 				return ;

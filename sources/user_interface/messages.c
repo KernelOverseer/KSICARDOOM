@@ -1,6 +1,6 @@
 #include "doom_nukem.h"
 
-int	ft_push_notification(t_menu_system *menu_manager, char *content,
+int	ft_push_notification(char *content,
 	double duration, int color)
 {
 	t_notification	*new_notification;
@@ -10,7 +10,8 @@ int	ft_push_notification(t_menu_system *menu_manager, char *content,
 	new_notification->content = ft_strdup(content);
 	new_notification->duration = duration;
 	new_notification->color = color;
-	menu_manager->notifications.push(&(menu_manager->notifications),
+	g_doom_env->menu_manager->notifications.push(
+		&(g_doom_env->menu_manager->notifications),
 		new_notification);
 }
 

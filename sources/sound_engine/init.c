@@ -7,6 +7,8 @@ char		*g_sound_file_names[SOUND_EFFECTS_COUNT] = {
 	"sound/gun.wav",
 	"sound/fart.wav",
 	"sound/empty_gun.wav",
+	"sound/menu_return.wav",
+	"sound/menu_error.wav"
 };
 
 int	ft_get_sound_body_distance(t_body *body)

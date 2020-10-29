@@ -167,8 +167,8 @@ int						ft_load_settings_menu(t_menu_system *menu_manager,
 			t_doom_env *env, t_sdl_image *select_indicator);
 int			ft_render_hud(t_doom_env *env);
 int			ft_draw_notifications(t_doom_env *env);
-int			ft_push_notification(t_menu_system *menu_manager,
-	char *content, double duration, int color);
+int			ft_push_notification(char *content,
+				double duration, int color);
 
 /*
 **	ASSET LOADING FUNCTIONS

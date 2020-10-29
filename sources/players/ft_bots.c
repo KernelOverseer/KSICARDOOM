@@ -47,8 +47,8 @@ void	sync_sprite(t_doom_env *env, t_body *body)
 	body->player->sprite->radius = body->player->height[0];
 	body->player->sprite->height = body->player->height[1];
 	body->player->sprite->altitude = body->pos.z;
-	angle = acos(ft_vec3_dot_product(ft_vec3_normalize(body->velocity), RIGHT));
-	cross = ft_vec3_cross_product(ft_vec3_normalize(body->velocity), RIGHT);
+	angle = acos(ft_vec3_dot_product(ft_vec3_normalize(body->forw), RIGHT));
+	cross = ft_vec3_cross_product(ft_vec3_normalize(body->forw), RIGHT);
 	if (ft_vec3_dot_product(DOWN, cross) < 0)
 		angle = -angle;
 	body->player->sprite->angle = angle;

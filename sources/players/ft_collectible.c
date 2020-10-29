@@ -53,7 +53,7 @@ void	ft_collectible_intersection_handler(t_body *body, t_intersect inter)
 					intersected_body->player->inventory.shield + data->shield);
 				intersected_body->player->inventory.ammo[0] = ft_max(100,
 					intersected_body->player->inventory.ammo[0] + data->ammo[0]);
-				ft_push_notification(g_doom_env->menu_manager, "Collected", 100, 0xabffdd);
+				ft_push_notification("Collected", 100, 0xabffdd);
 				body->player->data = NULL;
 			}
 		}

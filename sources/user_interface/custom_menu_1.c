@@ -6,8 +6,12 @@ static void	ft_start_menu_button(t_menu_button *button, void *arg)
 
 	env = arg;
 	(void)button;
+	env->multiplayer.role = NETWORK_ROLE_NONE;
+	ft_controller_construct(env, &ft_local_player_input,
+		ft_body_construct((t_vec3){env->main_scene.camera.position.x,
+			env->main_scene.camera.position.y, 0}, ft_player_construct(1337)));
 	ft_sdl_loop_hook(ft_main_loop, env);
-	ft_push_notification(env->menu_manager, "Welcome to the game", 150, 0xFFFFFF);
+	ft_push_notification("Welcome to single player mode", 150, 0xFFFFFF);
 	ft_sound_play_track(sound_main_theme, 0, -1);
 }
 
@@ -34,11 +38,11 @@ static t_menu	*ft_load_first_menu(t_menu_system *menu_manager,
 	if (!new_menu->background || !new_menu->select_indicator)
 		return (NULL);
 	ft_add_menu(env->menu_manager, new_menu);
-	ft_helper_create_menu_button(new_menu, "START",
+	ft_helper_create_menu_button(new_menu, "SINGLE PLAYER",
 		(t_text){new_menu->position.x + new_menu->position.w / 2,
 		new_menu->position.y + new_menu->position.h / 2 - 100,
 		0xFFFFFF, ALIGN_CENTER_CENTER}, &ft_start_menu_button);
-	button = ft_helper_create_menu_button(new_menu, "SETTINGS",
+	button = ft_helper_create_menu_button(new_menu, "MULTIPLAYER",
 		(t_text){new_menu->position.x + new_menu->position.w / 2,
 		new_menu->position.y + new_menu->position.h / 2,
 		0xFFFFFF, ALIGN_CENTER_CENTER}, &ft_button_switch_menu);

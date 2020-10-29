@@ -75,6 +75,18 @@ int	ft_main_loop(void *arg)
 
 	env = arg;
 	ft_apply_controllers(env);
+	if (env->multiplayer.role == NETWORK_ROLE_SERVER)
+	{
+		if (env->multiplayer.server.clients.size < NETWORK_MAX_PLAYERS &&
+			ft_listen_for_client(&env->multiplayer.server))
+		{
+			ft_controller_construct(env, &ft_remote_server_player_input,
+				ft_server_player_construct((t_vec3){env->main_scene.camera.position.x,
+					env->main_scene.camera.position.y, 0}, ft_player_construct(1337),
+					env->multiplayer.server.clients.last->content));
+			ft_push_notification("A new player joined\n", 100, 0xFFFFFF);
+		}
+	}
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0,
 	CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt}, 0x383838);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, CONF_WINDOW_HEIGHT
@@ -111,13 +123,6 @@ int main(int argc, char **argv)
 
 	g_doom_env = &env;
 	ft_bzero(&env, sizeof(t_doom_env));
-	if (!ft_init_doom_multiplayer(&env, argc < 2 ? 0 : ft_atoi(argv[1])))
-	{
-		printf("NETWORKING ERROR\n");
-		return (1);
-	}
-	else
-		printf("WORKING WELL\n");
 	ft_init_game_window(&env);
 	ft_init_graphical_scene(&env);
 	ft_init_sound();
@@ -129,7 +134,7 @@ int main(int argc, char **argv)
 	if (!(ft_debug_create_temp_map(&env.main_scene)))
 		return (1);
 
-	if (env.multiplayer.role == NETWORK_ROLE_CLIENT)
+	/*if (env.multiplayer.role == NETWORK_ROLE_CLIENT)
 	{
 		ft_controller_construct(&env, &ft_remote_client_player_input,
 			ft_client_player_construct((t_vec3){env.main_scene.camera.position.x,
@@ -141,17 +146,25 @@ int main(int argc, char **argv)
 		ft_controller_construct(&env, &ft_local_player_input,
 			ft_body_construct((t_vec3){env.main_scene.camera.position.x,
 				env.main_scene.camera.position.y, 0}, ft_player_construct(1337)));
-		ft_controller_construct(&env, &ft_remote_server_player_input,
-			ft_server_player_construct((t_vec3){env.main_scene.camera.position.x,
-				env.main_scene.camera.position.y, 0}, ft_player_construct(1337),
-				env.multiplayer.server.clients.first->content));
+		env.multiplayer.server.clients.iterator =
+			env.multiplayer.server.clients.first;
+		t_multiplayer_remote_client	*client;
+		int i = 0;
+		while ((client = ttslist_iter_content(&env.multiplayer.server.clients)))
+		{
+			ft_controller_construct(&env, &ft_remote_server_player_input,
+				ft_server_player_construct((t_vec3){env.main_scene.camera.position.x,
+					env.main_scene.camera.position.y + 100 * i, 0}, ft_player_construct(1337),
+					client));
+			i++;
+		}
 	}
 	else
 	{
 		ft_controller_construct(&env, &ft_local_player_input,
 			ft_body_construct((t_vec3){env.main_scene.camera.position.x,
 				env.main_scene.camera.position.y, 0}, ft_player_construct(1337)));
-	}
+	}*/
 	/*ft_controller_construct(&env, &ft_bot_input, ft_new_bot(env.main_scene.current_sector, (t_vec3){env.main_scene.camera.position.x - 1000,
 			env.main_scene.camera.position.y, 0}));
 

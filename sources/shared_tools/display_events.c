@@ -43,6 +43,8 @@ int	ft_mouse_data(void *arg, SDL_Event e)
 			env->mouse_buttons[MOUSE_BUTTON_RIGHT] = 1;
 		else if (e.button.button == SDL_BUTTON_LEFT)
 			env->mouse_buttons[MOUSE_BUTTON_LEFT] = 1;
+		else if (e.button.button == SDL_BUTTON_MIDDLE)
+			env->mouse_buttons[MOUSE_BUTTON_MIDDLE] = 1;
 	}
 	else if (e.type == SDL_MOUSEBUTTONUP)
 	{
@@ -50,6 +52,8 @@ int	ft_mouse_data(void *arg, SDL_Event e)
 			env->mouse_buttons[MOUSE_BUTTON_RIGHT] = 0;
 		else if (e.button.button == SDL_BUTTON_LEFT)
 			env->mouse_buttons[MOUSE_BUTTON_LEFT] = 0;
+		else if (e.button.button == SDL_BUTTON_MIDDLE)
+			env->mouse_buttons[MOUSE_BUTTON_MIDDLE] = 0;
 	}
 	return (1);
 }

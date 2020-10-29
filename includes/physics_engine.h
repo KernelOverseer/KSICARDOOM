@@ -75,6 +75,12 @@ typedef struct	s_physics_engine
 	t_vec3			gravity_vec; // (t_vec2) {0, 0, -9}
 }					t_physics_engine;
 
+typedef struct		s_mouse_rel
+{
+	int				x;
+	int				y;
+}					t_mouse_rel;
+
 typedef struct		s_player
 {
 	Uint64			id;
@@ -83,6 +89,8 @@ typedef struct		s_player
 	double			jump_power;
 	double			height[3];
 	unsigned char	input[20];
+	t_mouse_rel		mouse_rel;
+	unsigned char	mouse_buttons[3];
 	t_sprite		*sprite;
 	t_sector		*sector;
 	void			*data;

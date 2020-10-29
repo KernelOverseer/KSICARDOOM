@@ -66,7 +66,13 @@ SOURCE_FILES = game_loop/init_ui.c\
 			   user_interface/menu_load_helpers.c\
 			   user_interface/hud_main.c\
 			   user_interface/messages.c\
-			   sound_engine/init.c
+			   sound_engine/init.c\
+			   networking/init.c\
+			   networking/doom_init.c\
+			   networking/scene_sync.c\
+			   networking/body_sync.c\
+			   players/ft_server_player.c\
+			   players/ft_client_player.c
 
 HEADER_FILES = animation_textures.h\
 			   config.h\
@@ -83,7 +89,8 @@ HEADER_FILES = animation_textures.h\
 			   scene_parser.h\
 			   user_interface.h\
 			   bots.h\
-			   sound_engine.h
+			   sound_engine.h\
+			   networking.h
 
 SDL_VERSION = 2.0.10
 SDL_TTF_VERSION = 2.0.15

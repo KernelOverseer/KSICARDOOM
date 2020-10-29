@@ -28,6 +28,13 @@ int	ft_init_game_window(t_doom_env *env)
 	config.screen_width = CONF_WINDOW_WIDTH;
 	config.screen_height = CONF_WINDOW_HEIGHT;
 	config.window_title = CONF_WINDOW_TITLE;
+	// TEMP:
+	if (env->multiplayer.role == NETWORK_ROLE_SERVER)
+		config.window_title = "SERVER";
+	else if (env->multiplayer.role == NETWORK_ROLE_CLIENT)
+		config.window_title = "CLIENT";
+	else
+		config.window_title = "OFFLINE";
 	if (!ft_sdl_init(&(env->display), config))
 		return (ERROR);
 	if (!ft_load_menu_ressources(env))
@@ -35,7 +42,7 @@ int	ft_init_game_window(t_doom_env *env)
 	if (!(env->main_image = newimage(CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT)))
 		return (ERROR);
 	// limits the mouse to the window and hides the cursor
-	//SDL_SetRelativeMouseMode(SDL_TRUE);
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 	if (TTF_Init())
 	{
 		ft_raise_exception(ERROR_graphical_init, SDL_GetError());

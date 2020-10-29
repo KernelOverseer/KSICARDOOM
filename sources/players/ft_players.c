@@ -56,8 +56,7 @@ int	ft_local_player_input(void *env, void *body)
 	c[PLAYER_STRAFE_LEFT]	= k[SDL_SCANCODE_A];
 	c[PLAYER_STRAFE_RIGHT]	= k[SDL_SCANCODE_D];
 	c[PLAYER_JUMP]			= k[SDL_SCANCODE_SPACE];
-	write(e->network.sockfd, c, sizeof(c));
-	SDL_GetRelativeMouseState(&e->mouse_rel.x, &e->mouse_rel.y);
+	/*SDL_GetRelativeMouseState(&e->mouse_rel.x, &e->mouse_rel.y);
 	if (e->mouse_rel.x != 0)
 	{
 		b->forw = ft_vec3_rotate_z(b->forw, -e->mouse_rel.x * MOUSE_HORIZONTAL_SENSITIVITY);
@@ -68,7 +67,7 @@ int	ft_local_player_input(void *env, void *body)
 		b->up.z -= e->mouse_rel.y * MOUSE_VERTICAL_SENSITIVITY;
 		b->up.z = ft_min(b->up.z, -CONF_WINDOW_HEIGHT);
 		b->up.z = ft_max(b->up.z, 0);
-	}	
+	}*/	
 	ft_physics_controllers(env, body);
 	sync_camera(env, body);
 	static int cooldown = 0;

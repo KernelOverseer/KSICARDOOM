@@ -23,4 +23,12 @@ typedef struct	s_projectile_data
 	int			damage;
 }				t_projectile_data;
 
+
+t_body	*ft_client_player_construct(t_vec3 pos, void *player,
+	t_multiplayer_client *client);
+int		ft_remote_client_player_input(void *env, void *body);
+int		ft_remote_server_player_input(void *env, void *body);
+t_body	*ft_server_player_construct(t_vec3 pos, void *player,
+	t_multiplayer_remote_client *client);
+
 #endif

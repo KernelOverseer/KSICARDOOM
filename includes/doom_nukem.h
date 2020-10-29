@@ -23,12 +23,9 @@
 # include "graphical_engine.h"
 # include "physics_engine.h"
 # include "user_interface.h"
+# include "networking.h"
 # include "bots.h"
 # include <SDL_mixer.h>
-# include <sys/types.h>
-# include <sys/socket.h>
-# include <netinet/in.h>
-# include <netdb.h>
 # include "sound_engine.h"
 # define ERROR 0
 # define SUCCESS 1
@@ -52,20 +49,13 @@ typedef struct				s_timer
 	void					(*update_time)(struct	s_timer *);
 }							t_timer;
 
-typedef struct				s_doom_multiplayer
-{
-	int	sockfd;
-	struct	sockaddr_in	serv_addr;
-	struct	hostent		*server;
-}					t_doom_multiplayer;
-
 typedef struct				s_doom_env
 {
 	t_sdl_env				display;
 	t_graphical_scene		main_scene;
 	t_sdl_image				*main_image;
 	unsigned char			keys[SDL_KEY_COUNT];
-	unsigned char			mouse_buttons[2];
+	unsigned char			mouse_buttons[3];
 	t_list_head				controllers;
 	t_list_head				bodies;
 	t_vec2int				mouse_rel;
@@ -73,8 +63,8 @@ typedef struct				s_doom_env
 	t_physics_engine		phi;
 	t_timer					timer;
 	t_menu_system			*menu_manager;
-	t_inventory			main_inventory;
-	t_doom_multiplayer		network;
+	t_inventory				main_inventory;
+	t_doom_multiplayer		multiplayer;
 }							t_doom_env;
 
 extern	t_doom_env			*g_doom_env;
@@ -194,5 +184,22 @@ t_body	*ft_projectile_setup(t_doom_env *env, t_sector *sector,
 	t_projectile_data data);
 int		ft_projectile_iter(void *e, void *b);
 
+/*
+**	DOOM SPECIFIC NETWORKING FUNCTIONS
+*/
+
+int	ft_init_doom_multiplayer(t_doom_env *env, int network_role);
+int	ft_server_sync_scene_client(t_doom_env *env,
+	t_multiplayer_remote_client *client);
+int	ft_client_sync_scene_server(t_doom_env *env,
+	t_multiplayer_client *client);
+int	ft_server_sync_body_client(t_body *body,
+	t_multiplayer_remote_client *client);
+int	ft_client_sync_body_server(t_body *body,
+	t_multiplayer_client *client);
+int	ft_client_sync_body_input_server(t_body *body,
+	t_multiplayer_client *client);
+int	ft_server_sync_body_input_client(t_body *body,
+	t_multiplayer_remote_client *client);
 
 #endif

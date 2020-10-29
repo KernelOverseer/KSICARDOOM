@@ -24,6 +24,8 @@ int	ft_serialize_with_padding(int fd, void *data, size_t size, size_t max_size);
 int	ft_deserialize_string(int fd, char **string, size_t max_size);
 int	ft_serialize_wall(int fd, t_wall *wall);
 int	ft_deserialize_wall(int fd, t_wall *wall);
+int	ft_serialize_sprite(int fd, t_sprite *sprite);
+int	ft_deserialize_sprite(int fd, t_sprite *sprite);
 int	ft_serialize_portal(int fd, t_portal *portal);
 int	ft_deserialize_portal(int fd, t_portal *portal);
 int	ft_serialize_sector(int fd, t_sector *sector);

@@ -32,6 +32,7 @@
 # define AMMO_TYPE_COUNT 5
 # define MOUSE_BUTTON_RIGHT 0
 # define MOUSE_BUTTON_LEFT 1
+# define MOUSE_BUTTON_MIDDLE 2
 
 typedef struct  s_camera                t_camera;
 typedef struct  s_graphical_settings    t_graphical_settings;

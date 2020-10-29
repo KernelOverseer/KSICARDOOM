@@ -23,10 +23,10 @@ int	ft_remote_server_player_input(void *env, void *body)
 	b = (t_body *)body;
 	c =	b->player->input;
 
+	int requested_change = 0;
 	client = b->player->data;
 	ft_bzero(b->player->input, sizeof(b->player->input));
-	ft_server_sync_body_input_client(b, client);
-	fsync(client->socket_fd);
+	requested_change = ft_server_sync_body_input_client(b, client);
 	
 	if (b->player->mouse_rel.x != 0)
 	{
@@ -65,8 +65,12 @@ int	ft_remote_server_player_input(void *env, void *body)
 	else
 		cooldown--;
 	sync_sprite(e, b);
-	ft_server_sync_body_client(b, client);
-	ft_server_sync_scene_client(e, client);
+	fsync(client->socket_fd);
+	if (requested_change)
+	{
+		ft_server_sync_body_client(b, client);
+		ft_server_sync_scene_client(e, client);
+	}
 	e->main_inventory = b->player->inventory;
 	return (1);
 }

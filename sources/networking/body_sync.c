@@ -14,12 +14,15 @@ int	ft_client_sync_body_input_server(t_body *body,
 int	ft_server_sync_body_input_client(t_body *body,
 	t_multiplayer_remote_client *client)
 {
-	read(client->socket_fd, body->player->input, sizeof(body->player->input));
-	read(client->socket_fd, body->player->mouse_buttons,
+	int i = 0;
+
+	i += read(client->socket_fd, body->player->input,
+		sizeof(body->player->input));
+	i += read(client->socket_fd, body->player->mouse_buttons,
 		sizeof(body->player->mouse_buttons));
-	read(client->socket_fd, &body->player->mouse_rel,
+	i += read(client->socket_fd, &body->player->mouse_rel,
 		sizeof(body->player->mouse_rel));
-	return (1);
+	return (i);
 }
 
 int	ft_server_sync_body_client(t_body *body,

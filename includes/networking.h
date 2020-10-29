@@ -52,7 +52,6 @@ int	ft_init_client(t_multiplayer_client	*client);
 
 int	ft_init_server(t_multiplayer_server *server);
 int	ft_listen_for_client(t_multiplayer_server *server);
-int	ft_listen_for_client_async(t_multiplayer_server *server, int max_clients);
 
 
 #endif

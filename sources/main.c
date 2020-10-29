@@ -74,9 +74,10 @@ int	ft_main_loop(void *arg)
 	t_doom_env *env;
 
 	env = arg;
-	ft_apply_controllers(env);
+	ft_apply_controllers(env);	
 	if (env->multiplayer.role == NETWORK_ROLE_SERVER)
 	{
+		env->main_scene.resolution_ratio = 1000;
 		if (env->multiplayer.server.clients.size < NETWORK_MAX_PLAYERS &&
 			ft_listen_for_client(&env->multiplayer.server))
 		{
@@ -88,13 +89,12 @@ int	ft_main_loop(void *arg)
 		}
 	}
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, 0,
-	CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt}, 0x383838);
+		CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT + env->main_scene.camera.tilt}, 0x383838);
 	ft_sdl_image_rect(env->main_scene.render_image, (t_rect){0, CONF_WINDOW_HEIGHT
-	+ env->main_scene.camera.tilt, CONF_WINDOW_WIDTH, 2 * CONF_WINDOW_HEIGHT +
-	env->main_scene.camera.tilt}, 0x707070);
+		+ env->main_scene.camera.tilt, CONF_WINDOW_WIDTH, 2 * CONF_WINDOW_HEIGHT +
+		env->main_scene.camera.tilt}, 0x707070);
 	ft_render_scene(&env->main_scene);
 	env->main_scene.frame_count++;
-	// temp_apply_movement(env);
 	temp_render_graphics(&(env->main_scene));
 	ft_render_hud(env);
 	ft_sdl_put_image(env->main_scene.render_image, &env->display);
@@ -115,12 +115,19 @@ void	ft_controller_construct(t_doom_env *env, int f(void *, void *), t_body *b)
 	env->controllers.push(&(env->controllers), new_controller);
 }
 
+void	handler(int sig)
+{
+	ft_sdl_loop_hook(ft_menu_loop, g_doom_env);
+	return ;
+}
+
 int main(int argc, char **argv)
 {
 	t_doom_env		env;
 	(void)argc;
 	(void)argv;
 
+	signal(SIGPIPE, handler);
 	g_doom_env = &env;
 	ft_bzero(&env, sizeof(t_doom_env));
 	ft_init_game_window(&env);

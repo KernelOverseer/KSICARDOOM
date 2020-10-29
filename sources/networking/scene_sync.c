@@ -40,7 +40,8 @@ int	ft_client_sync_scene_server(t_doom_env *env,
 	t_sector	*sector;
 	t_sprite	*sprite;
 
-	read(client->socket_fd, &sector_count, sizeof(sector_count));
+	if (read(client->socket_fd, &sector_count, sizeof(sector_count)) < 0)
+		return (-1);
 	while (sector_count--)
 	{
 		read(client->socket_fd, &sector_id, sizeof(sector_id));

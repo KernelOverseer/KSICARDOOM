@@ -98,16 +98,8 @@ void	ft_save_portals(int fd, t_graphical_scene *env)
 	t_list_node *node;
 	
 	env->sectors.iterator = env->sectors.first;
-	printf("NUMBER OF SECTORS : %d\n", env->sectors.size);
-	//printf("SECTOR 1 IS : %p\n", ttslist_iter_content(&(env->sectors)));
-	//printf("SECTOR 2 IS : %p\n", ttslist_iter_content(&(env->sectors)));
-	//printf("SECTOR 3 IS : %p\n", ttslist_iter_content(&(env->sectors)));
 	while ((sector = ttslist_iter_content(&(env->sectors))))
-	{
-		ft_putstr("HELLO A SECTOR\n");
-		printf("SAVING %u PORTALS FOR SECTOR %d\n", sector->portals.size, sector->id);
 		ft_serialize_sector_portals(fd, sector);
-	}
 }
 
 void    ft_save_map_data(void *arg, t_gui_component *button)

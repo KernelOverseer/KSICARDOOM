@@ -29,7 +29,6 @@ void	ft_load_textures(int fd, t_graphical_scene *env)
 	env->textures = NULL;
 	if (texture_count == 0)
 		return ;
-	printf("TEXTURE COUNT IS : %d\n", texture_count);
 	env->textures = malloc(sizeof(t_sdl_image) * texture_count);
 	if (!env->textures)
 		return ;

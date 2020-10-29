@@ -1,14 +1,25 @@
 #include "doom_nukem.h"
+#include <errno.h>
 
 int	ft_client_sync_body_input_server(t_body *body,
 	t_multiplayer_client *client)
 {
-	write(client->socket_fd, body->player->input, sizeof(body->player->input));
-	write(client->socket_fd, body->player->mouse_buttons,
+	int i;
+
+	i = 0;
+	i = write(client->socket_fd, &body->player->input,
+		sizeof(body->player->input));
+	if (i < 0)
+		return (-1);
+	i = write(client->socket_fd, &body->player->mouse_buttons,
 		sizeof(body->player->mouse_buttons));
-	write(client->socket_fd, &body->player->mouse_rel,
+	if (i < 0)
+		return (-1);
+	i = write(client->socket_fd, &body->player->mouse_rel,
 		sizeof(body->player->mouse_rel));
-	return (1);
+	if (i < 0)
+		return (-1);
+	return (i);
 }
 
 int	ft_server_sync_body_input_client(t_body *body,
@@ -46,17 +57,19 @@ int	ft_client_sync_body_server(t_body *body,
 {
 	int			sector_id;
 	t_sector	*sector;
+	int			i;
 
-	read(client->socket_fd, &body->pos, sizeof(body->pos));
-	read(client->socket_fd, &body->forw, sizeof(body->forw));
-	read(client->socket_fd, &body->right, sizeof(body->right));
-	read(client->socket_fd, &body->up, sizeof(body->up));
-	read(client->socket_fd, &body->player->height,
+	i = 0;
+	i += read(client->socket_fd, &body->pos, sizeof(body->pos));
+	i += read(client->socket_fd, &body->forw, sizeof(body->forw));
+	i += read(client->socket_fd, &body->right, sizeof(body->right));
+	i += read(client->socket_fd, &body->up, sizeof(body->up));
+	i += read(client->socket_fd, &body->player->height,
 		sizeof(body->player->height));	
-	read(client->socket_fd, &body->player->inventory,
+	i += read(client->socket_fd, &body->player->inventory,
 		sizeof(body->player->inventory));
-	read(client->socket_fd, &sector_id, sizeof(sector_id));
+	i += read(client->socket_fd, &sector_id, sizeof(sector_id));
 	if ((sector = ttslist_get_id_content(&g_parsed_scene->sectors, sector_id)))
 		body->player->sector = sector;
-	return (1);
+	return (i);
 }

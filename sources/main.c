@@ -77,7 +77,7 @@ int	ft_main_loop(void *arg)
 	ft_apply_controllers(env);	
 	if (env->multiplayer.role == NETWORK_ROLE_SERVER)
 	{
-		env->main_scene.resolution_ratio = 1000;
+		//env->main_scene.resolution_ratio = 1000;
 		if (env->multiplayer.server.clients.size < NETWORK_MAX_PLAYERS &&
 			ft_listen_for_client(&env->multiplayer.server))
 		{
@@ -182,7 +182,8 @@ int main(int argc, char **argv)
 	ft_controller_construct(&env, &ft_collectible_iter, ft_collectible_setup(&env,
 		env.main_scene.current_sector, (t_vec3){env.main_scene.camera.position.x - 1300,
 			env.main_scene.camera.position.y - 500, env.main_scene.current_sector->floor_height + 20}, (t_inventory){0, 0, 0, {10, 0, 0, 0, 0}}));*/
-	
+
+	printf("%f %f\n", env.main_scene.camera.position.x, env.main_scene.camera.position.y);
 	env.main_scene.resolution_ratio = CONF_RES_RATIO;
 	ft_sdl_hook(ft_keyboard_button_on, &env, SDL_KEYDOWN);
 	ft_sdl_hook(ft_keyboard_button_off, &env, SDL_KEYUP);

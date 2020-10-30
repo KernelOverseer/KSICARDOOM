@@ -20,20 +20,21 @@ void	ttslist_purge(t_list_head *list, void (*purge)(void *))
 		purge(content);
 }
 
-void	ttslist_remove_node_with_content(t_list_head *list, void *content)
+int		ttslist_remove_node_with_content(t_list_head *list, void *content)
 {
 	t_list_node	*node;
 
 	if (!list)
-		return ;
+		return (0);
 	node = list->first;
 	while (node)
 	{
 		if (node->content == content)
 		{
 			ttslist_splice(list, node);
-			return ;
+			return (1);
 		}
 		node = node->next;
 	}
+	return (0);
 }

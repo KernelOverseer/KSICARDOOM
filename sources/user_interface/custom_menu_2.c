@@ -26,6 +26,7 @@ static void	ft_start_multiplayer_button(t_menu_button *button, void *arg)
 
 	env = arg;
 	(void)button;
+	env->main_scene.resolution_ratio = 1280;
 	ft_init_doom_multiplayer(env, NETWORK_ROLE_SERVER);
 	ft_controller_construct(env, &ft_local_player_input,
 		ft_body_construct((t_vec3){env->main_scene.camera.position.x,

@@ -20,12 +20,6 @@ t_body	*ft_new_bot(t_sector *sector, t_vec3 pos)
 		return (NULL);
 	*body = ft_default_body(pos);
 	body->player = ft_player_construct(42);
-	if (!(body->player->sprite = ft_memalloc(sizeof(t_sprite))))
-	{
-		free(body->player);
-		free(body);
-		return (NULL);
-	}
 	body->flags ^= IS_CONTROLLED;
 	ft_create_player_sprite(body->player);
 	ft_fill_player_sprite_textures(g_parsed_scene, body->player,

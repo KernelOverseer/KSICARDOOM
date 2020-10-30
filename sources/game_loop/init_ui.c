@@ -35,7 +35,7 @@ int	ft_init_game_window(t_doom_env *env)
 	if (!(env->main_image = newimage(CONF_WINDOW_WIDTH, CONF_WINDOW_HEIGHT)))
 		return (ERROR);
 	// limits the mouse to the window and hides the cursor
-	//SDL_SetRelativeMouseMode(SDL_TRUE);
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 	if (TTF_Init())
 	{
 		ft_raise_exception(ERROR_graphical_init, SDL_GetError());

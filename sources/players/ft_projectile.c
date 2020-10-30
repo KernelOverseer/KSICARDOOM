@@ -20,8 +20,8 @@ int		ft_projectile_destroy(t_body *body)
 		{
 			if (body->player->sprite)
 			{
-				ttslist_remove_node_with_content(&body->player->sector->sprites,
-					body->player->sprite);
+				if (ttslist_remove_node_with_content(&body->player->sector->sprites,
+					body->player->sprite))
 				free(body->player->sprite->animation.textures);
 				free(body->player->sprite);
 			}
@@ -37,9 +37,8 @@ void	ft_projectile_intersection_handler(t_body *body, t_intersect inter)
 {
 	t_projectile_data	*data;
 	t_body				*intersected_body;
-
+	
 	data = body->player->data;
-	printf("%p\n", data);
 	if (!data)
 		return ;
 	if (inter.object.type == OBJECT_sprite)
@@ -96,8 +95,8 @@ t_body	*ft_projectile_setup(t_doom_env *env, t_sector *sector, t_projectile_data
 	body->player->sprite->animation.props = 0;
 	body->player->sprite->animation.type = ANIMATION_TYPE_TIME;
 	body->player->sprite->animation.speed = 3;
-	body->player->sprite->parent = body;
-	body->player->sprite->parent_type = PARENT_TYPE_BODY;
+	body->player->sprite->parent = NULL;
+	body->player->sprite->parent_type = 0;
 	body->update_gravity = NULL;
 	body->events.on_intersect = &ft_projectile_intersection_handler;
 	ft_sound_play_track(sound_gun_shoot,
@@ -148,7 +147,7 @@ int		ft_projectile_iter(void *e, void *b)
 		}
 		else if (ft_on_animation_end(body->player->sprite->animation,
 			g_doom_env->timer.current_time + 1)
-			|| data->distance < -100)
+			|| data->distance < -25)
 			return (ft_projectile_destroy(body));
 		data->distance--;
 		return (1);

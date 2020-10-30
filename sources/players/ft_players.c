@@ -98,9 +98,9 @@ int	ft_local_player_input(void *env, void *body)
 		cooldown--;
 	if (b->player->inventory.health <= 0)
 	{
-		b->player->inventory = (t_inventory){0, 100, 100, {20, 0, 0, 0, 0}};
-		b->pos.x = 0;
-		b->pos.y = 0;
+		b->player->inventory = (t_inventory){0, 100, 100, {1000, 0, 0, 0, 0}};
+		b->pos.x = 2369.546120;
+		b->pos.y = 2064.836429;
 		b->pos.z = 0;
 	}
 	sync_sprite(e, b);
@@ -172,7 +172,8 @@ t_body	*ft_body_construct(t_vec3 pos, void *player)
 		g_parsed_scene->textures_count - 8, 8);
 	((t_player*)player)->sprite->parent = body;
 	((t_player*)player)->sprite->parent_type = PARENT_TYPE_BODY;
-	((t_player*)player)->inventory = (t_inventory){0, 100, 100, {20, 0, 0, 0, 0}};
+	((t_player*)player)->inventory = (t_inventory){0, 100, 100, {1000,
+	0, 0, 0, 0}};
 	body->up.z = -CONF_WINDOW_HEIGHT / 2;
 	return(body);
 }

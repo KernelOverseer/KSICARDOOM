@@ -39,7 +39,6 @@ void	ft_collectible_intersection_handler(t_body *body, t_intersect inter)
 	t_inventory			*data;
 
 	data = body->player->data;
-	printf("intersection\n");
 	if (inter.object.type == OBJECT_sprite)
 	{
 		if (inter.object.object.sprite->parent_type == PARENT_TYPE_BODY)
@@ -111,7 +110,6 @@ int		ft_collectible_iter(void *e, void *b)
 
 	if (!body->player->data)
 	{
-		printf("DELETED\n");
 		ft_collectible_destroy(b);
 		return (0);
 	}

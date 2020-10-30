@@ -117,7 +117,6 @@ int	ft_deserialize_portal(int fd, t_portal *portal)
 	result += ft_deserialize_wall(fd, &(portal->wall));
 	result += ft_deserialize_int(fd, &sector_id);
 	portal->sector = NULL;
-	printf("deserializing a portal with sector id : %d\n", sector_id);
 	if (sector_id != -1)
 		portal->sector = ttslist_get_id_content(&g_parsed_scene->sectors,
 			sector_id);
@@ -343,10 +342,7 @@ int	ft_serialize_sector_portals(int fd, t_sector *sector)
 	result = ft_serialize_int(fd, (int)sector->portals.size);
 	sector->portals.iterator = sector->portals.first;
 	while ((portal = ttslist_iter_content(&(sector->portals))))
-	{
-		printf("\t PORTAL FOR SECTOR %d\n", sector->id);
 		result += ft_serialize_portal(fd, portal);
-	}
 	return (result);
 }
 
@@ -417,7 +413,6 @@ int ft_serialize_sector(int fd, t_sector *sector)
 	if (!sector)
 		return (SERIALIZE_ERROR);
 	result = 0;
-	printf("serializing a sector %d\n", sector->id);
 	result += ft_serialize_int(fd, sector->id);
 	result += ft_serialize_double(fd, sector->brightness);
 	result += ft_serialize_double(fd, sector->floor_height);
@@ -441,14 +436,11 @@ int ft_deserialize_sector(int fd, t_sector *sector)
 		return (SERIALIZE_ERROR);
 	result = 0;
 	result += ft_deserialize_int(fd, &(sector->id));
-	printf("sector deserialization\n");
-	printf("sector id : %f\n", sector->brightness);
 	result += ft_deserialize_double(fd, &(sector->brightness));
 	result += ft_deserialize_double(fd, &(sector->floor_height));
 	result += ft_deserialize_double(fd, &(sector->ceil_height));
 	result += ft_deserialize_int(fd, &(sector->props));
 	result += ft_deserialize_int(fd, &texture_index);
-	printf("texture_index : %d\n", texture_index);
 	sector->floor_texture = ft_get_texture_from_index(texture_index);
 	result += ft_deserialize_int(fd, &texture_index);
 	sector->ceil_texture = ft_get_texture_from_index(texture_index);

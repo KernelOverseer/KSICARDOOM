@@ -57,6 +57,6 @@ void		tts_bzero(void *mem, size_t size);
 void		*ttslist_get_id_content(t_list_head *head, int id);
 void		ttslist_purge(t_list_head *list, void (*purge)(void *));
 int			ttslist_get_content_id(t_list_head *head, void *content);
-void		ttslist_remove_node_with_content(t_list_head *list, void *content);
+int			ttslist_remove_node_with_content(t_list_head *list, void *content);
 
 #endif

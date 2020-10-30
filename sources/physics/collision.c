@@ -83,6 +83,7 @@ int		ft_set_new_intersection_slide_velocity(t_body *body, t_intersect inter, dou
 
 void	ft_apply_intersection_event(t_body *body, t_intersect inter)
 {
+	t_sprite	temp_sprite;
 	t_body		*inter_body;
 	t_intersect	temp_intersect;
 
@@ -91,8 +92,10 @@ void	ft_apply_intersection_event(t_body *body, t_intersect inter)
 	if (inter.object.type == OBJECT_sprite &&
 		inter.object.object.sprite->parent_type == PARENT_TYPE_BODY)
 	{
-		inter_body = inter.object.object.sprite->parent;
 		temp_intersect = inter;
+		temp_sprite.parent_type = 0;
+		temp_intersect.object.object.sprite = &temp_sprite;
+		inter_body = inter.object.object.sprite->parent;
 		temp_intersect.object.object.sprite->parent = body;
 		if (inter_body->events.on_intersect)
 			inter_body->events.on_intersect(inter_body, inter);

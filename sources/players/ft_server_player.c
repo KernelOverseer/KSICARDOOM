@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:58:37 by msidqi            #+#    #+#             */
-/*   Updated: 2020/10/24 20:02:10 by abiri            ###   ########.fr       */
+/*   Updated: 2020/10/31 00:54:42 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	ft_remote_server_player_input(void *env, void *body)
 		b->pos.x = 2064.836429;
 		b->pos.y = 2064.836429;
 		b->pos.z = 0;
+		b->player->sector = g_parsed_scene->sectors.first->content;
 	}
 	if (requested_change > 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:26:51 by abiri             #+#    #+#             */
-/*   Updated: 2020/10/24 19:47:19 by abiri            ###   ########.fr       */
+/*   Updated: 2021/02/14 16:45:46 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_main_loop(void *arg)
 		env->main_scene.camera.tilt}, 0x707070);
 	ft_render_scene(&env->main_scene);
 	env->main_scene.frame_count++;
-	temp_render_graphics(&(env->main_scene));
+//	temp_render_graphics(&(env->main_scene));
 	ft_render_hud(env);
 	ft_sdl_put_image(env->main_scene.render_image, &env->display);
 	ft_sdl_render_texture(&env->display);

@@ -12,7 +12,7 @@ static void	ft_start_menu_button(t_menu_button *button, void *arg)
 			env->main_scene.camera.position.y, 0}, ft_player_construct(1337)));
 	ft_sdl_loop_hook(ft_main_loop, env);
 	ft_push_notification("Welcome to single player mode", 150, 0xFFFFFF);
-	//ft_sound_play_track(sound_main_theme, 0, -1);
+	ft_sound_play_track(sound_main_theme, 0, -1);
 }
 
 static void	ft_exit_menu_button(t_menu_button *button, void *arg)

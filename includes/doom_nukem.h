@@ -201,5 +201,6 @@ int	ft_client_sync_body_input_server(t_body *body,
 	t_multiplayer_client *client);
 int	ft_server_sync_body_input_client(t_body *body,
 	t_multiplayer_remote_client *client);
+void sync_camera(t_doom_env *env, t_body *body);
 
 #endif

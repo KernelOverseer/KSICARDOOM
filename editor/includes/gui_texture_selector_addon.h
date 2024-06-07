@@ -43,4 +43,6 @@ int				ft_scroll_textures_selector(t_gui_component *component,
 		t_point	mouse_position);
 void			ft_gui_texture_selector_on_hover(t_tts_gui *gui_env,
 		t_gui_component *component);
+void	ft_gui_texture_selector_scroll_bar(t_gui_texture_selector *data,
+	t_gui_component *component, t_tts_gui *gui_env);
 #endif

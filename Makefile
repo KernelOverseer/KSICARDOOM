@@ -6,12 +6,12 @@
 #    By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/03 17:30:55 by abiri             #+#    #+#              #
-#    Updated: 2020/10/24 13:19:29 by abiri            ###   ########.fr        #
+#    Updated: 2024/06/07 15:31:32 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-FLAGS = -g -Ofast
+FLAGS = -g -Ofast -std=gnu11
 LMATH = -lm
 ifeq ($(shell uname -s), Darwin)
 	LMATH := -headerpad_max_install_names

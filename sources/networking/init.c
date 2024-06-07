@@ -9,7 +9,7 @@ int	ft_init_client(t_multiplayer_client	*client)
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) 
         return (0);
-    server = gethostbyname("10.11.6.13");
+    server = gethostbyname("10.37.1.170");
     if (server == NULL)
 		return (0);
     bzero((char *) &serv_addr, sizeof(serv_addr));

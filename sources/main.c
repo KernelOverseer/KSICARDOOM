@@ -15,11 +15,13 @@
 
 t_doom_env	*g_doom_env;
 
-int	ft_debug_create_temp_map(t_graphical_scene *scene)
+int	ft_debug_create_temp_map(t_graphical_scene *scene, char *path)
 {
 	//ft_old_debug_create_temp_map(scene);
 	//return (1);
-	return (ft_load_map(scene, "./editor/save_test_doom_map.map"));
+	if (!path)
+		return (ft_load_map(scene, "./editor/save_test_doom_map.map"));
+	return (ft_load_map(scene, path));
 }
 
 t_vec2	ft_vector_from_angle(double size, double angle)
@@ -138,7 +140,7 @@ int main(int argc, char **argv)
 		ft_raise_exception(ERROR_graphical_init, "Error loading menus");
 		return (ERROR);
 	}
-	if (!(ft_debug_create_temp_map(&env.main_scene)))
+	if (!(ft_debug_create_temp_map(&env.main_scene, argc > 1 ? argv[1] : NULL)))
 		return (1);
 
 	/*if (env.multiplayer.role == NETWORK_ROLE_CLIENT)
